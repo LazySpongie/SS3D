@@ -300,6 +300,20 @@ namespace SS3D.Systems.Inventory.Containers
             if (HideItems)
             {
                 item.SetVisibility(true);
+
+                // Set the visibility of any sub-containers because otherwise their contents will become visible
+                // IE removing a PDA from your pocket makes the ID inside visible
+                AttachedContainer[] childContainers = item.GetComponentsInChildren<AttachedContainer>();
+                foreach (AttachedContainer childContainer in childContainers)
+                {
+                    if (childContainer.HideItems)
+                    {
+                        foreach (Item childItem in childContainer.Items) {
+                            childItem.SetVisibility(false);
+                        }
+                    }
+                }
+                
             }
 
             // Remove parent if child of this
