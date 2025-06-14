@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: key
       value: 
       objectReference: {fileID: 11400000, guid: 63e9dc3276fdd8443856d3b836e08882, type: 2}
+    - target: {fileID: 103447455755535710, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -8054032741553519661, guid: fd64b3952106bf846991ecfa645d5bcb, type: 3}
     - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -83,5 +87,13 @@ PrefabInstance:
       propertyPath: <AssetPathHash>k__BackingField
       value: 13453785768474410456
       objectReference: {fileID: 0}
+    - target: {fileID: 2784111818396593026, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -8054032741553519661, guid: fd64b3952106bf846991ecfa645d5bcb, type: 3}
+    - target: {fileID: 7201402233169256053, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: wornMesh
+      value: 
+      objectReference: {fileID: 7310264250969126733, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
