@@ -10,6 +10,6 @@
         None,
         Add,
         Remove,
-        Move
+        Move,
     }
 }

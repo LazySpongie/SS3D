@@ -102,6 +102,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 695c4de41b9578049a93f19b1eef7213, type: 2}
+  - {fileID: 2100000, guid: 74425a37eae99c946a92da0339e05c48, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -238,9 +239,15 @@ MonoBehaviour:
   _weight: 1
   _startingTraits:
   - {fileID: 11400000, guid: 6169d80297e73ad44b394b52547ac805, type: 2}
+  - {fileID: 11400000, guid: 9fce2bd65c51b5b40ad2346bedb63121, type: 2}
   _rigidbody: {fileID: 6826443317434021945}
+  _itemVisualData: {fileID: 11400000, guid: cc185c49902e3e94e9db2f5f0e52d1fb, type: 2}
+  _meshFilter: {fileID: 1687938131941834111}
+  _renderer: {fileID: 1687938131941834080}
+  _meshCollider: {fileID: 924037218051501039}
   AttachmentPoint: {fileID: 5663404281796149511}
   AttachmentPointAlt: {fileID: 5663404281796149511}
+  _currentItemVisualState: 0
   _container: {fileID: 0}
 --- !u!64 &924037218051501039
 MeshCollider:
@@ -268,7 +275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac42f7f6bb00ec44dbe827d0faf7fd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clothType: 3
 --- !u!114 &234574913902294794
 MonoBehaviour:
   m_ObjectHideFlags: 0

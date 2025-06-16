@@ -148,6 +148,8 @@ GameObject:
   - component: {fileID: 8338643013850178505}
   - component: {fileID: 5996738223769901781}
   - component: {fileID: 7610292138979804179}
+  - component: {fileID: 5587703605701374087}
+  - component: {fileID: 537689242543580888}
   m_Layer: 10
   m_Name: HumanFootRight
   m_TagString: Untagged
@@ -393,8 +395,13 @@ MonoBehaviour:
   _weight: 0
   _startingTraits: []
   _rigidbody: {fileID: 9093997188061185744}
+  _itemVisualData: {fileID: 0}
+  _meshFilter: {fileID: 0}
+  _renderer: {fileID: 0}
+  _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 1619008977651685042}
   AttachmentPointAlt: {fileID: 1619008977651685042}
+  _currentItemVisualState: 0
   _container: {fileID: 0}
 --- !u!114 &7758906804251673387
 MonoBehaviour:
@@ -449,7 +456,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 4370070746774076901}
   _networkObjectCache: {fileID: 4370070746774076901}
   _parentBodyPart: {fileID: 0}
-  _skinnedMeshRenderer: {fileID: 3578714637858104247}
+  _bodyPartType: 0
   _bodyPartItem: {fileID: 5774385816057912484, guid: 4d59bb658831172479995d721f8cbd6c, type: 3}
   _internalBodyParts: {fileID: 0}
   _bodyCollider: {fileID: 0}
@@ -484,3 +491,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19f823e20acab740ba5150747863eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clothingSlotType: 0
+--- !u!114 &5587703605701374087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6632297082311541152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &537689242543580888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6632297082311541152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 3578714637858104247}

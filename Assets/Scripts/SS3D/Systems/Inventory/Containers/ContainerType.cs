@@ -28,6 +28,11 @@ namespace SS3D.Systems.Inventory.Containers
         EarLeft = 1 << 13,
         EarRight = 1 << 14,
         Belt = 1 << 15,
+        UnderwearTop = 1 << 16,
+        UnderwearBottom = 1 << 17,
+        SockLeft = 1 << 18,
+        SockRight = 1 << 19,
+        Neck = 1 << 20,
     }
 }
 

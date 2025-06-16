@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 7201402233169256053}
   - component: {fileID: 173897779263585381}
   - component: {fileID: -9111137678263042396}
+  - component: {fileID: -2432117758743867913}
   m_Layer: 10
   m_Name: JumpsuitGrey
   m_TagString: Untagged
@@ -39,6 +40,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3355955575502377225}
+  - {fileID: 6103235325074245955}
+  - {fileID: 8971709754712368719}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -185,6 +188,8 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 8042177759870946059}
   - {fileID: 1256076610048116208}
+  - {fileID: 2817587124915807900}
+  - {fileID: 3292417531487753958}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -196,7 +201,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 112
+  <PrefabId>k__BackingField: 132
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -222,8 +227,13 @@ MonoBehaviour:
   _startingTraits:
   - {fileID: 11400000, guid: 9fce2bd65c51b5b40ad2346bedb63121, type: 2}
   _rigidbody: {fileID: 6375350292960470613}
+  _itemVisualData: {fileID: 11400000, guid: 742392461d817f64bb0ac5dd86738817, type: 2}
+  _meshFilter: {fileID: 103447455755535710}
+  _renderer: {fileID: 3198500825794263964}
+  _meshCollider: {fileID: 2784111818396593026}
   AttachmentPoint: {fileID: 3355955575502377225}
   AttachmentPointAlt: {fileID: 3355955575502377225}
+  _currentItemVisualState: 0
   _container: {fileID: 0}
 --- !u!114 &7201402233169256053
 MonoBehaviour:
@@ -237,8 +247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac42f7f6bb00ec44dbe827d0faf7fd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wornMesh: {fileID: -6331385627053906942, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
-  clothType: 5
 --- !u!114 &173897779263585381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +272,164 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: {fileID: 11400000, guid: e0f2e3fe7e3c8354f8dc7a49f831b017, type: 2}
+--- !u!95 &-2432117758743867913
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624365323667193292}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &4883698334471072646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8971709754712368719}
+  - component: {fileID: 3292417531487753958}
+  m_Layer: 10
+  m_Name: Pocket2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8971709754712368719
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4883698334471072646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 624365323667193137}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3292417531487753958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4883698334471072646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25696236470760b41b375e9b6939444c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 2527334834019670621}
+  _networkObjectCache: {fileID: 2527334834019670621}
+  _automaticContainerSetUp: 1
+  ContainerInteractive: {fileID: 0}
+  ContainerItemDisplay: {fileID: 0}
+  ContainerUi: {fileID: 0}
+  _attachmentOffset: {x: 0, y: 0, z: 0}
+  _onlyStoreWhenOpen: 0
+  _openWhenContainerViewed: 0
+  _attachItems: 1
+  _initialized: 1
+  _maxDistance: 5
+  _isOpenable: 0
+  _isInteractive: 0
+  _hasUi: 0
+  _hasCustomInteraction: 0
+  _hasCustomDisplay: 0
+  _displays: []
+  _numberDisplay: 0
+  _displayAsSlotInUI: 1
+  _size: {x: 1, y: 1}
+  _hideItems: 1
+  _type: 1
+  _startFilter: {fileID: 0}
+--- !u!1 &5432412453320255514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6103235325074245955}
+  - component: {fileID: 2817587124915807900}
+  m_Layer: 10
+  m_Name: Pocket1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6103235325074245955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5432412453320255514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 624365323667193137}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2817587124915807900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5432412453320255514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25696236470760b41b375e9b6939444c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 2527334834019670621}
+  _networkObjectCache: {fileID: 2527334834019670621}
+  _automaticContainerSetUp: 1
+  ContainerInteractive: {fileID: 0}
+  ContainerItemDisplay: {fileID: 0}
+  ContainerUi: {fileID: 0}
+  _attachmentOffset: {x: 0, y: 0, z: 0}
+  _onlyStoreWhenOpen: 0
+  _openWhenContainerViewed: 0
+  _attachItems: 1
+  _initialized: 1
+  _maxDistance: 5
+  _isOpenable: 0
+  _isInteractive: 0
+  _hasUi: 0
+  _hasCustomInteraction: 0
+  _hasCustomDisplay: 0
+  _displays: []
+  _numberDisplay: 0
+  _displayAsSlotInUI: 1
+  _size: {x: 1, y: 1}
+  _hideItems: 1
+  _type: 1
+  _startFilter: {fileID: 0}
 --- !u!1 &6322432386141009335
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 83842586426936894}
   - component: {fileID: 3396458195849632994}
   - component: {fileID: 368559856948010060}
+  - component: {fileID: 8560433685005156343}
+  - component: {fileID: 5960027536930539780}
   m_Layer: 10
   m_Name: HumanArmLeft
   m_TagString: Untagged
@@ -256,7 +258,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 4393325184408134140}
   _networkObjectCache: {fileID: 4393325184408134140}
   _parentBodyPart: {fileID: 0}
-  _skinnedMeshRenderer: {fileID: 753117864336002031}
+  _bodyPartType: 0
   _bodyPartItem: {fileID: 5774385816057912484, guid: 9659c4cc7bea07c4ba38b492f407ef7f, type: 3}
   _internalBodyParts: {fileID: 0}
   _bodyCollider: {fileID: 0}
@@ -299,9 +301,39 @@ MonoBehaviour:
   _weight: 0
   _startingTraits: []
   _rigidbody: {fileID: 7884751941553947161}
+  _itemVisualData: {fileID: 0}
+  _meshFilter: {fileID: 0}
+  _renderer: {fileID: 0}
+  _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 9160028094263019472}
   AttachmentPointAlt: {fileID: 9160028094263019472}
+  _currentItemVisualState: 0
   _container: {fileID: 0}
+--- !u!114 &8560433685005156343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888615333292121711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5960027536930539780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888615333292121711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 753117864336002031}
 --- !u!1 &3892664671836465895
 GameObject:
   m_ObjectHideFlags: 0

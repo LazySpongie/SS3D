@@ -80,22 +80,8 @@ MonoBehaviour:
       _value: {fileID: 2667451333340596270, guid: 9b9f6bd470226a74b903e74dbe9e423a, type: 3}
     - _key: FacewearGasMask
       _value: {fileID: 1687938131941834081, guid: bf177f8bab26bc84b87fd9a971004418, type: 3}
-    - _key: GlovesInsulatedLeft
-      _value: {fileID: 739222591386748088, guid: f1aeab0a35c29314a8a3f823de9815c1, type: 3}
-    - _key: GlovesInsulatedRight
-      _value: {fileID: 4581819739591165899, guid: 8725b7f8f45d28a4ba6063318904cc8a, type: 3}
-    - _key: ShoesHiTopsLeft
-      _value: {fileID: 6003340987905195654, guid: 5fa15d6fdef93dc4e80d798cefe8be0b, type: 3}
-    - _key: ShoesHiTopsRight
-      _value: {fileID: 930591319891399865, guid: 317ec7dcff3b11d4eae3a47929200b93, type: 3}
-    - _key: ShoesJackbootsLeft
+    - _key: ShoesJackboots
       _value: {fileID: 60374868058361228, guid: 4b790b4ffedbe564dab49f896d71eaa6, type: 3}
-    - _key: ShoesJackbootsRight
-      _value: {fileID: 2653363475000095017, guid: d7d68992cbd3cda45bb11a35a1490dc3, type: 3}
-    - _key: HeadsetLeft
-      _value: {fileID: 7723921361698481624, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
-    - _key: HeadsetRight
-      _value: {fileID: 8712940276313799639, guid: 1a2f912be4bc1b948a2b22ffde517cdc, type: 3}
     - _key: HumanArmLeft
       _value: {fileID: 1888615333292121711, guid: 06b6be83779804245b7f6411fe07b851, type: 3}
     - _key: HumanArmRight
@@ -206,8 +192,12 @@ MonoBehaviour:
       _value: {fileID: 3591147544166670882, guid: abcc60752234e584d8d98c9dec03e7cc, type: 3}
     - _key: SteelWindowReinforced
       _value: {fileID: 3591147544166670882, guid: f2493b5478dd8e946ba98861f533362e, type: 3}
-    - _key: HeadsetSecurityLeft
-      _value: {fileID: 1529136833643899573, guid: 88d1ba1edb4ce5e4fa74c6a8d53e36e1, type: 3}
-    - _key: HeadsetSecurityRight
-      _value: {fileID: 2114292304283180005, guid: bc08055e4ec2e204f8f46a379b2b6603, type: 3}
+    - _key: Underwear_Tshirt
+      _value: {fileID: 2601952054522247362, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+    - _key: Underwear_Tanktop
+      _value: {fileID: 8025264908437525541, guid: 89e3d064e29682f4c894b2b9df7d198d, type: 3}
+    - _key: Underwear_Boxers
+      _value: {fileID: 673006003877921716, guid: ecf20fce33ec6c044a07ff731e6dca4c, type: 3}
+    - _key: Underwear_Briefs
+      _value: {fileID: 172670801628266567, guid: c8f6de5e6d50d4d4ea839b569649de49, type: 3}
     _new: 

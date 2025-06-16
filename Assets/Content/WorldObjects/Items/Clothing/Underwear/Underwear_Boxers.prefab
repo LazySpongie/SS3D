@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3264268597219572598
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -1938953542191470901, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: _name
+      value: Boxers
+      objectReference: {fileID: 0}
+    - target: {fileID: -1938953542191470901, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: _itemVisualData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b523846f9acf9a458a4feef86c84944, type: 2}
+    - target: {fileID: -1921154974467191097, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: _networkBehaviours.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1921154974467191097, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: <AssetPathHash>k__BackingField
+      value: 15662480469816701956
+      objectReference: {fileID: 0}
+    - target: {fileID: 1113522479252378066, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.841
+      objectReference: {fileID: 0}
+    - target: {fileID: 2601952054522247362, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_Name
+      value: Underwear_Boxers
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049302817993054162, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -208984494140422950, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+    - target: {fileID: 4265292753834228148, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265292753834228148, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265292753834228148, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265292753834228148, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265292753834228148, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265292753834228148, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265292753834228148, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265292753834228148, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265292753834228148, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265292753834228148, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265292753834228148, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961538390409228241, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -208984494140422950, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}

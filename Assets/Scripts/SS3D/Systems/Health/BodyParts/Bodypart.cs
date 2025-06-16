@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using FishNet;
 using SS3D.Systems.Inventory.Containers;
 using SS3D.Systems.Inventory.Items;
+using SS3D.Systems.Inventory.Clothing;
 using System;
 using System.Collections;
 
@@ -20,6 +21,7 @@ using System.Collections;
 /// </summary>
 public abstract class BodyPart : InteractionTargetNetworkBehaviour
 {
+
     /// <summary>
     /// Body part to which this body part is attached, from an anatomy perspective. (left hand is attached to left arm, attached to torso...)
     /// Can be null (Human torso are the root of the tree of attached body parts)
@@ -28,16 +30,18 @@ public abstract class BodyPart : InteractionTargetNetworkBehaviour
     protected BodyPart _parentBodyPart;
 
     /// <summary>
-    /// When a body part is attached, its shown through its skinnedMeshrenderer on the player. When its detached, it's important to hide this.
+    /// Enum used for identification
     /// </summary>
     [SerializeField]
-    private SkinnedMeshRenderer _skinnedMeshRenderer;
+    private BodyPartType _bodyPartType;
 
     /// <summary>
     /// The game object spawned upon detaching the bodypart.
     /// </summary>
     [SerializeField]
     protected GameObject _bodyPartItem;
+
+    private Cullable _cullable;
 
     /// <summary>
     /// List of body parts child of this one. 
@@ -50,7 +54,16 @@ public abstract class BodyPart : InteractionTargetNetworkBehaviour
     protected readonly List<BodyLayer> _bodyLayers = new List<BodyLayer>();
     
     private BodyPart _externalBodyPart;
+
+    /// <summary>
+    /// Reference to the Cullable script on this object
+    /// </summary>
+    public Cullable Cullable => _cullable;
+
     public BodyPart ExternalBodyPart => _externalBodyPart;
+
+    public BodyPartType BodyPartType => _bodyPartType;
+
     public bool IsInsideBodyPart => _externalBodyPart != null;
 
     protected virtual bool IsDetachable => true;
@@ -146,6 +159,13 @@ public abstract class BodyPart : InteractionTargetNetworkBehaviour
         AddInitialLayers();
     }
 
+    // [Client]
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        _cullable = GetComponent<Cullable>();
+    }
+    
     public virtual void Init(BodyPart parent)
     {
         ParentBodyPart = parent;
@@ -551,8 +571,7 @@ public abstract class BodyPart : InteractionTargetNetworkBehaviour
     [Server]
     protected void HideSeveredBodyPart()
     {
-        if (_skinnedMeshRenderer == null) return;
-        _skinnedMeshRenderer.enabled = false;
+        _cullable.SetHidden(true);
     }
 
     [Server]

@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19f823e20acab740ba5150747863eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clothingSlotType: 0
 --- !u!1 &3164641185267799141
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19f823e20acab740ba5150747863eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clothingSlotType: 0
 --- !u!1 &3647313004604900237
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,6 +852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19f823e20acab740ba5150747863eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clothingSlotType: 0
 --- !u!1 &7668619292347844902
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,6 +1037,8 @@ GameObject:
   - component: {fileID: 996878099285015069}
   - component: {fileID: 3065600715364136503}
   - component: {fileID: 3854834578962148855}
+  - component: {fileID: 1711607012168321612}
+  - component: {fileID: 3137910327751757000}
   m_Layer: 10
   m_Name: HumanHead
   m_TagString: Untagged
@@ -1093,8 +1098,7 @@ MonoBehaviour:
   - {fileID: 6336386848008735701}
   - {fileID: 6551821992144761648}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField:
-  - {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 0, y: 1.4351748, z: 0.045653485}
     Rotation: {x: -0.00000008146034, y: -0, z: -0, w: 1}
@@ -1293,8 +1297,13 @@ MonoBehaviour:
   _weight: 0
   _startingTraits: []
   _rigidbody: {fileID: 4892245229350837848}
+  _itemVisualData: {fileID: 0}
+  _meshFilter: {fileID: 0}
+  _renderer: {fileID: 0}
+  _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 3842349965181237474}
   AttachmentPointAlt: {fileID: 3842349965181237474}
+  _currentItemVisualState: 0
   _container: {fileID: 0}
 --- !u!114 &9144611586984572002
 MonoBehaviour:
@@ -1312,13 +1321,13 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 4176238770325068939}
   _networkObjectCache: {fileID: 4176238770325068939}
   _parentBodyPart: {fileID: 0}
-  _skinnedMeshRenderer: {fileID: 5982081358960133349}
+  _bodyPartType: 0
   _bodyPartItem: {fileID: 0}
   _internalBodyParts: {fileID: 4722754123089352210}
   _bodyCollider: {fileID: 0}
   HealthController: {fileID: 0}
   _bodyPartVolume: 3800
-  brain: {fileID: 0}
+  Brain: {fileID: 0}
 --- !u!114 &7061527463298031025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1351,6 +1360,7 @@ MonoBehaviour:
   _componentIndexCache: 4
   _addedNetworkObject: {fileID: 4176238770325068939}
   _networkObjectCache: {fileID: 4176238770325068939}
+  ViewPoint: {fileID: 0}
   _mind: {fileID: 1256239026443271520, guid: 06a27ffa07c1c754c9590607a5a80030, type: 3}
   Ghost: {fileID: 2798955099631966591, guid: 7bbb74a7ffc8cae44baa886de43c586b, type: 3}
 --- !u!95 &3065600715364136503
@@ -1391,6 +1401,31 @@ MonoBehaviour:
   _openState: 0
   OverrideOpenIcon: {fileID: 0}
   attachedContainer: {fileID: 4722754123089352210}
+--- !u!114 &1711607012168321612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8006468508714419156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3137910327751757000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8006468508714419156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 5982081358960133349}
 --- !u!1 &8010198090661034686
 GameObject:
   m_ObjectHideFlags: 0

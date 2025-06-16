@@ -145,36 +145,8 @@ MonoBehaviour:
     m_Address: Assets/Content/WorldObjects/Items/Clothing/FacewearGasMask.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: f1aeab0a35c29314a8a3f823de9815c1
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/GlovesInsulatedLeft.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 8725b7f8f45d28a4ba6063318904cc8a
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/GlovesInsulatedRight.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5fa15d6fdef93dc4e80d798cefe8be0b
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/ShoesHiTopsLeft.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 317ec7dcff3b11d4eae3a47929200b93
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/ShoesHiTopsRight.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 4b790b4ffedbe564dab49f896d71eaa6
     m_Address: Assets/Content/WorldObjects/Items/Clothing/ShoesJackbootsLeft.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: d7d68992cbd3cda45bb11a35a1490dc3
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/ShoesJackbootsRight.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: f549f4153ef612c4586c46ea280e0e94
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/HeadsetLeft.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 1a2f912be4bc1b948a2b22ffde517cdc
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/HeadsetRight.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 06b6be83779804245b7f6411fe07b851
@@ -395,12 +367,22 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: f2493b5478dd8e946ba98861f533362e
     m_Address: Assets/Content/WorldObjects/Structures/Walls/SteelWindowReinforced.prefab
-  - m_GUID: 88d1ba1edb4ce5e4fa74c6a8d53e36e1
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/HeadsetSecurityLeft.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: bc08055e4ec2e204f8f46a379b2b6603
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/HeadsetSecurityRight.prefab
+  - m_GUID: 1e9a55e6beb35444ea9341439aee22dc
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/Underwear/Underwear_Tshirt.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 89e3d064e29682f4c894b2b9df7d198d
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/Underwear/Underwear_Tanktop.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ecf20fce33ec6c044a07ff731e6dca4c
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/Underwear/Underwear_Boxers.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c8f6de5e6d50d4d4ea839b569649de49
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/Underwear/Underwear_Briefs.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

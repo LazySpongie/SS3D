@@ -146,6 +146,8 @@ GameObject:
   - component: {fileID: 2869688339007017801}
   - component: {fileID: 1454556291825162564}
   - component: {fileID: 3401562901692904195}
+  - component: {fileID: 613150638240663937}
+  - component: {fileID: 9210227521085205968}
   m_Layer: 10
   m_Name: HumanLegRight
   m_TagString: Untagged
@@ -390,8 +392,13 @@ MonoBehaviour:
   _weight: 0
   _startingTraits: []
   _rigidbody: {fileID: -877250859192271158}
+  _itemVisualData: {fileID: 0}
+  _meshFilter: {fileID: 0}
+  _renderer: {fileID: 0}
+  _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 4061394400744717875}
   AttachmentPointAlt: {fileID: 4061394400744717875}
+  _currentItemVisualState: 0
   _container: {fileID: 0}
 --- !u!114 &1454556291825162564
 MonoBehaviour:
@@ -409,7 +416,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 1103916381626794010}
   _networkObjectCache: {fileID: 1103916381626794010}
   _parentBodyPart: {fileID: 0}
-  _skinnedMeshRenderer: {fileID: 568686121754585084}
+  _bodyPartType: 0
   _bodyPartItem: {fileID: 5774385816057912484, guid: 983acf51173ef60479e35c5e35946162, type: 3}
   _internalBodyParts: {fileID: 0}
   _bodyCollider: {fileID: 0}
@@ -432,3 +439,28 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 1103916381626794010}
   _bodyPart: {fileID: 1454556291825162564}
   isBleeding: 0
+--- !u!114 &613150638240663937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8256619991674398311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9210227521085205968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8256619991674398311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 568686121754585084}

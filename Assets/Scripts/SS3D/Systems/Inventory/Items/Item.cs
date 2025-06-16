@@ -44,7 +44,7 @@ namespace SS3D.Systems.Inventory.Items
         [Header("Item settings")]
         [FormerlySerializedAs("Name")]
         [SerializeField] private string _name;
-
+        
         [FormerlySerializedAs("Weight")]
         [SerializeField] private float _weight;
 
@@ -52,7 +52,14 @@ namespace SS3D.Systems.Inventory.Items
         [SerializeField] private List<Trait> _startingTraits;
 
         [SerializeField] private Rigidbody _rigidbody;
+        
+        [Header("Item visual settings")]
 
+        [Tooltip("Model data for the item")]
+        [SerializeField] private ItemVisualData _itemVisualData;
+        [SerializeField] private MeshFilter _meshFilter;
+        [SerializeField] private Renderer _renderer;
+        [SerializeField] private MeshCollider _meshCollider;
         private Sprite _sprite;
 
         [Header("Attachment settings")]
@@ -62,6 +69,13 @@ namespace SS3D.Systems.Inventory.Items
 
         [Tooltip("same point but for the left hand, in cases where it's needed")]
         public Transform AttachmentPointAlt;
+
+        /// <summary>
+        /// The current visual state of the item (on floor or in hand)
+        /// why is this public in the inspector?
+        /// </summary>
+        [SyncVar(OnChange = nameof(SyncItemVisualState))]
+        private ItemVisualState _currentItemVisualState;
 
         /// <summary>
         /// The list of characteristics this Item has
@@ -77,7 +91,9 @@ namespace SS3D.Systems.Inventory.Items
 
         public string Name => _name;
 
-        public ReadOnlyCollection<Trait> Traits => ((List<Trait>) _traits.Collection).AsReadOnly();
+        public ItemVisualData ItemVisualData => _itemVisualData;
+        
+        public ReadOnlyCollection<Trait> Traits => ((List<Trait>)_traits.Collection).AsReadOnly();
 
         /// <summary>
         /// Where the item is stored
@@ -90,6 +106,7 @@ namespace SS3D.Systems.Inventory.Items
         /// All colliders, related to the item, except of colliders, related to stored items
         /// </summary>
         private Collider[] _nativeColliders;
+        
         /// <summary>
         /// All colliders, related to the item, except of colliders, related to stored items
         /// </summary>
@@ -145,10 +162,13 @@ namespace SS3D.Systems.Inventory.Items
             get => InventorySprite();
             set => _sprite = value;
         }
-        
+
         protected override void OnStart()
         {
             base.OnStart();
+
+            // Set the correct model for the item when it is first spawned
+            UpdateItemVisualState();
 
             foreach (Animator animator in GetComponents<Animator>())
             {
@@ -183,6 +203,7 @@ namespace SS3D.Systems.Inventory.Items
         {
             base.OnStartServer();
             _traits.AddRange(_startingTraits);
+
         }
 
 
@@ -323,9 +344,74 @@ namespace SS3D.Systems.Inventory.Items
         public void SetContainer(AttachedContainer newContainer)
         {
             _container = newContainer;
+
+            UpdateItemVisualState();
         }
 
-       
+        /// <summary>
+        /// Set the visual state of the item (on floor or in hand).
+        /// </summary>
+        [Server]
+        public void UpdateItemVisualState()
+        {
+            // Log.Debug(this, $" {gameObject} UpdateItemVisualState");
+
+            ItemVisualState newState = ItemVisualState.Default;
+
+            if (_container?.Type == ContainerType.Hand)
+            {
+                newState = ItemVisualState.Hand;
+            }
+            _currentItemVisualState = newState;
+        }
+
+        /// <summary>
+        /// Callback when SyncVar _currentItemVisualState changes. Update the item mesh.
+        /// Server needs to run this so it can update the mesh collider
+        /// </summary>
+        private void SyncItemVisualState(ItemVisualState oldState, ItemVisualState newState, bool asServer)
+        {
+            if (_itemVisualData == null)
+            {
+                Log.Warning(this, $"no item visual data provided by {gameObject}");
+                return;
+            }
+            if (_itemVisualData.DefaultModel == null)
+            {
+                Log.Warning(this, $"no default mesh provided by {_itemVisualData}");
+                return;
+            }
+
+            Mesh newMesh = _itemVisualData.DefaultModel;
+            switch (newState)
+            {
+                case ItemVisualState.Hand:
+                    if (_itemVisualData.HandModel) newMesh = _itemVisualData.HandModel;
+                    break;
+            }
+
+            if (_meshCollider) _meshCollider.sharedMesh = newMesh;
+
+            if (asServer) return;
+
+            _meshFilter.sharedMesh = newMesh;
+            
+            // This will need to be changed to the instanced materials of the item later
+            _renderer.materials = _itemVisualData.Materials;
+        }
+
+        /// <summary>
+        /// Set the visual data used by the item. Can be used by a chameleon jumpsuit, etc.
+        /// </summary>
+        [Server]
+        public void SetItemVisualData(ItemVisualData itemVisualData)
+        {
+            _itemVisualData = itemVisualData;
+
+            UpdateItemVisualState();
+
+            // TODO: Invoke OnItemVisualDataChanged here
+        }
 
         // Generate preview of the same object, but without stored items.
         [ServerOrClient]

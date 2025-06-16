@@ -67,6 +67,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 178095807063762633, guid: fd64b3952106bf846991ecfa645d5bcb, type: 3}
+    - target: {fileID: 1256076610048116208, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: _asset
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a9a8af0ce91a634ab42f12ebc7b24a6, type: 2}
+    - target: {fileID: 1256076610048116208, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: _itemVisualData
+      value: 
+      objectReference: {fileID: 11400000, guid: ed400f000eadfb84da273e3abb42d3cc, type: 2}
     - target: {fileID: 2146244375638019884, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -85,6 +93,14 @@ PrefabInstance:
       objectReference: {fileID: 178095807063762633, guid: fd64b3952106bf846991ecfa645d5bcb, type: 3}
     - target: {fileID: 7201402233169256053, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
       propertyPath: wornMesh
+      value: 
+      objectReference: {fileID: 8281616745360485254, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+    - target: {fileID: 7201402233169256053, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: _wornMesh
+      value: 
+      objectReference: {fileID: 8281616745360485254, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+    - target: {fileID: 7201402233169256053, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: _ClothingModel
       value: 
       objectReference: {fileID: 8281616745360485254, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
     m_RemovedComponents: []

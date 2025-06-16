@@ -208,8 +208,13 @@ MonoBehaviour:
   _startingTraits:
   - {fileID: 11400000, guid: 5a7c5e53d45ef364ea78fcb8bb8e6b7f, type: 2}
   _rigidbody: {fileID: 8317416473142320945}
+  _itemVisualData: {fileID: 0}
+  _meshFilter: {fileID: 5762375188688730150}
+  _renderer: {fileID: 5751348619138323742}
+  _meshCollider: {fileID: 8620611771923613631}
   AttachmentPoint: {fileID: 4492906417869608502}
   AttachmentPointAlt: {fileID: 4492906417869608502}
+  _currentItemVisualState: 0
   _container: {fileID: 0}
 --- !u!64 &8620611771923613631
 MeshCollider:
@@ -237,7 +242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac42f7f6bb00ec44dbe827d0faf7fd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clothType: 12
 --- !u!114 &1641750307322604760
 MonoBehaviour:
   m_ObjectHideFlags: 0

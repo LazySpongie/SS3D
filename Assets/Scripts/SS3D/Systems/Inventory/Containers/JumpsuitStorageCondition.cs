@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace SS3D.Systems.Inventory.Containers
 {
+    /// <summary>
+    /// So jumpsuits can only be removed if the belt slot is empty
+    /// </summary>
     public class JumpsuitStorageCondition : Actor, IStorageCondition
     {
         [SerializeField]
