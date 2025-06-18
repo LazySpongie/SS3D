@@ -6,7 +6,7 @@ using SS3D.Systems.Inventory.Items;
 namespace SS3D.Systems.Inventory.Clothing
 {
     /// <summary>
-    /// Used to store meshes for different item states
+    /// Data for clothing items to decide what models are shown on the player as well as what bodyparts will be hidden
     /// </summary>
     [CreateAssetMenu(menuName = "Inventory/Items/ClothingItemVisualData", fileName = "ClothingItemVisualData")]
     public class ClothingItemVisualData : ItemVisualData
@@ -19,13 +19,15 @@ namespace SS3D.Systems.Inventory.Clothing
         [Tooltip("Right handed mesh for shoes, headsets, gloves.")]
         public Mesh AltClothingModel;
 
-        // TODO: Add blend shapes
+        // Blend shapes applied to the clothing model here?
+
 
         [Header("Culling")]
-        [Tooltip("Clothing slots that should be hidden when this is worn.")]
+        [Tooltip("Clothing and bodyparts that should be hidden when this is worn.")]
         public ClothingItemCullingData CullingData;
-
-        [Tooltip("Right handed culling data.")]
+        
+        [Tooltip("Right handed culling data for shoes, headsets, gloves.")]
         public ClothingItemCullingData AltCullingData;
+
     }
 }

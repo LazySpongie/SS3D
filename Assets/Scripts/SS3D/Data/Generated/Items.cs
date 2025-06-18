@@ -58,7 +58,7 @@ namespace SS3D.Data.Generated
         public static DatabaseAsset HumanEye = new DatabaseAsset("HumanEye", "Items");
         public static DatabaseAsset HumanBrain = new DatabaseAsset("HumanBrain", "Items");
         public static DatabaseAsset Toolbelt = new DatabaseAsset("Toolbelt", "Items");
-        public static DatabaseAsset Backpack = new DatabaseAsset("Backpack", "Items");
+        public static DatabaseAsset ShoesHiTops = new DatabaseAsset("ShoesHiTops", "Items");
         public static DatabaseAsset HumanHeart = new DatabaseAsset("HumanHeart", "Items");
         public static DatabaseAsset Doodad = new DatabaseAsset("Doodad", "Items");
         public static DatabaseAsset Wirecutters = new DatabaseAsset("Wirecutters", "Items");
@@ -77,12 +77,12 @@ namespace SS3D.Data.Generated
         public static DatabaseAsset Welder = new DatabaseAsset("Welder", "Items");
         public static DatabaseAsset PlasmaTank = new DatabaseAsset("PlasmaTank", "Items");
         public static DatabaseAsset OxygenTank = new DatabaseAsset("OxygenTank", "Items");
-        public static DatabaseAsset JumpsuitGrey = new DatabaseAsset("JumpsuitGrey", "Items");
-        public static DatabaseAsset JumpsuitSecurity = new DatabaseAsset("JumpsuitSecurity", "Items");
-        public static DatabaseAsset JumpsuitBotany = new DatabaseAsset("JumpsuitBotany", "Items");
+        public static DatabaseAsset HeadsetSecurity = new DatabaseAsset("HeadsetSecurity", "Items");
+        public static DatabaseAsset Headset = new DatabaseAsset("Headset", "Items");
+        public static DatabaseAsset GlovesInsulated = new DatabaseAsset("GlovesInsulated", "Items");
         public static DatabaseAsset HumanIntestineSmall = new DatabaseAsset("HumanIntestineSmall", "Items");
         public static DatabaseAsset GlassShard = new DatabaseAsset("GlassShard", "Items");
-        public static DatabaseAsset JumpsuitEngineer = new DatabaseAsset("JumpsuitEngineer", "Items");
+        public static DatabaseAsset BodyArmor = new DatabaseAsset("BodyArmor", "Items");
         public static DatabaseAsset MicroLaser = new DatabaseAsset("MicroLaser", "Items");
         public static DatabaseAsset MatterBin = new DatabaseAsset("MatterBin", "Items");
         public static DatabaseAsset Medkit = new DatabaseAsset("Medkit", "Items");
@@ -97,6 +97,11 @@ namespace SS3D.Data.Generated
         public static DatabaseAsset Underwear_Tanktop = new DatabaseAsset("Underwear_Tanktop", "Items");
         public static DatabaseAsset Underwear_Boxers = new DatabaseAsset("Underwear_Boxers", "Items");
         public static DatabaseAsset Underwear_Briefs = new DatabaseAsset("Underwear_Briefs", "Items");
+        public static DatabaseAsset JumpsuitEngineer = new DatabaseAsset("JumpsuitEngineer", "Items");
+        public static DatabaseAsset JumpsuitBotany = new DatabaseAsset("JumpsuitBotany", "Items");
+        public static DatabaseAsset JumpsuitSecurity = new DatabaseAsset("JumpsuitSecurity", "Items");
+        public static DatabaseAsset JumpsuitGrey = new DatabaseAsset("JumpsuitGrey", "Items");
+        public static DatabaseAsset Backpack = new DatabaseAsset("Backpack", "Items");
     }
 }
 

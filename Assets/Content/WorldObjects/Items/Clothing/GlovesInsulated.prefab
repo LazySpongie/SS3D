@@ -182,7 +182,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 63
+  <PrefabId>k__BackingField: 72
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -202,20 +202,21 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 6699414010407460003}
   _networkObjectCache: {fileID: 6699414010407460003}
-  _asset: {fileID: 11400000, guid: 739991c49857a3d40b2060d96908de45, type: 2}
+  _asset: {fileID: 11400000, guid: c7bdc2384a829f048a35468a508bd630, type: 2}
   _name: Gloves insulated left
   _weight: 1
   _startingTraits:
   - {fileID: 11400000, guid: 901be8d20f1f0f24181cc992dfd362ae, type: 2}
   - {fileID: 11400000, guid: 6dc4b6b828749aa49aa1f52e147f2003, type: 2}
   _rigidbody: {fileID: 3769749030059213346}
-  _itemVisualData: {fileID: 11400000, guid: 81680f258adcb964190475b18e207c9c, type: 2}
+  _startingItemVisualData: {fileID: 11400000, guid: 81680f258adcb964190475b18e207c9c, type: 2}
   _meshFilter: {fileID: 739222591386748102}
   _renderer: {fileID: 739222591386748089}
   _meshCollider: {fileID: 7046697311282802607}
   AttachmentPoint: {fileID: 5901583744529463706}
   AttachmentPointAlt: {fileID: 5901583744529463706}
   _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!64 &7046697311282802607
 MeshCollider:

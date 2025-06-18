@@ -14,14 +14,14 @@ namespace SS3D.Systems.Inventory.Clothing
         private SkinnedMeshRenderer _renderer;
 
         /// <summary>
-        /// If there is no item in the slot the renderer should be hidden
+        /// If there is no item in the slot or the bodypart has been severed the renderer should be hidden
         /// </summary>
         private bool _isHidden;
 
         /// <summary>
         /// List of items culling this slot
         /// </summary>
-        private List<Item> _cullers = new();
+        private List<GameObject> _cullers = new List<GameObject>();
 
         /// <summary>
         /// If any items are culling this slot the renderer should be hidden
@@ -29,7 +29,7 @@ namespace SS3D.Systems.Inventory.Clothing
         public bool IsCulled => _cullers.Count > 0;
 
         /// <summary>
-        /// If there is no item in the slot the renderer should be hidden
+        /// If there is no item in the slot or the bodypart has been severed the renderer should be hidden
         /// </summary>
         public bool IsHidden => _isHidden;
 
@@ -44,9 +44,10 @@ namespace SS3D.Systems.Inventory.Clothing
         /// Add an item to the list of items attempting to hide this clothing slot
         /// </summary>
         [Client]
-        public void AddCuller(Item item)
+        public void AddCuller(GameObject obj)
         {
-            _cullers.Add(item);
+            _cullers.Add(obj);
+
             UpdateRendererEnabled();
         }
 
@@ -54,9 +55,9 @@ namespace SS3D.Systems.Inventory.Clothing
         /// Remove an item from the list of items attempting to hide this clothing slot
         /// </summary>
         [Client]
-        public void RemoveCuller(Item item)
+        public void RemoveCuller(GameObject obj)
         {
-            _cullers.Remove(item);
+            _cullers.Remove(obj);
             UpdateRendererEnabled();
         }
 
@@ -71,9 +72,7 @@ namespace SS3D.Systems.Inventory.Clothing
                 _renderer.enabled = false;
                 return;
             }
-
             _renderer.enabled = true;
-            Log.Warning("Update Renderer");
         }
     }
 }

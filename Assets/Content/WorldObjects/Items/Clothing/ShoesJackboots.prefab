@@ -202,20 +202,21 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 8657890218937463745}
   _networkObjectCache: {fileID: 8657890218937463745}
-  _asset: {fileID: 11400000, guid: a8d8774fcba03b7448bc11fbecd8137e, type: 2}
+  _asset: {fileID: 11400000, guid: ba67aad38c13c0343965102945869094, type: 2}
   _name: shoe jackboot left
   _weight: 1
   _startingTraits:
   - {fileID: 11400000, guid: 144a9ec15419baf49ba8c376f97628c6, type: 2}
   - {fileID: 11400000, guid: c753b1913c89a5745806c17b77d57b6d, type: 2}
   _rigidbody: {fileID: 3807802572353236667}
-  _itemVisualData: {fileID: 11400000, guid: fc706ab53de36bd4e8c512704f0d8c73, type: 2}
+  _startingItemVisualData: {fileID: 11400000, guid: fc706ab53de36bd4e8c512704f0d8c73, type: 2}
   _meshFilter: {fileID: 60374868058361230}
   _renderer: {fileID: 60374868058361231}
   _meshCollider: {fileID: 1436245316327634562}
   AttachmentPoint: {fileID: 887877796937057358}
   AttachmentPointAlt: {fileID: 887877796937057358}
   _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!64 &1436245316327634562
 MeshCollider:

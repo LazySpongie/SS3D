@@ -24,13 +24,11 @@ namespace SS3D.Systems.Inventory.Clothing
         {
             public NetworkObject _clothingVisualSlot;
             public Item _itemToDisplay;
-            public bool _useAltModel;
 
-            public ClothDisplayData(NetworkObject clothingVisualSlot, Item itemToDisplay, bool useAltModel)
+            public ClothDisplayData(NetworkObject clothingVisualSlot, Item itemToDisplay)
             {
                 _clothingVisualSlot = clothingVisualSlot;
                 _itemToDisplay = itemToDisplay;
-                _useAltModel = useAltModel;
             }
         }
 
@@ -70,92 +68,83 @@ namespace SS3D.Systems.Inventory.Clothing
         {
             base.OnStartClient();
             _clothDisplayDataList.OnChange += ClothingVisualSlotsOnChange;
+
+            foreach (ClothingVisualSlot slot in _clothingVisualSlots)
+            {
+                slot.OnItemCullingChanged += ItemCullingOnChange;
+            }
         }
 
         /// <summary>
         /// Use culling data provided by the item to set certain clothing slots invisible when equipped
         /// </summary>
         [Client]
-        public void AddCulling(Item item, bool useAltModel)
+        public void AddCulling(ClothingItemCullingData cullingData)
         {
-            if (item.ItemVisualData is not ClothingItemVisualData visualData)
-            {
-                return;
-            }
-
-            // Gloves need to hide the correct hand
-            ClothingItemCullingData cullingData = visualData.CullingData;
-            if (useAltModel & visualData.AltCullingData != null)
-            {
-                cullingData = visualData.AltCullingData;
-            }
             if (cullingData == null) return;
 
-            // Clothing culling
-            ClothingSlotType[] culledClothingSlots = cullingData.CulledClothingSlots;
+            SetCullingOnClothingVisualSlots(cullingData, true);
 
-            foreach (ClothingVisualSlot clothingVisualSlot in ClothingVisualSlots)
-            {
-                if (culledClothingSlots.Contains(clothingVisualSlot.ClothingSlotType))
-                {
-                    clothingVisualSlot.GetComponent<Cullable>()?.AddCuller(item);
-                }
-            }
-            
-            // BodyPart Culling
-            BodyPartType[] culledBodyParts = cullingData.CulledBodyParts;
-
-            foreach (BodyPart bodyPart in _healthController.BodyPartsOnEntity)
-            {
-                if (culledBodyParts.Contains(bodyPart.BodyPartType))
-                {
-                    bodyPart.GetComponent<Cullable>()?.AddCuller(item);
-                }
-            }
+            SetCullingOnBodyParts(cullingData, true);
         }
 
 		/// <summary>
         /// Use culling data provided by the item to set certain clothing slots visible when unequipped
         /// </summary>
         [Client]
-        public void RemoveCulling(Item item, bool useAltModel)
+        public void RemoveCulling(ClothingItemCullingData cullingData)
         {
-            if (item.ItemVisualData is not ClothingItemVisualData visualData)
-            {
-                return;
-            }
-
-            // Gloves need to hide the correct hand
-            ClothingItemCullingData cullingData = visualData.CullingData;
-            if (useAltModel & visualData.AltCullingData != null)
-            {
-                cullingData = visualData.AltCullingData;
-            }
             if (cullingData == null) return;
 
-            // Clothing culling
-            ClothingSlotType[] culledClothingSlots = cullingData.CulledClothingSlots;
-            
+            SetCullingOnClothingVisualSlots(cullingData, false);
+
+            SetCullingOnBodyParts(cullingData, false);
+        }
+
+        /// <summary>
+        /// Get a body part that is referenced in the given culling data
+        /// </summary>
+        [Client]
+        private void SetCullingOnClothingVisualSlots(ClothingItemCullingData cullingData, bool addCulling)
+        {
             foreach (ClothingVisualSlot clothingVisualSlot in ClothingVisualSlots)
             {
-                if (culledClothingSlots.Contains(clothingVisualSlot.ClothingSlotType))
+                if (cullingData.CulledClothingSlots.Contains(clothingVisualSlot.ClothingSlotType))
                 {
-                    clothingVisualSlot.GetComponent<Cullable>()?.RemoveCuller(item);
-                }
-            }
-            
-            // BodyPart Culling
-            BodyPartType[] culledBodyParts = cullingData.CulledBodyParts;
-
-            foreach (BodyPart bodyPart in _healthController.BodyPartsOnEntity)
-            {
-                if (culledBodyParts.Contains(bodyPart.BodyPartType))
-                {
-                    // Cullable cullable = bodyPart.GetComponent<Cullable>();
-                    bodyPart.GetComponent<Cullable>()?.RemoveCuller(item);
+                    if (addCulling)
+                    {
+                        clothingVisualSlot.Cullable?.AddCuller(gameObject);
+                    }
+                    else
+                    {
+                        clothingVisualSlot.Cullable?.RemoveCuller(gameObject);
+                    }
                 }
             }
         }
+
+        /// <summary>
+        /// Get a body part that is referenced in the given culling data
+        /// </summary>
+        [Client]
+        private void SetCullingOnBodyParts(ClothingItemCullingData cullingData, bool addCulling)
+        {
+            foreach (BodyPart bodyPart in _healthController.BodyPartsOnEntity)
+            {
+                if (cullingData.CulledBodyParts.Contains(bodyPart.BodyPartType))
+                {
+                    if (addCulling)
+                    {
+                        bodyPart.GetComponent<Cullable>()?.AddCuller(gameObject);
+                    }
+                    else
+                    {
+                        bodyPart.GetComponent<Cullable>()?.RemoveCuller(gameObject);
+                    }
+                }
+            }
+        }
+
 
 		/// <summary>
         /// When the content of a container change, check if it should display or remove display of some clothes.
@@ -173,7 +162,7 @@ namespace SS3D.Systems.Inventory.Clothing
                 return;
             }
 
-            // Log.Debug(this, $"HandleContainerContentChanged");
+            // Log.Debug(this, $"HandleContainerContentChanged {newItem}");
 
             switch (type)
             {
@@ -204,10 +193,13 @@ namespace SS3D.Systems.Inventory.Clothing
             ClothingVisualSlot clothingVisualSlot = _clothingVisualSlots.
                 Where(x => x.ClothingSlotType == clothingSlotType).First();
 
+            // Something keeps calling HandleContainerContentChanged multiple times so this is a workaround
+            if (clothingVisualSlot.HasItem) return;
+
             NetworkObject NetworkedClothingVisualSlot = clothingVisualSlot.gameObject.GetComponent<NetworkObject>();
             if (NetworkedClothingVisualSlot != null)
             {
-                _clothDisplayDataList.Add(new ClothDisplayData(NetworkedClothingVisualSlot, item, clothingVisualSlot.UseAltClothingModel));
+                _clothDisplayDataList.Add(new ClothDisplayData(NetworkedClothingVisualSlot, item));
             }
         }
 
@@ -229,7 +221,7 @@ namespace SS3D.Systems.Inventory.Clothing
             // ClothType itemClothType = cloth.Type;
             ClothDisplayData clothData = _clothDisplayDataList.Find(
                 x => x._clothingVisualSlot.gameObject.GetComponent<ClothingVisualSlot>().ClothingSlotType == clothingSlotType);
-
+            
             _clothDisplayDataList.Remove(clothData);
         }
         
@@ -252,24 +244,39 @@ namespace SS3D.Systems.Inventory.Clothing
                     Item newItem = newData._itemToDisplay;
 
                     ClothingVisualSlot newSlot = newData._clothingVisualSlot.GetComponent<ClothingVisualSlot>();
+                    if (newSlot.HasItem) break;
+
                     newSlot.SetItem(newItem);
 
-                    AddCulling(newItem, newData._useAltModel);
+                    ClothingItemCullingData newCullingData = newSlot.CullingData;
+                    AddCulling(newCullingData);
 
                     break;
 
                 // Stop displaying cloth on the player
                 case SyncListOperation.RemoveAt:
 
-                    Item oldItem = oldData._itemToDisplay;
-
-                    RemoveCulling(oldItem, oldData._useAltModel);
-
+                    
                     ClothingVisualSlot oldSlot = oldData._clothingVisualSlot.GetComponent<ClothingVisualSlot>();
+                    if (!oldSlot.HasItem) break;
+
+                    ClothingItemCullingData oldCullingData = oldSlot.CullingData;
+                    RemoveCulling(oldCullingData);
+
                     oldSlot.RemoveItem();
 
                     break;
             }
+        }
+
+        /// <summary>
+        /// Callback when an item's visual is changed 
+        /// </summary>
+        [Client]
+        private void ItemCullingOnChange(ClothingVisualSlot slot, ClothingItemCullingData oldData, ClothingItemCullingData newData)
+        {
+            RemoveCulling(oldData);
+            AddCulling(newData);
         }
     }
 }

@@ -186,8 +186,6 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 8042177759870946059}
   - {fileID: 1256076610048116208}
-  - {fileID: 0}
-  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -199,7 +197,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 132
+  <PrefabId>k__BackingField: 191
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -219,19 +217,20 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 2527334834019670621}
   _networkObjectCache: {fileID: 2527334834019670621}
-  _asset: {fileID: 11400000, guid: 620dc53a5608be44a975c990e69ddba5, type: 2}
+  _asset: {fileID: 11400000, guid: ac8e2914bdb65be4e8e3cc24193182b2, type: 2}
   _name: Body Armor
   _weight: 1
   _startingTraits:
   - {fileID: 11400000, guid: 24f0fdfa01a2d57449bcd9caca0d1064, type: 2}
   _rigidbody: {fileID: 6375350292960470613}
-  _itemVisualData: {fileID: 11400000, guid: 0173860110628b54b935382c4f3f45dd, type: 2}
+  _startingItemVisualData: {fileID: 11400000, guid: 0173860110628b54b935382c4f3f45dd, type: 2}
   _meshFilter: {fileID: 103447455755535710}
   _renderer: {fileID: 3198500825794263964}
   _meshCollider: {fileID: 2784111818396593026}
   AttachmentPoint: {fileID: 3355955575502377225}
   AttachmentPointAlt: {fileID: 3355955575502377225}
   _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!114 &7201402233169256053
 MonoBehaviour:

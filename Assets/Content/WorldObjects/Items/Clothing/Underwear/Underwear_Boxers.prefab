@@ -12,9 +12,25 @@ PrefabInstance:
       value: Boxers
       objectReference: {fileID: 0}
     - target: {fileID: -1938953542191470901, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: _asset
+      value: 
+      objectReference: {fileID: 11400000, guid: ea739bad9fab7ba4d95edb2469ab6322, type: 2}
+    - target: {fileID: -1938953542191470901, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
       propertyPath: _itemVisualData
       value: 
       objectReference: {fileID: 11400000, guid: 4b523846f9acf9a458a4feef86c84944, type: 2}
+    - target: {fileID: -1938953542191470901, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: _startingItemVisualData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b523846f9acf9a458a4feef86c84944, type: 2}
+    - target: {fileID: -1938953542191470901, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: _startingTraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: f6c66b14377a9844785c35993e48e696, type: 2}
+    - target: {fileID: -1921154974467191097, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 170
+      objectReference: {fileID: 0}
     - target: {fileID: -1921154974467191097, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
       propertyPath: _networkBehaviours.Array.size
       value: 2

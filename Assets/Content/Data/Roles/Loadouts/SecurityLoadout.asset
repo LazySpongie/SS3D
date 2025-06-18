@@ -16,8 +16,6 @@ MonoBehaviour:
   HandRight: {fileID: 0}
   Equipment:
     _list:
-    - _key: 512
-      _value: {fileID: 624365323667193292, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
     - _key: 16
       _value: {fileID: 60374868058361228, guid: 4b790b4ffedbe564dab49f896d71eaa6, type: 3}
     - _key: 32
@@ -26,8 +24,8 @@ MonoBehaviour:
       _value: {fileID: 7723921361698481624, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
     - _key: 128
       _value: {fileID: 1687938131941834081, guid: bf177f8bab26bc84b87fd9a971004418, type: 3}
-    - _key: 65536
-      _value: {fileID: 2601952054522247362, guid: 1e9a55e6beb35444ea9341439aee22dc, type: 3}
     - _key: 131072
       _value: {fileID: 673006003877921716, guid: ecf20fce33ec6c044a07ff731e6dca4c, type: 3}
+    - _key: 65536
+      _value: {fileID: 8025264908437525541, guid: 89e3d064e29682f4c894b2b9df7d198d, type: 3}
     _new: 0

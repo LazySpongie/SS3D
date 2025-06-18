@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9b6c8ad6324c838c1743c2a2e2abc4, type: 3}
+  m_Name: ItemVisuals
+  m_EditorClassIdentifier: 
+  DatabaseName: ItemVisuals
+  AssetGroup: {fileID: 11400000, guid: d050086d78327294d991594a1e6cfd51, type: 2}
+  Assets:
+    _list:
+    - _key: Headset
+      _value: {fileID: 11400000, guid: 91a451617245cab4b8d88777b15100e4, type: 2}
+    - _key: Shoe_Hitops
+      _value: {fileID: 11400000, guid: da9bb7e16d687ca4ab7fa0aa828c6cd7, type: 2}
+    - _key: Jumpsuit_Security
+      _value: {fileID: 11400000, guid: 98aa97496ba3ea34aa4112a6ef3a0d93, type: 2}
+    - _key: Jumpsuit_Engineering
+      _value: {fileID: 11400000, guid: e4fcc5ce15bfd184fba4bcf22495bb8d, type: 2}
+    - _key: Headset_Security
+      _value: {fileID: 11400000, guid: e41245574cb7ec5448dea813a8e9684f, type: 2}
+    - _key: Belt_Toolbelt
+      _value: {fileID: 11400000, guid: 86d0bd65e24de82469166068d22a5594, type: 2}
+    - _key: Hat_Trucker
+      _value: {fileID: 11400000, guid: a7a151cf5c9f3bb46ad46760f89efe22, type: 2}
+    - _key: Glasses
+      _value: {fileID: 11400000, guid: b49ef4cc6249282489bfe3355cf0ffd1, type: 2}
+    - _key: Underwear_Briefs
+      _value: {fileID: 11400000, guid: f3bb5f3f63d41ae49b76c228da8a5f7a, type: 2}
+    - _key: Underwear_Boxers
+      _value: {fileID: 11400000, guid: 4b523846f9acf9a458a4feef86c84944, type: 2}
+    - _key: Underwear_Tanktop
+      _value: {fileID: 11400000, guid: ee0fc6f5f3469f74c9589d0a2991997b, type: 2}
+    - _key: Underwear_Tshirt
+      _value: {fileID: 11400000, guid: c2a000bd3183cc144838295bd75db8fc, type: 2}
+    - _key: Glove_Insulated
+      _value: {fileID: 11400000, guid: 81680f258adcb964190475b18e207c9c, type: 2}
+    - _key: Exosuit_BodyArmor
+      _value: {fileID: 11400000, guid: 0173860110628b54b935382c4f3f45dd, type: 2}
+    - _key: Jumpsuit_Botany
+      _value: {fileID: 11400000, guid: ed400f000eadfb84da273e3abb42d3cc, type: 2}
+    - _key: Jumpsuit_Grey
+      _value: {fileID: 11400000, guid: 742392461d817f64bb0ac5dd86738817, type: 2}
+    - _key: Bag_Backpack
+      _value: {fileID: 11400000, guid: 752dbb8220e78274d974d96669ec7926, type: 2}
+    - _key: Shoe_Jackboots
+      _value: {fileID: 11400000, guid: fc706ab53de36bd4e8c512704f0d8c73, type: 2}
+    - _key: Mask_GasMask
+      _value: {fileID: 11400000, guid: cc185c49902e3e94e9db2f5f0e52d1fb, type: 2}
+    _new: 

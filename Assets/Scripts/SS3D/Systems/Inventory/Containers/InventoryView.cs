@@ -187,6 +187,25 @@ namespace SS3D.Systems.Inventory.UI
                     slot = AddHorizontalLayoutSlot(BeltPrefab, ContainerType.Belt);
                     break;
 
+                case ContainerType.Neck:
+                    slot = null;
+                    break;
+
+                case ContainerType.UnderwearBottom:
+                    slot = null;
+                    break;
+
+                case ContainerType.UnderwearTop:
+                    slot = null;
+                    break;
+
+                case ContainerType.SockLeft:
+                    slot = null;
+                    break;
+
+                case ContainerType.SockRight:
+                    slot = null;
+                    break;
 
                 default:
                     Log.Error(this, $"Unknown or missing container type {container.Type} for this container {container}");

@@ -146,7 +146,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 4b790b4ffedbe564dab49f896d71eaa6
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/ShoesJackbootsLeft.prefab
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/ShoesJackboots.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 06b6be83779804245b7f6411fe07b851
@@ -229,8 +229,8 @@ MonoBehaviour:
     m_Address: Assets/Content/WorldObjects/Items/Clothing/Toolbelt.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: ddaa28fac1956b2428aff1dac1d89707
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/Backpack.prefab
+  - m_GUID: 5fa15d6fdef93dc4e80d798cefe8be0b
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/ShoesHiTops.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: fccdc78a6cf916047ba52f2877f755e5
@@ -305,16 +305,16 @@ MonoBehaviour:
     m_Address: Assets/Content/WorldObjects/Items/Functional/Generic/Tanks/OxygenTank.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 236b51ddc6f9aa94ca92579082370c06
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/JumpsuitGrey.prefab
+  - m_GUID: 88d1ba1edb4ce5e4fa74c6a8d53e36e1
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/HeadsetSecurity.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 93ad90421a3b2f64e8fdb9e95a42ba90
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/JumpsuitSecurity.prefab
+  - m_GUID: f549f4153ef612c4586c46ea280e0e94
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/Headset.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: be3fcf1a74268ad49bfedb1edd9f5318
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/JumpsuitBotany.prefab
+  - m_GUID: f1aeab0a35c29314a8a3f823de9815c1
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/GlovesInsulated.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 9c5418cbebef419429574992d3e296a3
@@ -325,8 +325,8 @@ MonoBehaviour:
     m_Address: Assets/Content/WorldObjects/Items/Functional/Materials/GlassShard.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 7436f4976849b994aaee40df1bca7d89
-    m_Address: Assets/Content/WorldObjects/Items/Clothing/JumpsuitEngineer.prefab
+  - m_GUID: 5d97018e9b8139a409a1f8d091b502a3
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/BodyArmor.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 84cec183559b4954c883b11f20f767c9
@@ -383,6 +383,26 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: c8f6de5e6d50d4d4ea839b569649de49
     m_Address: Assets/Content/WorldObjects/Items/Clothing/Underwear/Underwear_Briefs.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7436f4976849b994aaee40df1bca7d89
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/JumpsuitEngineer.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: be3fcf1a74268ad49bfedb1edd9f5318
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/JumpsuitBotany.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 93ad90421a3b2f64e8fdb9e95a42ba90
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/JumpsuitSecurity.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 236b51ddc6f9aa94ca92579082370c06
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/JumpsuitGrey.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ddaa28fac1956b2428aff1dac1d89707
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/Backpack.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

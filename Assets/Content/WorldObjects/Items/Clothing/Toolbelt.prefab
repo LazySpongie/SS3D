@@ -208,13 +208,14 @@ MonoBehaviour:
   _startingTraits:
   - {fileID: 11400000, guid: 5a7c5e53d45ef364ea78fcb8bb8e6b7f, type: 2}
   _rigidbody: {fileID: 8317416473142320945}
-  _itemVisualData: {fileID: 0}
+  _startingItemVisualData: {fileID: 11400000, guid: 86d0bd65e24de82469166068d22a5594, type: 2}
   _meshFilter: {fileID: 5762375188688730150}
   _renderer: {fileID: 5751348619138323742}
   _meshCollider: {fileID: 8620611771923613631}
   AttachmentPoint: {fileID: 4492906417869608502}
   AttachmentPointAlt: {fileID: 4492906417869608502}
   _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!64 &8620611771923613631
 MeshCollider:

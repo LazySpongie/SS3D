@@ -14,23 +14,34 @@ namespace SS3D.Systems.Inventory.Clothing
     /// 
     public class ClothingVisualSlot : Actor
     {
+        public delegate void ItemCullingEventHandler(ClothingVisualSlot clothingVisualSlot, ClothingItemCullingData oldData, ClothingItemCullingData newData);
+
+        // When the visual of the item is changed
+        public event ItemCullingEventHandler OnItemCullingChanged;
+
+        [Tooltip("Set which clothing container in the inventory is using this slot.")]
         [SerializeField]
         private ClothingSlotType _clothingSlotType;
 
+        [Tooltip("If this is a right-sided slot like right glove, right shoe.")]
         [SerializeField]
         private bool _useAltClothingModel;
-        
-        /// <summary>
-        /// Item displayed in this slot
-        /// </summary>
+
+        // Item displayed in this slot
         private Item _item;
 
-        private SkinnedMeshRenderer _renderer;
+        // ClothingItemVisualData used in this slot
+        private ClothingItemVisualData _visualData;
 
-        /// <summary>
-        /// Reference to the Cullable script on this object
-        /// </summary>
+        // ClothingItemCullingData used by this item
+        private ClothingItemCullingData _cullingData;
+
+        // Reference to the Cullable script on this object
         private Cullable _cullable;
+
+        private bool _hasItem;
+
+        private SkinnedMeshRenderer _renderer;
 
         /// <summary>
         /// Reference to the Cullable script on this object
@@ -41,14 +52,30 @@ namespace SS3D.Systems.Inventory.Clothing
         /// Item displayed in this slot
         /// </summary>
         public Item Item => _item;
+        
+        /// <summary>
+        /// ClothingItemVisualData used in this slot
+        /// </summary>
+        public ClothingItemVisualData VisualData => _visualData;
+        
+        /// <summary>
+        /// ClothingItemCullingData used by this item
+        /// </summary>
+        public ClothingItemCullingData CullingData => _cullingData;
 
         /// <summary>
         /// If there is an item displayed in this slot
         /// </summary>
-        public bool HasItem => Item != null;
+        public bool HasItem => _hasItem;
 
+        /// <summary>
+        /// Used to connect a clothing container in the inventory to this slot
+        /// </summary>
         public ClothingSlotType ClothingSlotType => _clothingSlotType;
 
+        /// <summary>
+        /// If this is a right-sided slot like right glove, right shoe
+        /// </summary>
         public bool UseAltClothingModel => _useAltClothingModel;
 
         protected override void OnAwake()
@@ -65,10 +92,16 @@ namespace SS3D.Systems.Inventory.Clothing
         public void SetItem(Item item)
         {
             _item = item;
-            SetClothingMesh();
+            _hasItem = true;
+
+            SetupItem();
+
             Cullable.SetHidden(false);
 
-            // TODO: Subscribe to OnItemVisualChanged event on the item here
+            if (_item)
+            {
+                _item.OnItemVisualChanged += ItemVisualOnChange;
+            }
         }
 
         /// <summary>
@@ -77,13 +110,34 @@ namespace SS3D.Systems.Inventory.Clothing
         [Client]
         public void RemoveItem()
         {
-            _item = null;
-            SetRendererMesh(null);
-            Material[] materials = { };
-            SetRendererMaterials(materials);
-            Cullable.SetHidden(true);
+            if (_item)
+            {
+                _item.OnItemVisualChanged -= ItemVisualOnChange;
+            }
 
-            // TODO: Unsubscribe from OnItemVisualChanged event on the item here
+            _item = null;
+            _hasItem = false;
+            _cullingData = null;
+            RemoveClothingMesh();
+            Cullable.SetHidden(true);
+        }
+
+        /// <summary>
+        /// Set item data
+        /// </summary>
+        [Client]
+        private void SetupItem()
+        {
+            if (_item.ItemVisualData is not ClothingItemVisualData visualData)
+            {
+                Log.Warning(this, $" item {_item.gameObject} does not have ClothingItemVisualData, can't display cloth");
+                _visualData = null;
+                return;
+            }
+            _visualData = visualData;
+
+            SetClothingMesh();
+            SetClothingCullingData();
         }
 
         /// <summary>
@@ -92,32 +146,44 @@ namespace SS3D.Systems.Inventory.Clothing
         [Client]
         private void SetClothingMesh()
         {
-            if (_item.ItemVisualData is not ClothingItemVisualData visualData)
-            {
-                Log.Warning(this, $" item {_item.gameObject} does not have ClothingItemVisualData, can't display cloth");
-                return;
-            }
-
             // Set mesh
-            Mesh newMesh = visualData.ClothingModel;
-            if (_useAltClothingModel & (visualData.AltClothingModel != null))
+            Mesh newMesh = _visualData.ClothingModel;
+            if (_useAltClothingModel & (_visualData.AltClothingModel != null))
             {
-                newMesh = visualData.AltClothingModel;
+                newMesh = _visualData.AltClothingModel;
             }
 
             SetRendererMesh(newMesh);
 
             // This will need to be changed to the instanced materials of the item later
-            SetRendererMaterials(visualData.Materials);
+            SetRendererMaterials(_visualData.Materials);
         }
 
         /// <summary>
-        /// Callback when the item's visual is modified 
+        /// Set mesh and materials to blank 
         /// </summary>
         [Client]
-        private void OnItemVisualChanged()
+        private void RemoveClothingMesh()
         {
-            SetClothingMesh();
+            SetRendererMesh(null);
+            Material[] materials = { };
+            SetRendererMaterials(materials);
+        }
+
+        /// <summary>
+        /// Find the culling data that will be used for the item
+        /// </summary>
+        [Client]
+        private void SetClothingCullingData()
+        {
+            // Gloves need to hide the correct hand
+            ClothingItemCullingData cullingData = _visualData.CullingData;
+            if (_useAltClothingModel & _visualData.AltCullingData != null)
+            {
+                cullingData = _visualData.AltCullingData;
+            }
+
+            _cullingData = cullingData;
         }
 
         /// <summary>
@@ -129,11 +195,31 @@ namespace SS3D.Systems.Inventory.Clothing
             _renderer.sharedMesh = mesh;
         }
 
+        /// <summary>
+        /// Assign materials to the renderer
+        /// </summary>
         [Client]
         private void SetRendererMaterials(Material[] materials)
         {
             _renderer.sharedMaterials = materials;
         }
-        
+
+        /// <summary>
+        /// Callback when the item's visual is changed 
+        /// </summary>
+        [Client]
+        private void ItemVisualOnChange(Item item, ItemVisualData oldData, ItemVisualData newData)
+        {
+            ClothingItemCullingData oldCullingData = _cullingData;
+
+            SetupItem();
+
+            ClothingItemCullingData newCullingData = _cullingData;
+
+            if (oldCullingData == newCullingData) return;
+
+            // TODO: Signal back to the clothing displayer so the culling can be changed
+            OnItemCullingChanged?.Invoke(this, oldCullingData, newCullingData);
+        }
     }
 }

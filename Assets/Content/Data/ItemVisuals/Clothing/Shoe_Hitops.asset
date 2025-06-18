@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c078cf589aa2be143bf83e15fd3d5b65, type: 3}
+  m_Name: Shoe_Hitops
+  m_EditorClassIdentifier: 
+  Materials:
+  - {fileID: 2100000, guid: 695c4de41b9578049a93f19b1eef7213, type: 2}
+  DefaultModel: {fileID: -6802408581776391992, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+  HandModel: {fileID: 0}
+  ClothingModel: {fileID: -6802408581776391992, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+  AltClothingModel: {fileID: 3409560818138700609, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+  CullingData: {fileID: 11400000, guid: 2442b07064c4f1c44b33fe68555613b0, type: 2}
+  AltCullingData: {fileID: 11400000, guid: 35a8b52af4f811f4c8abc577ad346f20, type: 2}

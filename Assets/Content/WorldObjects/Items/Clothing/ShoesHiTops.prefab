@@ -182,7 +182,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 36
+  <PrefabId>k__BackingField: 181
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -202,20 +202,21 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 8681604604373809337}
   _networkObjectCache: {fileID: 8681604604373809337}
-  _asset: {fileID: 11400000, guid: d4290820348155f429a1712d502f920a, type: 2}
+  _asset: {fileID: 11400000, guid: 88167efeaeb5a294c94013fa889219a6, type: 2}
   _name: Shoe hi top left
   _weight: 1
   _startingTraits:
   - {fileID: 11400000, guid: 144a9ec15419baf49ba8c376f97628c6, type: 2}
   - {fileID: 11400000, guid: c753b1913c89a5745806c17b77d57b6d, type: 2}
   _rigidbody: {fileID: 7080033783065948612}
-  _itemVisualData: {fileID: 0}
+  _startingItemVisualData: {fileID: 0}
   _meshFilter: {fileID: 6003340987905195768}
   _renderer: {fileID: 6003340987905195655}
   _meshCollider: {fileID: 5945712506631318020}
   AttachmentPoint: {fileID: 6843391855218923475}
   AttachmentPointAlt: {fileID: 6843391855218923475}
   _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!64 &5945712506631318020
 MeshCollider:

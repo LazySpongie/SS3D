@@ -233,7 +233,7 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 6270372984438359393}
   _networkObjectCache: {fileID: 6270372984438359393}
-  _asset: {fileID: 11400000, guid: 01c2089d9c76db9488cc22e68d76f4b5, type: 2}
+  _asset: {fileID: 11400000, guid: b1559a237192e094b96afef3acd84e58, type: 2}
   _name: HeadsetLeft
   _weight: 1
   _startingTraits:
@@ -241,13 +241,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5f051f2619c7c6a41938d7c2ac95c921, type: 2}
   - {fileID: 11400000, guid: 921240e0c27686d4eaf2ff761944c5eb, type: 2}
   _rigidbody: {fileID: 6277089716624455366}
-  _itemVisualData: {fileID: 11400000, guid: 91a451617245cab4b8d88777b15100e4, type: 2}
+  _startingItemVisualData: {fileID: 11400000, guid: 91a451617245cab4b8d88777b15100e4, type: 2}
   _meshFilter: {fileID: 4761919558556035364}
   _renderer: {fileID: 5663491536549661024}
   _meshCollider: {fileID: 8013759367116360982}
   AttachmentPoint: {fileID: 8691694141886364339}
   AttachmentPointAlt: {fileID: 8691694141886364339}
   _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!64 &8013759367116360982
 MeshCollider:

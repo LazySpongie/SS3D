@@ -16,6 +16,8 @@ using SS3D.Systems.Selection;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
+using SS3D.Data;
+
 #if UNITY_EDITOR
 using AssetDatabase = UnityEditor.AssetDatabase;
 using UnityEditor;
@@ -56,7 +58,7 @@ namespace SS3D.Systems.Inventory.Items
         [Header("Item visual settings")]
 
         [Tooltip("Model data for the item")]
-        [SerializeField] private ItemVisualData _itemVisualData;
+        [SerializeField] private ItemVisualData _startingItemVisualData;
         [SerializeField] private MeshFilter _meshFilter;
         [SerializeField] private Renderer _renderer;
         [SerializeField] private MeshCollider _meshCollider;
@@ -72,10 +74,23 @@ namespace SS3D.Systems.Inventory.Items
 
         /// <summary>
         /// The current visual state of the item (on floor or in hand)
-        /// why is this public in the inspector?
         /// </summary>
         [SyncVar(OnChange = nameof(SyncItemVisualState))]
         private ItemVisualState _currentItemVisualState;
+
+
+        /// <summary>
+        /// The visual data assigned to this item
+        /// TODO: CHANGE THIS ITS NOT NETWORKED!!!!
+        /// </summary>
+        private ItemVisualData _currentItemVisualData;
+        
+        /// <summary>
+        /// Name of the current visual data so it can be networked
+        /// </summary>
+        [SyncVar(OnChange = nameof(SyncItemVisualData))]
+        private string _currentItemVisualName;
+
 
         /// <summary>
         /// The list of characteristics this Item has
@@ -91,7 +106,10 @@ namespace SS3D.Systems.Inventory.Items
 
         public string Name => _name;
 
-        public ItemVisualData ItemVisualData => _itemVisualData;
+        /// <summary>
+        /// The visual data assigned to this item
+        /// </summary>
+        public ItemVisualData ItemVisualData => _currentItemVisualData;
         
         public ReadOnlyCollection<Trait> Traits => ((List<Trait>)_traits.Collection).AsReadOnly();
 
@@ -163,12 +181,19 @@ namespace SS3D.Systems.Inventory.Items
             set => _sprite = value;
         }
 
+
+        public delegate void ItemVisualEventHandler(Item item, ItemVisualData oldData, ItemVisualData newData);
+
+        // When the visual of this item is changed
+        public event ItemVisualEventHandler OnItemVisualChanged;
+
+
         protected override void OnStart()
         {
             base.OnStart();
 
-            // Set the correct model for the item when it is first spawned
-            UpdateItemVisualState();
+            // Set the correct visual data for the item when it is first spawned
+            SetItemVisualData(_startingItemVisualData);
 
             foreach (Animator animator in GetComponents<Animator>())
             {
@@ -182,7 +207,7 @@ namespace SS3D.Systems.Inventory.Items
             }
 
             _nativeColliders ??= GetNativeColliders();
-            Debug.Log("Start " + name);
+            // Debug.Log("Start " + name);
         }
 
         /// <summary>
@@ -366,27 +391,26 @@ namespace SS3D.Systems.Inventory.Items
         }
 
         /// <summary>
-        /// Callback when SyncVar _currentItemVisualState changes. Update the item mesh.
-        /// Server needs to run this so it can update the mesh collider
+        /// Callback when SyncVar _currentItemVisualState changes
         /// </summary>
         private void SyncItemVisualState(ItemVisualState oldState, ItemVisualState newState, bool asServer)
         {
-            if (_itemVisualData == null)
-            {
-                Log.Warning(this, $"no item visual data provided by {gameObject}");
-                return;
-            }
-            if (_itemVisualData.DefaultModel == null)
-            {
-                Log.Warning(this, $"no default mesh provided by {_itemVisualData}");
-                return;
-            }
+            UpdateItemModel(asServer);
+        }
 
-            Mesh newMesh = _itemVisualData.DefaultModel;
-            switch (newState)
+        /// <summary>
+        /// Update the item mesh.
+        /// Server needs to run this so it can update the mesh collider
+        /// </summary>
+        private void UpdateItemModel(bool asServer)
+        {
+            if (_currentItemVisualData == null || _currentItemVisualData.DefaultModel == null) return;
+
+            Mesh newMesh = _currentItemVisualData.DefaultModel;
+            switch (_currentItemVisualState)
             {
                 case ItemVisualState.Hand:
-                    if (_itemVisualData.HandModel) newMesh = _itemVisualData.HandModel;
+                    if (_currentItemVisualData.HandModel) newMesh = _currentItemVisualData.HandModel;
                     break;
             }
 
@@ -395,22 +419,45 @@ namespace SS3D.Systems.Inventory.Items
             if (asServer) return;
 
             _meshFilter.sharedMesh = newMesh;
-            
+
             // This will need to be changed to the instanced materials of the item later
-            _renderer.materials = _itemVisualData.Materials;
+            _renderer.materials = _currentItemVisualData.Materials;
         }
 
         /// <summary>
-        /// Set the visual data used by the item. Can be used by a chameleon jumpsuit, etc.
+        /// Set the id of the visual data used by the item. Can be used by a chameleon jumpsuit, etc.
+        /// 
+        /// We set the name because this needs to be synced but we cannot send ItemVisualData over the network
+        /// We sync the id instead which the client can then use to get the ItemVisualData asset from the asset database 
         /// </summary>
         [Server]
         public void SetItemVisualData(ItemVisualData itemVisualData)
         {
-            _itemVisualData = itemVisualData;
+            if (itemVisualData == null) return;
 
-            UpdateItemVisualState();
+            _currentItemVisualName = itemVisualData.name;
+        }
 
-            // TODO: Invoke OnItemVisualDataChanged here
+        /// <summary>
+        /// Callback when the SyncVar _itemVisualData is changed 
+        /// </summary>
+        private void SyncItemVisualData(string oldName, string newName, bool asServer)
+        {
+            ItemVisualData oldData = _currentItemVisualData;
+
+            _currentItemVisualData = Assets.Get<ItemVisualData>("ItemVisuals", newName);
+            
+            UpdateItemModel(asServer);
+
+            // May need to change this later
+            if (asServer) return;
+
+            InvokeOnItemVisualChanged(oldData, _currentItemVisualData);
+        }
+        
+		private void InvokeOnItemVisualChanged(ItemVisualData oldData, ItemVisualData newData)
+        {
+            OnItemVisualChanged?.Invoke(this, oldData, newData);
         }
 
         // Generate preview of the same object, but without stored items.

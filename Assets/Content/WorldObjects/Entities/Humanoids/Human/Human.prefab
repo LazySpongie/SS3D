@@ -11076,6 +11076,10 @@ PrefabInstance:
       value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 4582812134941542747, guid: 4a9d34a6cf84ef045a740513d8ae30b1, type: 3}
+      propertyPath: _displayAsSlotInUI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582812134941542747, guid: 4a9d34a6cf84ef045a740513d8ae30b1, type: 3}
       propertyPath: _networkObjectCache
       value: 
       objectReference: {fileID: 2930813178971533500}
@@ -11419,6 +11423,10 @@ PrefabInstance:
       propertyPath: <ParentNetworkObject>k__BackingField
       value: 
       objectReference: {fileID: 2930813178971533500}
+    - target: {fileID: 7937041245378872010, guid: 4a9d34a6cf84ef045a740513d8ae30b1, type: 3}
+      propertyPath: _displayAsSlotInUI
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7937041245378872010, guid: 4a9d34a6cf84ef045a740513d8ae30b1, type: 3}
       propertyPath: _networkObjectCache
       value: 

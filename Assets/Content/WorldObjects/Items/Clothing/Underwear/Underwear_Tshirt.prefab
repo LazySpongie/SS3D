@@ -247,19 +247,20 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: -1921154974467191097}
   _networkObjectCache: {fileID: -1921154974467191097}
-  _asset: {fileID: 11400000, guid: e53ebba96eeba474e8478131c8d24085, type: 2}
+  _asset: {fileID: 11400000, guid: 14053b6dbbb802a469134af5934854e9, type: 2}
   _name: Tshirt
   _weight: 1
   _startingTraits:
   - {fileID: 11400000, guid: 5162c84502115894abb92f9242f16663, type: 2}
   _rigidbody: {fileID: 950155378762729286}
-  _itemVisualData: {fileID: 11400000, guid: c2a000bd3183cc144838295bd75db8fc, type: 2}
+  _startingItemVisualData: {fileID: 11400000, guid: c2a000bd3183cc144838295bd75db8fc, type: 2}
   _meshFilter: {fileID: 4961538390409228241}
   _renderer: {fileID: 4767056444458723069}
   _meshCollider: {fileID: 4049302817993054162}
   AttachmentPoint: {fileID: 1113522479252378066}
   AttachmentPointAlt: {fileID: 1113522479252378066}
   _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!114 &1629795439574854430
 MonoBehaviour:

@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ItemVisuals
+  m_EditorClassIdentifier: 
+  m_GroupName: ItemVisuals
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 0f7c4ca1b34f2d041a5ddb8f4f831851
+  m_SerializeEntries:
+  - m_GUID: 91a451617245cab4b8d88777b15100e4
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Headset.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: da9bb7e16d687ca4ab7fa0aa828c6cd7
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Shoe_Hitops.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 98aa97496ba3ea34aa4112a6ef3a0d93
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Jumpsuit_Security.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e4fcc5ce15bfd184fba4bcf22495bb8d
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Jumpsuit_Engineering.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e41245574cb7ec5448dea813a8e9684f
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Headset_Security.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 86d0bd65e24de82469166068d22a5594
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Belt_Toolbelt.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a7a151cf5c9f3bb46ad46760f89efe22
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Hat_Trucker.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b49ef4cc6249282489bfe3355cf0ffd1
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Glasses.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f3bb5f3f63d41ae49b76c228da8a5f7a
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Underwear/Underwear_Briefs.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4b523846f9acf9a458a4feef86c84944
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Underwear/Underwear_Boxers.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ee0fc6f5f3469f74c9589d0a2991997b
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Underwear/Underwear_Tanktop.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c2a000bd3183cc144838295bd75db8fc
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Underwear/Underwear_Tshirt.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 81680f258adcb964190475b18e207c9c
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Glove_Insulated.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0173860110628b54b935382c4f3f45dd
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Exosuit_BodyArmor.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ed400f000eadfb84da273e3abb42d3cc
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Jumpsuit_Botany.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 742392461d817f64bb0ac5dd86738817
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Jumpsuit_Grey.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 752dbb8220e78274d974d96669ec7926
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Bag_Backpack.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fc706ab53de36bd4e8c512704f0d8c73
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Shoe_Jackboots.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cc185c49902e3e94e9db2f5f0e52d1fb
+    m_Address: Assets/Content/Data/ItemVisuals/Clothing/Mask_GasMask.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ddc57d0f5f9fb874e8a26db0c5b215e0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ad79a4db6c1b780408ec74373a42a7ab, type: 2}
+    - {fileID: 11400000, guid: 299178f9856128c4f99506beba4dec6d, type: 2}

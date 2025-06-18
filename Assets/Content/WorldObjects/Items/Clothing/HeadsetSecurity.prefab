@@ -114,7 +114,7 @@ PrefabInstance:
     - target: {fileID: 8996871635369454886, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
       propertyPath: _asset
       value: 
-      objectReference: {fileID: 11400000, guid: 5b8254c4cf98fcc4abf5012b35a20d1d, type: 2}
+      objectReference: {fileID: 11400000, guid: 6b6ef0465dccec94082d853aadad389f, type: 2}
     - target: {fileID: 8996871635369454886, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
       propertyPath: _startingTraits.Array.size
       value: 3

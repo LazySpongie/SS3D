@@ -41,7 +41,6 @@ public abstract class BodyPart : InteractionTargetNetworkBehaviour
     [SerializeField]
     protected GameObject _bodyPartItem;
 
-    private Cullable _cullable;
 
     /// <summary>
     /// List of body parts child of this one. 
@@ -54,11 +53,6 @@ public abstract class BodyPart : InteractionTargetNetworkBehaviour
     protected readonly List<BodyLayer> _bodyLayers = new List<BodyLayer>();
     
     private BodyPart _externalBodyPart;
-
-    /// <summary>
-    /// Reference to the Cullable script on this object
-    /// </summary>
-    public Cullable Cullable => _cullable;
 
     public BodyPart ExternalBodyPart => _externalBodyPart;
 
@@ -159,13 +153,6 @@ public abstract class BodyPart : InteractionTargetNetworkBehaviour
         AddInitialLayers();
     }
 
-    // [Client]
-    protected override void OnAwake()
-    {
-        base.OnAwake();
-        _cullable = GetComponent<Cullable>();
-    }
-    
     public virtual void Init(BodyPart parent)
     {
         ParentBodyPart = parent;
@@ -571,7 +558,7 @@ public abstract class BodyPart : InteractionTargetNetworkBehaviour
     [Server]
     protected void HideSeveredBodyPart()
     {
-        _cullable.SetHidden(true);
+        GetComponent<Cullable>()?.SetHidden(true);
     }
 
     [Server]

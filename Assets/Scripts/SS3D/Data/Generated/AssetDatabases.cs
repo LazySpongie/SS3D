@@ -8,9 +8,9 @@ namespace SS3D.Data.Generated
         public static DatabaseAsset CraftingRecipes = new DatabaseAsset("CraftingRecipes", "AssetDatabases");
         public static DatabaseAsset InteractionIcons = new DatabaseAsset("InteractionIcons", "AssetDatabases");
         public static DatabaseAsset Items = new DatabaseAsset("Items", "AssetDatabases");
+        public static DatabaseAsset ItemVisuals = new DatabaseAsset("ItemVisuals", "AssetDatabases");
         public static DatabaseAsset Materials = new DatabaseAsset("Materials", "AssetDatabases");
         public static DatabaseAsset ParticlesEffects = new DatabaseAsset("ParticlesEffects", "AssetDatabases");
-        public static DatabaseAsset Scenes = new DatabaseAsset("Scenes", "AssetDatabases");
         public static DatabaseAsset Sounds = new DatabaseAsset("Sounds", "AssetDatabases");
         public static DatabaseAsset WorldSpaceUI = new DatabaseAsset("WorldSpaceUI", "AssetDatabases");
     }

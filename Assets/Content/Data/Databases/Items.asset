@@ -122,8 +122,8 @@ MonoBehaviour:
       _value: {fileID: 5774385816057912484, guid: 7579883b8dd8801448a176adace4860b, type: 3}
     - _key: Toolbelt
       _value: {fileID: 1080889307602868191, guid: 40d904629802fc942860ce878e78efef, type: 3}
-    - _key: Backpack
-      _value: {fileID: 802333698458937824, guid: ddaa28fac1956b2428aff1dac1d89707, type: 3}
+    - _key: ShoesHiTops
+      _value: {fileID: 6003340987905195654, guid: 5fa15d6fdef93dc4e80d798cefe8be0b, type: 3}
     - _key: HumanHeart
       _value: {fileID: 2302397424301738637, guid: fccdc78a6cf916047ba52f2877f755e5, type: 3}
     - _key: Doodad
@@ -160,18 +160,18 @@ MonoBehaviour:
       _value: {fileID: 7125681683583715523, guid: e3fb39f0a84acf541b6ee828550a1708, type: 3}
     - _key: OxygenTank
       _value: {fileID: 7125681683583715523, guid: 5479411218b869144b7d09d6db6dc58e, type: 3}
-    - _key: JumpsuitGrey
-      _value: {fileID: 624365323667193292, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
-    - _key: JumpsuitSecurity
-      _value: {fileID: 6330158209413936013, guid: 93ad90421a3b2f64e8fdb9e95a42ba90, type: 3}
-    - _key: JumpsuitBotany
-      _value: {fileID: 8312388220934557560, guid: be3fcf1a74268ad49bfedb1edd9f5318, type: 3}
+    - _key: HeadsetSecurity
+      _value: {fileID: 1529136833643899573, guid: 88d1ba1edb4ce5e4fa74c6a8d53e36e1, type: 3}
+    - _key: Headset
+      _value: {fileID: 7723921361698481624, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
+    - _key: GlovesInsulated
+      _value: {fileID: 739222591386748088, guid: f1aeab0a35c29314a8a3f823de9815c1, type: 3}
     - _key: HumanIntestineSmall
       _value: {fileID: 5774385816057912484, guid: 9c5418cbebef419429574992d3e296a3, type: 3}
     - _key: GlassShard
       _value: {fileID: 7125681683583715523, guid: 5cab1a9f6c7f74948b84d0d625319efe, type: 3}
-    - _key: JumpsuitEngineer
-      _value: {fileID: 4245634344425516727, guid: 7436f4976849b994aaee40df1bca7d89, type: 3}
+    - _key: BodyArmor
+      _value: {fileID: 624365323667193292, guid: 5d97018e9b8139a409a1f8d091b502a3, type: 3}
     - _key: MicroLaser
       _value: {fileID: 2402587210622244651, guid: 84cec183559b4954c883b11f20f767c9, type: 3}
     - _key: MatterBin
@@ -200,4 +200,14 @@ MonoBehaviour:
       _value: {fileID: 673006003877921716, guid: ecf20fce33ec6c044a07ff731e6dca4c, type: 3}
     - _key: Underwear_Briefs
       _value: {fileID: 172670801628266567, guid: c8f6de5e6d50d4d4ea839b569649de49, type: 3}
+    - _key: JumpsuitEngineer
+      _value: {fileID: 4245634344425516727, guid: 7436f4976849b994aaee40df1bca7d89, type: 3}
+    - _key: JumpsuitBotany
+      _value: {fileID: 8312388220934557560, guid: be3fcf1a74268ad49bfedb1edd9f5318, type: 3}
+    - _key: JumpsuitSecurity
+      _value: {fileID: 6330158209413936013, guid: 93ad90421a3b2f64e8fdb9e95a42ba90, type: 3}
+    - _key: JumpsuitGrey
+      _value: {fileID: 624365323667193292, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+    - _key: Backpack
+      _value: {fileID: 802333698458937824, guid: ddaa28fac1956b2428aff1dac1d89707, type: 3}
     _new: 
