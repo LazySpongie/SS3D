@@ -57,11 +57,12 @@ namespace SS3D.Systems.Inventory.Items
         
         [Header("Item visual settings")]
 
-        [Tooltip("Model data for the item")]
+        [Tooltip("Only assign these values if this is a clothing item or needs to have its visuals changed during runtime")]
         [SerializeField] private ItemVisualData _startingItemVisualData;
         [SerializeField] private MeshFilter _meshFilter;
         [SerializeField] private Renderer _renderer;
         [SerializeField] private MeshCollider _meshCollider;
+
         private Sprite _sprite;
 
         [Header("Attachment settings")]
@@ -180,13 +181,6 @@ namespace SS3D.Systems.Inventory.Items
             get => InventorySprite();
             set => _sprite = value;
         }
-
-
-        public delegate void ItemVisualEventHandler(Item item, ItemVisualData oldData, ItemVisualData newData);
-
-        // When the visual of this item is changed
-        public event ItemVisualEventHandler OnItemVisualChanged;
-
 
         protected override void OnStart()
         {
@@ -434,32 +428,36 @@ namespace SS3D.Systems.Inventory.Items
         public void SetItemVisualData(ItemVisualData itemVisualData)
         {
             if (itemVisualData == null) return;
-
+            
             _currentItemVisualName = itemVisualData.name;
         }
 
         /// <summary>
-        /// Callback when the SyncVar _itemVisualData is changed 
+        /// Callback when the SyncVar _currentItemVisualData is changed 
         /// </summary>
         private void SyncItemVisualData(string oldName, string newName, bool asServer)
         {
             ItemVisualData oldData = _currentItemVisualData;
 
             _currentItemVisualData = Assets.Get<ItemVisualData>("ItemVisuals", newName);
-            
+
             UpdateItemModel(asServer);
 
-            // May need to change this later
-            if (asServer) return;
+            RefreshItemVisual();
+        }
 
-            InvokeOnItemVisualChanged(oldData, _currentItemVisualData);
+        /// <summary>
+        /// Re-add the item to its container to refresh the visuals for worn clothing items.
+        /// </summary>
+        [Server]
+        private void RefreshItemVisual()
+        {
+            if (!_container) return; 
+
+            // This is jank as fuck but removing and readding the item to the container is the easiest way to refresh clothing
+            _container?.TransferItemToOther(this, _container.PositionOf(this), _container);
         }
         
-		private void InvokeOnItemVisualChanged(ItemVisualData oldData, ItemVisualData newData)
-        {
-            OnItemVisualChanged?.Invoke(this, oldData, newData);
-        }
-
         // Generate preview of the same object, but without stored items.
         [ServerOrClient]
         public Sprite GenerateIcon()

@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Materials:
   - {fileID: 2100000, guid: 695c4de41b9578049a93f19b1eef7213, type: 2}
-  DefaultModel: {fileID: 178095807063762633, guid: fd64b3952106bf846991ecfa645d5bcb, type: 3}
+  DefaultModel: {fileID: -6816908899746244745, guid: fd64b3952106bf846991ecfa645d5bcb, type: 3}
   HandModel: {fileID: 0}
-  ClothingModel: {fileID: 8281616745360485254, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
-  AltClothingModel: {fileID: 0}
+  Human:
+    ClothingModel: {fileID: 6295007783518057475, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+    AltClothingModel: {fileID: 0}
   CullingData: {fileID: 11400000, guid: 63bec19cc5b971e459bc66be4fd0a441, type: 2}
-  CullingDataAlt: {fileID: 0}
+  AltCullingData: {fileID: 0}

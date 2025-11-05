@@ -9,16 +9,11 @@ using FishNet.Object;
 namespace SS3D.Systems.Inventory.Clothing
 {
     /// <summary>
-    /// Used to display clothing worn in a particular clothing slot.
+    /// Networked script that syncs clothing in the characters inventory and sends it to the ClothingVisualDisplayer to be displayed.
     /// </summary>
     /// 
     public class ClothingVisualSlot : Actor
     {
-        public delegate void ItemCullingEventHandler(ClothingVisualSlot clothingVisualSlot, ClothingItemCullingData oldData, ClothingItemCullingData newData);
-
-        // When the visual of the item is changed
-        public event ItemCullingEventHandler OnItemCullingChanged;
-
         [Tooltip("Set which clothing container in the inventory is using this slot.")]
         [SerializeField]
         private ClothingSlotType _clothingSlotType;
@@ -27,32 +22,28 @@ namespace SS3D.Systems.Inventory.Clothing
         [SerializeField]
         private bool _useAltClothingModel;
 
-        // Item displayed in this slot
-        private Item _item;
-
-        // ClothingItemVisualData used in this slot
+        /// <summary>
+        /// ClothingItemVisualData used in this slot
+        /// </summary>
         private ClothingItemVisualData _visualData;
 
-        // ClothingItemCullingData used by this item
+        /// <summary>
+        /// ClothingItemCullingData used by this item
+        /// </summary>
         private ClothingItemCullingData _cullingData;
 
-        // Reference to the Cullable script on this object
+        /// <summary>
+        /// Cullable script on this object
+        /// </summary>
         private Cullable _cullable;
-
-        private bool _hasItem;
 
         private SkinnedMeshRenderer _renderer;
 
         /// <summary>
-        /// Reference to the Cullable script on this object
+        /// Cullable script on this object
         /// </summary>
         public Cullable Cullable => _cullable;
 
-        /// <summary>
-        /// Item displayed in this slot
-        /// </summary>
-        public Item Item => _item;
-        
         /// <summary>
         /// ClothingItemVisualData used in this slot
         /// </summary>
@@ -66,7 +57,7 @@ namespace SS3D.Systems.Inventory.Clothing
         /// <summary>
         /// If there is an item displayed in this slot
         /// </summary>
-        public bool HasItem => _hasItem;
+        public bool HasItem => _visualData;
 
         /// <summary>
         /// Used to connect a clothing container in the inventory to this slot
@@ -89,19 +80,10 @@ namespace SS3D.Systems.Inventory.Clothing
         /// Assign a clothing item to be displayed on this slot.
         /// </summary>
         [Client]
-        public void SetItem(Item item)
+        public void SetItem(ItemVisualData data)
         {
-            _item = item;
-            _hasItem = true;
-
+            SetupVisualData(data);
             SetupItem();
-
-            Cullable.SetHidden(false);
-
-            if (_item)
-            {
-                _item.OnItemVisualChanged += ItemVisualOnChange;
-            }
         }
 
         /// <summary>
@@ -110,16 +92,22 @@ namespace SS3D.Systems.Inventory.Clothing
         [Client]
         public void RemoveItem()
         {
-            if (_item)
-            {
-                _item.OnItemVisualChanged -= ItemVisualOnChange;
-            }
-
-            _item = null;
-            _hasItem = false;
+            _visualData = null;
             _cullingData = null;
             RemoveClothingMesh();
             Cullable.SetHidden(true);
+        }
+
+        [Client]
+        private void SetupVisualData(ItemVisualData data)
+        {
+            if (data is not ClothingItemVisualData visualData)
+            {
+                Log.Warning(this, $" {data} is not ClothingItemVisualData, can't display cloth");
+                _visualData = null;
+                return;
+            }
+            _visualData = visualData;
         }
 
         /// <summary>
@@ -128,16 +116,10 @@ namespace SS3D.Systems.Inventory.Clothing
         [Client]
         private void SetupItem()
         {
-            if (_item.ItemVisualData is not ClothingItemVisualData visualData)
-            {
-                Log.Warning(this, $" item {_item.gameObject} does not have ClothingItemVisualData, can't display cloth");
-                _visualData = null;
-                return;
-            }
-            _visualData = visualData;
-
             SetClothingMesh();
             SetClothingCullingData();
+
+            Cullable.SetHidden(false);
         }
 
         /// <summary>
@@ -147,10 +129,11 @@ namespace SS3D.Systems.Inventory.Clothing
         private void SetClothingMesh()
         {
             // Set mesh
-            Mesh newMesh = _visualData.ClothingModel;
-            if (_useAltClothingModel & (_visualData.AltClothingModel != null))
+            // In the future this needs to be changed to support species
+            Mesh newMesh = _visualData.Human.ClothingModel;
+            if (_useAltClothingModel & (_visualData.Human.AltClothingModel != null))
             {
-                newMesh = _visualData.AltClothingModel;
+                newMesh = _visualData.Human.AltClothingModel;
             }
 
             SetRendererMesh(newMesh);
@@ -202,24 +185,6 @@ namespace SS3D.Systems.Inventory.Clothing
         private void SetRendererMaterials(Material[] materials)
         {
             _renderer.sharedMaterials = materials;
-        }
-
-        /// <summary>
-        /// Callback when the item's visual is changed 
-        /// </summary>
-        [Client]
-        private void ItemVisualOnChange(Item item, ItemVisualData oldData, ItemVisualData newData)
-        {
-            ClothingItemCullingData oldCullingData = _cullingData;
-
-            SetupItem();
-
-            ClothingItemCullingData newCullingData = _cullingData;
-
-            if (oldCullingData == newCullingData) return;
-
-            // TODO: Signal back to the clothing displayer so the culling can be changed
-            OnItemCullingChanged?.Invoke(this, oldCullingData, newCullingData);
         }
     }
 }

@@ -17,6 +17,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 74425a37eae99c946a92da0339e05c48, type: 2}
   DefaultModel: {fileID: -4072701865736530102, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
   HandModel: {fileID: 0}
-  ClothingModel: {fileID: -4072701865736530102, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
-  AltClothingModel: {fileID: 0}
+  Human:
+    ClothingModel: {fileID: -4072701865736530102, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+    AltClothingModel: {fileID: 0}
   CullingData: {fileID: 0}
+  AltCullingData: {fileID: 0}

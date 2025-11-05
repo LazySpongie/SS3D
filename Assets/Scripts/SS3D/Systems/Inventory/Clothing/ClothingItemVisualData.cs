@@ -12,15 +12,9 @@ namespace SS3D.Systems.Inventory.Clothing
     public class ClothingItemVisualData : ItemVisualData
     {
         [Header("Clothing Models")]
-
-        [Tooltip("Mesh displayed on player model.")]
-        public Mesh ClothingModel;
-
-        [Tooltip("Right handed mesh for shoes, headsets, gloves.")]
-        public Mesh AltClothingModel;
+        public SpeciesClothingData Human;
 
         // Blend shapes applied to the clothing model here?
-
 
         [Header("Culling")]
         [Tooltip("Clothing and bodyparts that should be hidden when this is worn.")]
@@ -29,5 +23,20 @@ namespace SS3D.Systems.Inventory.Clothing
         [Tooltip("Right handed culling data for shoes, headsets, gloves.")]
         public ClothingItemCullingData AltCullingData;
 
+        /// <summary>
+        /// Struct used to hold meshes for a particular species.
+        /// Future proofing.
+        /// </summary>
+        [System.Serializable]
+        public struct SpeciesClothingData
+        {
+            [Tooltip("Mesh displayed on player model.")]
+            public Mesh ClothingModel;
+
+            [Tooltip("Right handed mesh for shoes, headsets, gloves.")]
+            public Mesh AltClothingModel;
+
+            public readonly bool Exists => ClothingModel != null || AltClothingModel != null;
+        }
     }
 }

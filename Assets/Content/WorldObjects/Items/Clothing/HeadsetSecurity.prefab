@@ -22,7 +22,7 @@ PrefabInstance:
     - target: {fileID: 4761919558556035364, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -1549501771742983402, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+      objectReference: {fileID: -6645550767686512298, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
     - target: {fileID: 6270372984438359393, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
       propertyPath: _scenePathHash
       value: 0
@@ -106,7 +106,7 @@ PrefabInstance:
     - target: {fileID: 8013759367116360982, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -1549501771742983402, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+      objectReference: {fileID: -6645550767686512298, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
     - target: {fileID: 8996871635369454886, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
       propertyPath: _name
       value: HeadsetSecurityLeft

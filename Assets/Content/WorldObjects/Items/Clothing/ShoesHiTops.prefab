@@ -209,7 +209,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 144a9ec15419baf49ba8c376f97628c6, type: 2}
   - {fileID: 11400000, guid: c753b1913c89a5745806c17b77d57b6d, type: 2}
   _rigidbody: {fileID: 7080033783065948612}
-  _startingItemVisualData: {fileID: 0}
+  _startingItemVisualData: {fileID: 11400000, guid: da9bb7e16d687ca4ab7fa0aa828c6cd7, type: 2}
   _meshFilter: {fileID: 6003340987905195768}
   _renderer: {fileID: 6003340987905195655}
   _meshCollider: {fileID: 5945712506631318020}

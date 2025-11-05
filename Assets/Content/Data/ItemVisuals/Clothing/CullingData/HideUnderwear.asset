@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: HideUnderwear
   m_EditorClassIdentifier: 
   CulledClothingSlots: 0e0000000d000000
-  CulledBodyParts: 01000000
+  CulledBodyParts: 

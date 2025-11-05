@@ -6886,6 +6886,7 @@ GameObject:
   - component: {fileID: 2150560678942863610}
   - component: {fileID: 7934531206375951864}
   - component: {fileID: 1089183168752255729}
+  - component: {fileID: 1945535606168107409}
   - component: {fileID: 3352578633885233001}
   - component: {fileID: 3771845344306968317}
   - component: {fileID: 5283895024578974260}
@@ -7317,6 +7318,23 @@ MonoBehaviour:
   containerViewer: {fileID: 7934531206375951864}
   Body: {fileID: 5283895024578974260}
   Hands: {fileID: 2150560678942863610}
+--- !u!114 &1945535606168107409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6415765038646171405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b531b6e79ba6d45b998077522755c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 2930813178971533500}
+  _networkObjectCache: {fileID: 0}
+  _inventory: {fileID: 1089183168752255729}
+  _clothingVisualDisplayer: {fileID: 3352578633885233001}
 --- !u!114 &3352578633885233001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7332,7 +7350,6 @@ MonoBehaviour:
   _componentIndexCache: 9
   _addedNetworkObject: {fileID: 2930813178971533500}
   _networkObjectCache: {fileID: 2930813178971533500}
-  _inventory: {fileID: 1089183168752255729}
   _clothingVisualSlots:
   - {fileID: 6053071042394239261}
   - {fileID: 113844057537055301}
