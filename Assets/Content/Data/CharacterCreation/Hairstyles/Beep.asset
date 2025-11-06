@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc07f2597c9d9364abdf7593f44fa7ac, type: 3}
-  m_Name: Fry
+  m_Name: Beep
   m_EditorClassIdentifier: 
-  DisplayName: Fry
-  HairModel: {fileID: -5220997989888512874, guid: 3ddb292c238ee6c4fa684395f5aa0ec7, type: 3}
+  NameString: Beep
+  icon: {fileID: 21300000, guid: a2980ac71f501b640ad064f3c7bc03c2, type: 3}
+  HairModel: {fileID: 1542394230102822897, guid: 3ddb292c238ee6c4fa684395f5aa0ec7, type: 3}

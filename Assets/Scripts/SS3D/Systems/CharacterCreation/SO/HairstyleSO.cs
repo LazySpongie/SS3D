@@ -10,13 +10,15 @@ using SS3D.Systems.Interactions;
 using SS3D.Systems.Inventory.Containers;
 using UnityEngine;
 
-namespace SS3D.Systems.Entities.Customization
+namespace SS3D.Systems.CharacterCreation
 {
     
+    /// <summary>
+    /// SO for hairstyles and facial hair
+    /// </summary>
     [CreateAssetMenu(menuName = "SS3D/Customization/Hairstyle", fileName = "Hairstyle")]
-    public class Hairstyle : ScriptableObject
+    public class HairstyleSO : CustomizationSO
     {
-        public string DisplayName;
 
         [Header("Models")]
 

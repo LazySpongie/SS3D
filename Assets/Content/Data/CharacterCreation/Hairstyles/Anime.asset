@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc07f2597c9d9364abdf7593f44fa7ac, type: 3}
   m_Name: Anime
   m_EditorClassIdentifier: 
-  DisplayName: Anime
+  NameString: Anime
+  icon: {fileID: 21300000, guid: 5d527d1323f6be04aa535b3a3ba7aefe, type: 3}
   HairModel: {fileID: 5914037452160473993, guid: 3ddb292c238ee6c4fa684395f5aa0ec7, type: 3}

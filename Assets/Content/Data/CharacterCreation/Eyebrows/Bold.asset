@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc07f2597c9d9364abdf7593f44fa7ac, type: 3}
-  m_Name: Beep
+  m_Name: Bold
   m_EditorClassIdentifier: 
-  DisplayName: Beep
-  HairModel: {fileID: 1542394230102822897, guid: 3ddb292c238ee6c4fa684395f5aa0ec7, type: 3}
+  NameString: Bold
+  icon: {fileID: 21300000, guid: 5a97d5afa6254804f81b7ba956296996, type: 3}
+  HairModel: {fileID: -6432339810506683319, guid: 3ddb292c238ee6c4fa684395f5aa0ec7, type: 3}
