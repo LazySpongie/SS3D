@@ -16,15 +16,24 @@ namespace SS3D.Systems.CharacterCreation
     public class CustomizationGrid : Actor
     {
         /// <summary>
+        ///  The search bar for the menu.
+        /// </summary>
+        [SerializeField][NotNull] private TMP_InputField _searchBar;
+
+        /// <summary>
         ///  The prefab for a single slot, to display customization options in the menu.
         /// </summary>
-        [SerializeField] [NotNull] private GameObject _slotPrefab;
+        [SerializeField][NotNull] private GameObject _slotPrefab;
+        
+        /// <summary>
+        /// Game object parent of the area in the menu where the slots will display.
+        /// </summary>
+        [SerializeField] [NotNull] private GameObject _contentRoot;
 
         /// <summary>
         /// List of customization options to load in the menu.
         /// </summary>
-        [SerializeField]
-        private List<CustomizationSO> _customizationDatabase;
+        [SerializeField] private List<CustomizationSO> _customizationDatabase;
 
         /// <summary>
         /// List of slots created in the menu.
@@ -32,14 +41,14 @@ namespace SS3D.Systems.CharacterCreation
         private List<CustomizationSlot> _customizationSlots = new List<CustomizationSlot>();
 
         /// <summary>
-        /// Game object parent of the area in the menu where the slots will display.
-        /// </summary>
-        [SerializeField] [NotNull] private GameObject _contentRoot;
-
-        /// <summary>
         /// Currently selected customization option.
         /// </summary>
         private CustomizationSlot _selectedOption;
+        
+        /// <summary>
+        /// Currently selected customization option.
+        /// </summary>
+        public CustomizationSlot SelectedOption => _selectedOption;
 
         protected override void OnStart()
         {
@@ -52,14 +61,11 @@ namespace SS3D.Systems.CharacterCreation
         /// </summary>
         public void FilterCustomization(string text)
         {
-            ClearGrid();
+            // ClearGrid();
             foreach (CustomizationSlot slot in _customizationSlots)
             {
-                slot.enabled = false;
-                if (!slot.CustomizationSO.NameString.Contains(text, StringComparison.OrdinalIgnoreCase)) continue;
-
-                slot.enabled = true;
-                // Instantiate(_slotPrefab, _contentRoot.transform, true).GetComponent<CustomizationSlot>().Setup(asset);
+                // default (bald) option should always be visible maybe?
+                slot.gameObject.SetActive(slot.CustomizationSO.NameString.Contains(text, StringComparison.OrdinalIgnoreCase));
             }
         }
 
@@ -95,6 +101,9 @@ namespace SS3D.Systems.CharacterCreation
             }
         }
 
+        /// <summary>
+        /// Called when an option in the grid is selected, set the option as the selected option.
+        /// </summary>
         private void HandleSlotButtonPressed(CustomizationSlot slot)
         {
             if (slot == null) return;
@@ -104,5 +113,12 @@ namespace SS3D.Systems.CharacterCreation
             _selectedOption.Button.interactable = false;
         }
 
+        /// <summary>
+        /// Called when the text in the search box is changed.
+        /// </summary>
+        public void HandleSearchFieldChanged()
+        {
+            FilterCustomization(_searchBar?.text);
+        }
     }
 }
