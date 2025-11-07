@@ -15,6 +15,21 @@ namespace SS3D.Systems.CharacterCreation
     /// </summary>
     public class CustomizationGrid : Actor
     {
+        public delegate void CustomizationGridSelectionEventHandler(CustomizationType type, CustomizationSlot option);
+        
+        public delegate void CustomizationGridStartEventHandler(CustomizationType type, CustomizationGrid grid);
+
+        // When the selection changes
+        public event CustomizationGridSelectionEventHandler OnCustomizationGridSelectionChanged;
+        
+        // When this script starts
+        public event CustomizationGridStartEventHandler OnCustomizationGridStarted;
+
+        /// <summary>
+        ///  The type of customization this grid contains.
+        /// </summary>
+        [SerializeField][NotNull] private CustomizationType _customizationType;
+
         /// <summary>
         ///  The search bar for the menu.
         /// </summary>
@@ -44,16 +59,19 @@ namespace SS3D.Systems.CharacterCreation
         /// Currently selected customization option.
         /// </summary>
         private CustomizationSlot _selectedOption;
-        
+
         /// <summary>
         /// Currently selected customization option.
         /// </summary>
         public CustomizationSlot SelectedOption => _selectedOption;
-
+        
         protected override void OnStart()
         {
             LoadGrid();
-            HandleSlotButtonPressed(_customizationSlots[0]);
+
+            // need to find a way to set the selected option while this object is disabled
+            OnCustomizationGridStarted?.Invoke(_customizationType, this);
+            // HandleSlotButtonPressed(_selectedOption);
         }
 
         /// <summary>
@@ -90,6 +108,21 @@ namespace SS3D.Systems.CharacterCreation
         }
 
         /// <summary>
+        /// Set the currently selected option by name.
+        /// </summary>
+        public void SetSelectedOptionByName(string name)
+        {
+            for (int i = 0; _customizationSlots.Count > 0; i++)
+            {
+                CustomizationSlot option = _customizationSlots[i];
+                if (option.CustomizationSO.name == name)
+                {
+                    HandleSlotButtonPressed(option);
+                }
+            }
+        }
+
+        /// <summary>
         /// Clear all slots in the content area of the menu.
         /// </summary>
         private void ClearGrid()
@@ -106,11 +139,14 @@ namespace SS3D.Systems.CharacterCreation
         /// </summary>
         private void HandleSlotButtonPressed(CustomizationSlot slot)
         {
+            if (slot == null) slot = _customizationSlots[0];
             if (slot == null) return;
             
             if (_selectedOption) _selectedOption.Button.interactable = true; 
             _selectedOption = slot;
             _selectedOption.Button.interactable = false;
+
+            OnCustomizationGridSelectionChanged?.Invoke(_customizationType, _selectedOption);
         }
 
         /// <summary>
