@@ -703,6 +703,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3661962909180790994, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3704160777848949328, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -710,6 +714,10 @@ PrefabInstance:
     - target: {fileID: 3728804290275138561, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728804290275138561, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3786064091942543194, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
       propertyPath: m_Layer
@@ -1611,6 +1619,10 @@ PrefabInstance:
       propertyPath: <ParentNetworkObject>k__BackingField
       value: 
       objectReference: {fileID: 5587996881632906099}
+    - target: {fileID: 8434385556144608016, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8565450559166660275, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -1743,6 +1755,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8981706509230505178, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8994762175835626013, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -1778,6 +1794,10 @@ PrefabInstance:
     - target: {fileID: 9131769810566877388, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9161248745305005310, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9177992485008970741, guid: 1c3eed1ea37ecc1448e41270cdc63486, type: 3}
       propertyPath: m_Layer

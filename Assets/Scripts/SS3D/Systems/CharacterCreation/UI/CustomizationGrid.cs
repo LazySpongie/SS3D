@@ -20,7 +20,7 @@ namespace SS3D.Systems.CharacterCreation
         public delegate void CustomizationGridStartEventHandler(CustomizationType type, CustomizationGrid grid);
 
         // When the selection changes
-        public event CustomizationGridSelectionEventHandler OnCustomizationGridSelectionChanged;
+        public event CustomizationGridSelectionEventHandler OnCustomizationGridSelected;
         
         // When this script starts
         public event CustomizationGridStartEventHandler OnCustomizationGridStarted;
@@ -112,9 +112,8 @@ namespace SS3D.Systems.CharacterCreation
         /// </summary>
         public void SetSelectedOptionByName(string name)
         {
-            for (int i = 0; _customizationSlots.Count > 0; i++)
+            foreach (CustomizationSlot option in _customizationSlots)
             {
-                CustomizationSlot option = _customizationSlots[i];
                 if (option.CustomizationSO.name == name)
                 {
                     HandleSlotButtonPressed(option);
@@ -146,7 +145,7 @@ namespace SS3D.Systems.CharacterCreation
             _selectedOption = slot;
             _selectedOption.Button.interactable = false;
 
-            OnCustomizationGridSelectionChanged?.Invoke(_customizationType, _selectedOption);
+            OnCustomizationGridSelected?.Invoke(_customizationType, _selectedOption);
         }
 
         /// <summary>

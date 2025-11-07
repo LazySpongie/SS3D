@@ -6,9 +6,20 @@ namespace SS3D.Systems.CharacterCreation
     /// </summary>
     public enum CustomizationType
     {
+        CharacterName,
+        Role,
+        Loadout,
         Hairstyle,
         Beardstyle,
-        Eyebrow,
-        LoadoutItem,
+        Eyebrows,
+        SkinColor,
+        HairColor,
+        EyeColor,
+        Height,
+        Weight,
+        Muscle,
+        Jaw,
+        Chest,
+        Butt,
     }
 }
