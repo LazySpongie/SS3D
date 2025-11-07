@@ -10,16 +10,21 @@ using SS3D.UI.Buttons;
 using UnityEngine;
 using SS3D.Attributes;
 using TMPro;
+using System.Collections.Generic;
+using SS3D.Data;
+using SS3D.Logging;
+using System;
+using UnityEngine.UI;
 
 namespace SS3D.Systems.CharacterCreation
 {
     /// <summary>
     /// Sends selected customization to CharacterCreationSubSystem and previews customization on the lobby avatar
     /// </summary>
-    public sealed class CharacterCreationView : NetworkActor
+    public sealed class CharacterCreationView : Actor
     {
         [SerializeField] [NotNull] private AppearanceDisplayer _previewCharacter;
-        [SerializeField] [NotNull] private TMP_Text _previewNameText;
+        [SerializeField] [NotNull] private List<TMP_Text> _previewNameTexts;
         
         [Header("Name Selection")]
         [SerializeField] [NotNull] private TMP_InputField _characterNameSelection;
@@ -29,6 +34,11 @@ namespace SS3D.Systems.CharacterCreation
         [SerializeField] [NotNull] private CustomizationGrid _beardSelection;
         [SerializeField] [NotNull] private CustomizationGrid _eyebrowSelection;
 
+        [Header("Color Selection")]
+        [SerializeField][NotNull] private Button _hairColorSelection;
+        [SerializeField][NotNull] private Button _eyeColorSelection;
+        [SerializeField][NotNull] private Button _skinColorSelection;
+        
         private CharacterCreationSubSystem _characterCreationSubSystem;
         
         protected override void OnAwake()
@@ -46,7 +56,11 @@ namespace SS3D.Systems.CharacterCreation
             _hairSelection.OnCustomizationGridSelected += HandleHairBeardBrowSelected;
             _beardSelection.OnCustomizationGridSelected += HandleHairBeardBrowSelected;
             _eyebrowSelection.OnCustomizationGridSelected += HandleHairBeardBrowSelected;
-
+            
+            _hairColorSelection.onClick.AddListener(() => HandleColorSelectionChanged(CustomizationType.HairColor));
+            _eyeColorSelection.onClick.AddListener(() => HandleColorSelectionChanged(CustomizationType.EyeColor));
+            _skinColorSelection.onClick.AddListener(() => HandleColorSelectionChanged(CustomizationType.SkinColor));
+             
             _characterNameSelection.onValueChanged.AddListener(HandleCharacterNameChanged);
         }
 
@@ -64,35 +78,32 @@ namespace SS3D.Systems.CharacterCreation
             _beardSelection.OnCustomizationGridSelected -= HandleHairBeardBrowSelected;
             _eyebrowSelection.OnCustomizationGridSelected -= HandleHairBeardBrowSelected;
 
+            _hairColorSelection.onClick.RemoveListener(() => HandleColorSelectionChanged(CustomizationType.HairColor));
+            _eyeColorSelection.onClick.RemoveListener(() => HandleColorSelectionChanged(CustomizationType.EyeColor));
+            _skinColorSelection.onClick.RemoveListener(() => HandleColorSelectionChanged(CustomizationType.SkinColor));
+
             _characterNameSelection.onValueChanged.RemoveListener(HandleCharacterNameChanged);
         }
-        
-        protected override void OnStart()
-        {
-            base.OnStart();
-            
-            _characterNameSelection.text = _characterCreationSubSystem.CharacterName;
-        }
 
+        public void HandleColorSelectionChanged(CustomizationType type)
+        {
+            _characterCreationSubSystem.ColorButtonOnClick(type);
+        }
+        
         /// <summary>
         /// Method called when a grid is loaded so the correct option can be set as selected in the ui.
         /// </summary>
         public void HandleCustomizationGridStarted(CustomizationType type, CustomizationGrid grid)
         {
+            Dictionary<CustomizationType, string> customization = _characterCreationSubSystem.CurrentCustomization;
+            
             // Need to load data and send it
             switch (type)
             {
                 case CustomizationType.Hairstyle:
-                    // code
-                    grid.SetSelectedOptionByName(_characterCreationSubSystem.HairStyle.name);
-                    break;
                 case CustomizationType.Beardstyle:
-                    // code
-                    grid.SetSelectedOptionByName(_characterCreationSubSystem.Beardstyle.name);
-                    break;
                 case CustomizationType.Eyebrows:
-                    // code
-                    grid.SetSelectedOptionByName(_characterCreationSubSystem.Eyebrows.name);
+                    grid.SetSelectedOptionByName(customization[type]);
                     break;
                 default:
                     // error
@@ -105,7 +116,7 @@ namespace SS3D.Systems.CharacterCreation
         /// </summary>
         public void HandleCharacterNameChanged(string name)
         {
-            _characterCreationSubSystem.SetCharacterName(name);
+            _characterCreationSubSystem.SetCustomizationOption(CustomizationType.CharacterName, name);
         }
 
         /// <summary>
@@ -116,53 +127,76 @@ namespace SS3D.Systems.CharacterCreation
             switch (type)
             {
                 case CustomizationType.Hairstyle:
-                    _characterCreationSubSystem.SetHairstyle(option.CustomizationSO);
-                    break;
                 case CustomizationType.Beardstyle:
-                    _characterCreationSubSystem.SetBeardstyle(option.CustomizationSO);
-                    break;
                 case CustomizationType.Eyebrows:
-                    _characterCreationSubSystem.SetEyebrows(option.CustomizationSO);
+                    _characterCreationSubSystem.SetCustomizationOption(type, option.CustomizationSO.name);
                     break;
                 default:
                     // error
                     break;
             }
         }
-        
+
         /// <summary>
         /// Method called the players customization is changed, update the preview.
         /// </summary>
-        public void HandleCustomizationChanged(CustomizationType type)
+        public void HandleCustomizationChanged()
+        {
+            Dictionary<CustomizationType, string> customization = _characterCreationSubSystem.CurrentCustomization;
+
+            foreach (int i in Enum.GetValues(typeof(CustomizationType)))
+            {
+                CustomizationType type = (CustomizationType)i;
+                switch (type)
+                {
+                    case CustomizationType.Hairstyle:
+                    case CustomizationType.Beardstyle:
+                    case CustomizationType.Eyebrows:
+                        CustomizationSO option = Assets.Get<CustomizationSO>("Customization", customization[type]);
+                        _previewCharacter.SetStyle(type, option);
+                        break;
+
+                    case CustomizationType.HairColor:
+                    case CustomizationType.EyeColor:
+                    case CustomizationType.SkinColor:
+                        if (!ColorUtility.TryParseHtmlString("#" + customization[type], out Color color)) break;
+                        _previewCharacter.SetColor(type, color);
+                        SetColourPickerButton(type, color);
+                        break;
+
+                    case CustomizationType.CharacterName:
+                        foreach (TMP_Text text in _previewNameTexts)
+                        {
+                            text.text = customization[type];
+                        }
+                        _characterNameSelection.text = customization[type];
+
+                        break;
+
+                    default:
+                        // no code for other customisation types has been added yet
+                        break;
+                }
+            }
+        }
+        
+        public void SetColourPickerButton(CustomizationType type, Color color)
         {
             switch (type)
             {
-                case CustomizationType.Hairstyle:
-                    _previewCharacter.SetHairstyle(_characterCreationSubSystem.HairStyle);
-                    break;
-                case CustomizationType.Beardstyle:
-                    _previewCharacter.SetBeardstyle(_characterCreationSubSystem.Beardstyle);
-                    break;
-                case CustomizationType.Eyebrows:
-                    _previewCharacter.SetEyebrows(_characterCreationSubSystem.Eyebrows);
-                    break;
                 case CustomizationType.HairColor:
-                    _previewCharacter.SetHairColor(_characterCreationSubSystem.HairColor);
+                    _hairColorSelection.GetComponent<Image>().color = color;
                     break;
                 case CustomizationType.EyeColor:
-                    _previewCharacter.SetEyeColor(_characterCreationSubSystem.EyeColor);
+                    _eyeColorSelection.GetComponent<Image>().color = color;
                     break;
                 case CustomizationType.SkinColor:
-                    _previewCharacter.SetSkinColor(_characterCreationSubSystem.SkinColor);
-                    break;
-                case CustomizationType.CharacterName:
-                    _previewNameText.text = _characterCreationSubSystem.CharacterName;
+                    _skinColorSelection.GetComponent<Image>().color = color;
                     break;
                 default:
-                    // no code for other customisation types has been added yet
+                    // error
                     break;
             }
         }
-
     }
 }

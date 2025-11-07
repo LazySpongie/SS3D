@@ -74,60 +74,53 @@ namespace SS3D.Systems.CharacterCreation
         }
 
         /// <summary>
-        /// Sets hair color
+        /// Sets color
         /// </summary>
         [Client]
-        public void SetHairColor(Color color)
+        public void SetColor(CustomizationType type, Color color)
         {
-            _hairMaterial.SetColor("_Color", color);
+            switch (type)
+            {
+                case CustomizationType.HairColor:
+                    // code
+                    _hairMaterial.SetColor("_Color", color);
+                    break;
+                case CustomizationType.EyeColor:
+                    // code
+                    _eyeMaterial.SetColor("_Color", color);
+                    break;
+                case CustomizationType.SkinColor:
+                    // code
+                    _skinMaterial.SetColor("_Color", color);
+                    break;
+                default:
+                    // error
+                    break;
+            }
         }
         
         /// <summary>
-        /// Sets skin color
+        /// Set hair beard eyebrows.
         /// </summary>
         [Client]
-        public void SetSkinColor(Color color)
-        {
-            _skinMaterial.SetColor("_Color", color);
-        }
-
-        /// <summary>
-        /// Sets eye color
-        /// </summary>
-        [Client]
-        public void SetEyeColor(Color color)
-        {
-            _eyeMaterial.SetColor("_Color", color);
-        }
-
-        /// <summary>
-        /// Set hairstyle mesh.
-        /// </summary>
-        [Client]
-        public void SetHairstyle(CustomizationSO customizationSO)
+        public void SetStyle(CustomizationType type, CustomizationSO customizationSO)
         {
             HairstyleSO hair = (HairstyleSO)customizationSO;
-            _hairRenderer.sharedMesh = hair.HairModel;
-        }
-
-        /// <summary>
-        /// Set hairstyle mesh.
-        /// </summary>
-        [Client]
-        public void SetBeardstyle(CustomizationSO customizationSO)
-        {
-            HairstyleSO hair = (HairstyleSO)customizationSO;
-            _beardRenderer.sharedMesh = hair.HairModel;
-        }
-        
-		/// <summary>
-        /// Set hairstyle mesh.
-        /// </summary>
-        [Client]
-        public void SetEyebrows(CustomizationSO customizationSO)
-        {
-            HairstyleSO hair = (HairstyleSO)customizationSO;
-            _eyebrowRenderer.sharedMesh = hair.HairModel;
+            switch (type)
+            {
+                case CustomizationType.Hairstyle:
+                    _hairRenderer.sharedMesh = hair.HairModel;
+                    break;
+                case CustomizationType.Beardstyle:
+                    _beardRenderer.sharedMesh = hair.HairModel;
+                    break;
+                case CustomizationType.Eyebrows:
+                    _eyebrowRenderer.sharedMesh = hair.HairModel;
+                    break;
+                default:
+                    // error
+                    break;
+            }
         }
 
         /// <summary>

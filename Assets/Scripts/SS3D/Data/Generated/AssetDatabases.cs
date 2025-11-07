@@ -6,6 +6,7 @@ namespace SS3D.Data.Generated
     public static class AssetDatabases
     {
         public static DatabaseAsset CraftingRecipes = new DatabaseAsset("CraftingRecipes", "AssetDatabases");
+        public static DatabaseAsset Customization = new DatabaseAsset("Customization", "AssetDatabases");
         public static DatabaseAsset InteractionIcons = new DatabaseAsset("InteractionIcons", "AssetDatabases");
         public static DatabaseAsset Items = new DatabaseAsset("Items", "AssetDatabases");
         public static DatabaseAsset ItemVisuals = new DatabaseAsset("ItemVisuals", "AssetDatabases");

@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Customization
+  m_EditorClassIdentifier: 
+  m_GroupName: Customization
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 0025e03826391444898f7b48a766465e
+  m_SerializeEntries:
+  - m_GUID: 95fe6a66f2f9e5640b3e332ce57e3d72
+    m_Address: Assets/Content/Data/CharacterCreation/Eyebrows/Default.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 71b2a2caa4a79304da7d8f5bd73c146c
+    m_Address: Assets/Content/Data/CharacterCreation/Eyebrows/Bold.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a9b83fc1ec00ec84f96f42495188acd6
+    m_Address: Assets/Content/Data/CharacterCreation/Eyebrows/Classic.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 23e92b76514bdc54f89bbfcc6a334328
+    m_Address: Assets/Content/Data/CharacterCreation/Eyebrows/Circles.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 60bfe03b1e899084584b8b02780fa57b
+    m_Address: Assets/Content/Data/CharacterCreation/Eyebrows/Dainty.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c196b5486dd0cea4aaf3730375949641
+    m_Address: Assets/Content/Data/CharacterCreation/Beardstyles/Danish.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 89b4a9042d7f3ab42a708c3bbef44ebb
+    m_Address: Assets/Content/Data/CharacterCreation/Hairstyles/Bald.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3d321a4a18b3a454ead9dbff4e18edc2
+    m_Address: Assets/Content/Data/CharacterCreation/Hairstyles/Anime.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d5855b7864ca05a40aa00f8346028cd9
+    m_Address: Assets/Content/Data/CharacterCreation/Hairstyles/Beep.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9bed4f23bb0b35441aec2b48ae0c56c7
+    m_Address: Assets/Content/Data/CharacterCreation/Hairstyles/Fry.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ddc57d0f5f9fb874e8a26db0c5b215e0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 46ebcd95cadb0a347a2b494a86253607, type: 2}
+    - {fileID: 11400000, guid: e6972cbba4999f44684e41e7080de23d, type: 2}

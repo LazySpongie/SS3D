@@ -6,6 +6,12 @@ using UnityEngine.InputSystem;
 using SS3D.Core;
 using SS3D.Core.Behaviours;
 using SS3D.Attributes;
+using FishNet.Object;
+using SS3D.Systems.Entities;
+using SS3D.Systems.Entities.Events;
+using Coimbra.Services.Events;
+using SS3D.Logging;
+using System;
 
 namespace SS3D.Systems.CharacterCreation
 {
@@ -26,7 +32,7 @@ namespace SS3D.Systems.CharacterCreation
     /// </summary>
     public class CharacterCreationSubSystem : NetworkSubSystem
     {
-        public delegate void CharacterCustomizationChangedHandler(CustomizationType type);
+        public delegate void CharacterCustomizationChangedHandler();
 
         public event CharacterCustomizationChangedHandler OnCharacterCustomizationChanged;
 
@@ -39,56 +45,110 @@ namespace SS3D.Systems.CharacterCreation
         [SerializeField] public CustomizationSO defaultEyebrows;
 
         [Header("Default Colors")]
-        [SerializeField] public Color defaultHairColor;
-        [SerializeField] public Color defaultEyeColor;
-        [SerializeField] public Color defaultSkinColor;
+        [SerializeField] public List<Color> hairColours;
+        [SerializeField] public List<Color> eyeColors;
+        [SerializeField] public List<Color> skinColors;
 
-        private string _characterName;
-        private CustomizationSO _hairStyle;
-        private CustomizationSO _beardStyle;
-        private CustomizationSO _eyebrows;
-        private Color _hairColor;
-        private Color _eyeColor;
-        private Color _skinColor;
+        private int _currentHairColor = 0;
+        private int _currentEyeColor = 0;
+        private int _currentSkinColor = 0;
 
-        public string CharacterName => _characterName;
+        private Dictionary<CustomizationType, string> _currentCustomization = new Dictionary<CustomizationType, string>();
 
-        public CustomizationSO HairStyle => _hairStyle;
+        public Dictionary<CustomizationType, string> CurrentCustomization => _currentCustomization;
 
-        public CustomizationSO Beardstyle => _beardStyle;
-
-        public CustomizationSO Eyebrows => _eyebrows;
-        
-        public Color HairColor => _hairColor;
-        
-        public Color EyeColor => _eyeColor;
-        
-        public Color SkinColor => _skinColor;
-
-        protected override void OnStart()
+        protected override void OnAwake()
         {
-            base.OnStart();
+            base.OnAwake();
 
             SetDefault();
+
+        }
+
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
+
+            OnCharacterCustomizationChanged?.Invoke();
+            
+            AddHandle(SpawnedPlayersUpdated.AddListener(HandleSpawnedPlayersUpdated));
+        }
+
+        [Client]
+        private void HandleSpawnedPlayersUpdated(ref EventContext context, in SpawnedPlayersUpdated e)
+        {
+            AddCustomizationToPlayer();
+        }
+
+        [Client]
+        private void AddCustomizationToPlayer()
+        {
+            EntitySubSystem system = SubSystems.Get<EntitySubSystem>();
+
+            if (!system.TryGetSpawnedEntity(LocalConnection, out Entity entity)) return;
+
+            entity.GetComponent<UniqueIdentifiers>()?.SetCustomization(_currentCustomization);
+            //add customization here
         }
 
         /// <summary>
         /// Method called when the save character button is clicked.
         /// </summary>
+        [Client]
         public void SetDefault()
         {
-            SetCharacterName(defaultCharacterName);
-            SetHairstyle(defaultHair);
-            SetBeardstyle(defaultBeard);
-            SetEyebrows(defaultEyebrows);
-            SetHairColor(defaultHairColor);
-            SetEyeColor(defaultEyeColor);
-            SetSkinColor(defaultSkinColor);
+            SetCustomizationOption(CustomizationType.CharacterName, defaultCharacterName, false);
+            SetCustomizationOption(CustomizationType.Hairstyle, defaultHair.name, false);
+            SetCustomizationOption(CustomizationType.Beardstyle, defaultBeard.name, false);
+            SetCustomizationOption(CustomizationType.Eyebrows, defaultEyebrows.name, false);
+
+            SetCustomizationOption(CustomizationType.HairColor, ColorUtility.ToHtmlStringRGB(hairColours[_currentHairColor]), false);
+            SetCustomizationOption(CustomizationType.EyeColor, ColorUtility.ToHtmlStringRGB(eyeColors[_currentEyeColor]), false);
+            SetCustomizationOption(CustomizationType.SkinColor, ColorUtility.ToHtmlStringRGB(skinColors[_currentSkinColor]), false);
         }
-        
+
+        [Client]
+        public void SetCustomizationOption(CustomizationType type, string option, bool invoke = true)
+        {
+            _currentCustomization[type] = option;
+            // Log.Information(this, type + " has value: " + _currentCustomization[type]);
+
+            if (!invoke) return;
+            OnCharacterCustomizationChanged?.Invoke();
+        }
+
+        [Client]
+        public void ColorButtonOnClick(CustomizationType type)
+        {
+            // placeholder
+            switch (type)
+            {
+                case CustomizationType.HairColor:
+                    _currentHairColor++;
+                    if (_currentHairColor >= hairColours.Count) _currentHairColor = 0;
+                    SetCustomizationOption(type, ColorUtility.ToHtmlStringRGB(hairColours[_currentHairColor]));
+                    break;
+
+                case CustomizationType.EyeColor:
+                    _currentEyeColor++;
+                    if (_currentEyeColor >= eyeColors.Count) _currentEyeColor = 0;
+                    SetCustomizationOption(type, ColorUtility.ToHtmlStringRGB(eyeColors[_currentEyeColor]));
+                    break;
+
+                case CustomizationType.SkinColor:
+                    _currentSkinColor++;
+                    if (_currentSkinColor >= skinColors.Count) _currentSkinColor = 0;
+                    SetCustomizationOption(type, ColorUtility.ToHtmlStringRGB(skinColors[_currentSkinColor]));
+                    break;
+                default:
+                    break;
+            }
+        }
+
         /// <summary>
         /// Method called when the load character button is clicked.
         /// </summary>
+        [Client]
         public void HandleLoadButton()
         {
             // set hairstyle selection here
@@ -97,51 +157,10 @@ namespace SS3D.Systems.CharacterCreation
         /// <summary>
         /// Method called when the save character button is clicked.
         /// </summary>
+        [Client]
         public void HandleSaveButton()
         {
 
-        }
-
-        public void SetCharacterName(string option)
-        {
-            _characterName = option;
-            OnCharacterCustomizationChanged?.Invoke(CustomizationType.CharacterName);
-        }
-
-        public void SetHairstyle(CustomizationSO option)
-        {
-            _hairStyle = option;
-            OnCharacterCustomizationChanged?.Invoke(CustomizationType.Hairstyle);
-        }
-        
-        public void SetBeardstyle(CustomizationSO option)
-        {
-            _beardStyle = option;
-            OnCharacterCustomizationChanged?.Invoke(CustomizationType.Beardstyle);
-        }
-
-        public void SetEyebrows(CustomizationSO option)
-        {
-            _eyebrows = option;
-            OnCharacterCustomizationChanged?.Invoke(CustomizationType.Eyebrows);
-        }
-
-        public void SetHairColor(Color option)
-        {
-            _hairColor = option;
-            OnCharacterCustomizationChanged?.Invoke(CustomizationType.HairColor);
-        }
-
-        public void SetEyeColor(Color option)
-        {
-            _eyeColor = option;
-            OnCharacterCustomizationChanged?.Invoke(CustomizationType.EyeColor);
-        }
-
-        public void SetSkinColor(Color option)
-        {
-            _skinColor = option;
-            OnCharacterCustomizationChanged?.Invoke(CustomizationType.SkinColor);
         }
 
     }

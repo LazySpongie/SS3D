@@ -22,8 +22,6 @@ MonoBehaviour:
       _value: {fileID: 60374868058361228, guid: 4b790b4ffedbe564dab49f896d71eaa6, type: 3}
     - _key: 8192
       _value: {fileID: 7723921361698481624, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
-    - _key: 128
-      _value: {fileID: 1687938131941834081, guid: bf177f8bab26bc84b87fd9a971004418, type: 3}
     - _key: 131072
       _value: {fileID: 673006003877921716, guid: ecf20fce33ec6c044a07ff731e6dca4c, type: 3}
     - _key: 65536
