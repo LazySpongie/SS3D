@@ -5,6 +5,7 @@ using UnityEngine.Video;
 using System.Collections.Generic;
 using FishNet.Object.Synchronizing;
 using SS3D.Data;
+using Coimbra;
 
 namespace SS3D.Systems.CharacterCreation
 {

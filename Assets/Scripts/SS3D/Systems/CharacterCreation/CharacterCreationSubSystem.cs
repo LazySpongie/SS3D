@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,6 +11,8 @@ using SS3D.Systems.Entities.Events;
 using Coimbra.Services.Events;
 using SS3D.Logging;
 using System;
+using Coimbra;
+using SS3D.Data.Management;
 
 namespace SS3D.Systems.CharacterCreation
 {
@@ -36,6 +37,10 @@ namespace SS3D.Systems.CharacterCreation
 
         public event CharacterCustomizationChangedHandler OnCharacterCustomizationChanged;
 
+	    public const string SavePath = "/Characters";
+
+	    public const string UnnamedCharacterName = "John Beep";
+
         [Header("Default Names")]
         [SerializeField] public string defaultCharacterName;
 
@@ -53,16 +58,32 @@ namespace SS3D.Systems.CharacterCreation
         private int _currentEyeColor = 0;
         private int _currentSkinColor = 0;
 
-        private Dictionary<CustomizationType, string> _currentCustomization = new Dictionary<CustomizationType, string>();
+        /// <summary>
+        /// Dictionary of saved customization to be used in-game
+        /// </summary>
+        private SerializableDictionary<CustomizationType, string> _savedCustomization = new SerializableDictionary<CustomizationType, string>();
 
-        public Dictionary<CustomizationType, string> CurrentCustomization => _currentCustomization;
+        /// <summary>
+        /// Dictionary of currently selected customization in the character creation screen
+        /// </summary>
+        private SerializableDictionary<CustomizationType, string> _currentCustomization = new SerializableDictionary<CustomizationType, string>();
+
+        /// <summary>
+        /// Dictionary of saved customization to be used in-game
+        /// </summary>
+        public SerializableDictionary<CustomizationType, string> SavedCustomization => _savedCustomization;
+
+        /// <summary>
+        /// Dictionary of currently selected customization in the character creation screen
+        /// </summary>
+        public SerializableDictionary<CustomizationType, string> CurrentCustomization => _currentCustomization;
 
         protected override void OnAwake()
         {
             base.OnAwake();
 
-            SetDefault();
-
+            // SetDefault();
+            HandleLoadButton();
         }
 
         public override void OnStartClient()
@@ -70,16 +91,45 @@ namespace SS3D.Systems.CharacterCreation
             base.OnStartClient();
 
             OnCharacterCustomizationChanged?.Invoke();
-            
+
             AddHandle(SpawnedPlayersUpdated.AddListener(HandleSpawnedPlayersUpdated));
         }
 
+        /// <summary>
+        /// Method called when the load character button is clicked.
+        /// </summary>
+        [Client]
+        public void HandleLoadButton()
+        {
+            _savedCustomization = LocalStorage.LoadObject<SerializableDictionary<CustomizationType, string>>(SavePath + "/" + UnnamedCharacterName);
+
+            SetCurrentCustomizationFromSaved();
+        }
+
+        /// <summary>
+        /// Method called when the save character button is clicked.
+        /// </summary>
+        [Client]
+        public void HandleSaveButton()
+        {
+            _savedCustomization = new SerializableDictionary<CustomizationType, string>(_currentCustomization);
+
+            bool overwrite = true;
+            LocalStorage.SaveObject(SavePath + "/" + UnnamedCharacterName, _savedCustomization, overwrite);
+        }
+
+        /// <summary>
+        /// Callback when a player entity is spawned
+        /// </summary>
         [Client]
         private void HandleSpawnedPlayersUpdated(ref EventContext context, in SpawnedPlayersUpdated e)
         {
             AddCustomizationToPlayer();
         }
 
+        /// <summary>
+        /// Get the entity for this player and send their character info to the server to be applied in-game
+        /// </summary>
         [Client]
         private void AddCustomizationToPlayer()
         {
@@ -87,8 +137,13 @@ namespace SS3D.Systems.CharacterCreation
 
             if (!system.TryGetSpawnedEntity(LocalConnection, out Entity entity)) return;
 
-            entity.GetComponent<UniqueIdentifiers>()?.SetCustomization(_currentCustomization);
-            //add customization here
+            Dictionary<CustomizationType, string> dict = new();
+            foreach (KeyValuePair<CustomizationType, string> entry in _savedCustomization)
+            {
+                dict[entry.Key] = entry.Value;
+            }
+            // ServerRPC
+            entity.GetComponent<UniqueIdentifiers>()?.SetCustomization(dict);
         }
 
         /// <summary>
@@ -108,10 +163,21 @@ namespace SS3D.Systems.CharacterCreation
         }
 
         [Client]
+        public void SetCurrentCustomizationFromSaved()
+        {
+            foreach (KeyValuePair<CustomizationType, string> entry in _savedCustomization)
+            {
+                SetCustomizationOption(entry.Key, entry.Value, false);
+            }
+
+            OnCharacterCustomizationChanged?.Invoke();
+        }
+        
+        [Client]
         public void SetCustomizationOption(CustomizationType type, string option, bool invoke = true)
         {
             _currentCustomization[type] = option;
-            // Log.Information(this, type + " has value: " + _currentCustomization[type]);
+            Log.Information(this, type + " has value: " + _currentCustomization[type]);
 
             if (!invoke) return;
             OnCharacterCustomizationChanged?.Invoke();
@@ -144,24 +210,5 @@ namespace SS3D.Systems.CharacterCreation
                     break;
             }
         }
-
-        /// <summary>
-        /// Method called when the load character button is clicked.
-        /// </summary>
-        [Client]
-        public void HandleLoadButton()
-        {
-            // set hairstyle selection here
-        }
-
-        /// <summary>
-        /// Method called when the save character button is clicked.
-        /// </summary>
-        [Client]
-        public void HandleSaveButton()
-        {
-
-        }
-
     }
 }

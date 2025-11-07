@@ -25,6 +25,10 @@ namespace SS3D.Systems.CharacterCreation
     {
         [SerializeField] [NotNull] private AppearanceDisplayer _previewCharacter;
         [SerializeField] [NotNull] private List<TMP_Text> _previewNameTexts;
+
+        [Header("Save/Load Buttons")]
+        [SerializeField][NotNull] private Button _saveButton;
+        [SerializeField][NotNull] private Button _loadButton;
         
         [Header("Name Selection")]
         [SerializeField] [NotNull] private TMP_InputField _characterNameSelection;
@@ -60,6 +64,9 @@ namespace SS3D.Systems.CharacterCreation
             _hairColorSelection.onClick.AddListener(() => HandleColorSelectionChanged(CustomizationType.HairColor));
             _eyeColorSelection.onClick.AddListener(() => HandleColorSelectionChanged(CustomizationType.EyeColor));
             _skinColorSelection.onClick.AddListener(() => HandleColorSelectionChanged(CustomizationType.SkinColor));
+            
+            _saveButton.onClick.AddListener(HandleSaveButtonPressed);
+            _loadButton.onClick.AddListener(HandleLoadButtonPressed);
              
             _characterNameSelection.onValueChanged.AddListener(HandleCharacterNameChanged);
         }
@@ -82,28 +89,60 @@ namespace SS3D.Systems.CharacterCreation
             _eyeColorSelection.onClick.RemoveListener(() => HandleColorSelectionChanged(CustomizationType.EyeColor));
             _skinColorSelection.onClick.RemoveListener(() => HandleColorSelectionChanged(CustomizationType.SkinColor));
 
+            _saveButton.onClick.RemoveListener(HandleSaveButtonPressed);
+            _loadButton.onClick.RemoveListener(HandleLoadButtonPressed);
+
             _characterNameSelection.onValueChanged.RemoveListener(HandleCharacterNameChanged);
+        }
+
+        public void HandleSaveButtonPressed()
+        {
+            _characterCreationSubSystem.HandleSaveButton();
+        }
+
+        public void HandleLoadButtonPressed()
+        {
+            _characterCreationSubSystem.HandleLoadButton();
+            SetSelectedStylesFromCurrent();
         }
 
         public void HandleColorSelectionChanged(CustomizationType type)
         {
             _characterCreationSubSystem.ColorButtonOnClick(type);
         }
-        
+
         /// <summary>
         /// Method called when a grid is loaded so the correct option can be set as selected in the ui.
         /// </summary>
         public void HandleCustomizationGridStarted(CustomizationType type, CustomizationGrid grid)
         {
+            SetSelectedStyleFromCurrent(type, grid);
+        }
+
+        /// <summary>
+        /// Method called when the character name text field is changed.
+        /// </summary>
+        public void SetSelectedStylesFromCurrent()
+        {
+            SetSelectedStyleFromCurrent(CustomizationType.Hairstyle, _hairSelection);
+            SetSelectedStyleFromCurrent(CustomizationType.Beardstyle, _beardSelection);
+            SetSelectedStyleFromCurrent(CustomizationType.Eyebrows, _eyebrowSelection);
+        }
+        
+        /// <summary>
+        /// Method called when the character name text field is changed.
+        /// </summary>
+        private void SetSelectedStyleFromCurrent(CustomizationType type, CustomizationGrid grid)
+        {
             Dictionary<CustomizationType, string> customization = _characterCreationSubSystem.CurrentCustomization;
-            
+
             // Need to load data and send it
             switch (type)
             {
                 case CustomizationType.Hairstyle:
                 case CustomizationType.Beardstyle:
                 case CustomizationType.Eyebrows:
-                    grid.SetSelectedOptionByName(customization[type]);
+                    grid.SetSelectedOptionByName(customization[type], false);
                     break;
                 default:
                     // error

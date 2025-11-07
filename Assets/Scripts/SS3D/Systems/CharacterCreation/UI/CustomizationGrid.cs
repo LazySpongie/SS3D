@@ -110,13 +110,13 @@ namespace SS3D.Systems.CharacterCreation
         /// <summary>
         /// Set the currently selected option by name.
         /// </summary>
-        public void SetSelectedOptionByName(string name)
+        public void SetSelectedOptionByName(string name, bool invoke = true)
         {
             foreach (CustomizationSlot option in _customizationSlots)
             {
                 if (option.CustomizationSO.name == name)
                 {
-                    HandleSlotButtonPressed(option);
+                    HandleSlotButtonPressed(option, invoke);
                 }
             }
         }
@@ -136,7 +136,7 @@ namespace SS3D.Systems.CharacterCreation
         /// <summary>
         /// Called when an option in the grid is selected, set the option as the selected option.
         /// </summary>
-        private void HandleSlotButtonPressed(CustomizationSlot slot)
+        private void HandleSlotButtonPressed(CustomizationSlot slot, bool invoke = true)
         {
             if (slot == null) slot = _customizationSlots[0];
             if (slot == null) return;
@@ -145,6 +145,7 @@ namespace SS3D.Systems.CharacterCreation
             _selectedOption = slot;
             _selectedOption.Button.interactable = false;
 
+            if (!invoke) return;
             OnCustomizationGridSelected?.Invoke(_customizationType, _selectedOption);
         }
 
