@@ -7,6 +7,7 @@ using SS3D.Systems.Health;
 using SS3D.Data;
 using UnityEngine;
 using FishNet.Object;
+using SS3D.Systems.CharacterCreation;
 
 namespace SS3D.Systems.Inventory.Clothing
 {
@@ -28,6 +29,12 @@ namespace SS3D.Systems.Inventory.Clothing
         [SerializeField]
         private HealthController _healthController;
 
+        /// <summary>
+        /// AppearanceDisplay to hide hairstyles when hats are worn.
+        /// </summary>
+        [SerializeField]
+        private AppearanceDisplayer _appearanceDisplayer;
+
 		/// <summary>
         /// Add an item to be displayed.
         /// </summary>
@@ -43,13 +50,12 @@ namespace SS3D.Systems.Inventory.Clothing
             newSlot.SetItem(ItemVisualData);
 
             ClothingItemCullingData newCullingData = newSlot.CullingData;
-            AddCulling(newCullingData);
+            AddCulling(newSlot);
         }
 
 		/// <summary>
         /// Remove an item from being displayed.
         /// </summary>
-        [Client]
         public void RemoveItem(ClothingSlotType clothingSlotType)
         {
             ClothingVisualSlot oldSlot = _clothingVisualSlots.
@@ -58,7 +64,7 @@ namespace SS3D.Systems.Inventory.Clothing
             if (!oldSlot.HasItem) return;
 
             ClothingItemCullingData oldCullingData = oldSlot.CullingData;
-            RemoveCulling(oldCullingData);
+            RemoveCulling(oldSlot);
 
             oldSlot.RemoveItem();
         }
@@ -66,34 +72,37 @@ namespace SS3D.Systems.Inventory.Clothing
         /// <summary>
         /// Use culling data provided by the item to set certain clothing slots invisible when equipped
         /// </summary>
-        [Client]
-        private void AddCulling(ClothingItemCullingData cullingData)
+        private void AddCulling(ClothingVisualSlot slot)
         {
+            ClothingItemCullingData cullingData = slot.CullingData;
             if (cullingData == null) return;
 
-            SetCullingOnClothingVisualSlots(cullingData, true);
+            SetCullingOnClothingVisualSlots(slot, cullingData, true);
 
-            SetCullingOnBodyParts(cullingData, true);
+            SetCullingOnBodyParts(slot, cullingData, true);
+            
+            SetCullingOnAppearance(slot, cullingData, true);
         }
 
 		/// <summary>
         /// Use culling data provided by the item to set certain clothing slots visible when unequipped
         /// </summary>
-        [Client]
-        private void RemoveCulling(ClothingItemCullingData cullingData)
+        private void RemoveCulling(ClothingVisualSlot slot)
         {
+            ClothingItemCullingData cullingData = slot.CullingData;
             if (cullingData == null) return;
 
-            SetCullingOnClothingVisualSlots(cullingData, false);
+            SetCullingOnClothingVisualSlots(slot, cullingData, false);
 
-            SetCullingOnBodyParts(cullingData, false);
+            SetCullingOnBodyParts(slot, cullingData, false);
+            
+            SetCullingOnAppearance(slot, cullingData, false);
         }
 
         /// <summary>
         /// Get a body part that is referenced in the given culling data
         /// </summary>
-        [Client]
-        private void SetCullingOnClothingVisualSlots(ClothingItemCullingData cullingData, bool addCulling)
+        private void SetCullingOnClothingVisualSlots(ClothingVisualSlot slot, ClothingItemCullingData cullingData, bool addCulling)
         {
             foreach (ClothingVisualSlot clothingVisualSlot in _clothingVisualSlots)
             {
@@ -101,11 +110,11 @@ namespace SS3D.Systems.Inventory.Clothing
                 {
                     if (addCulling)
                     {
-                        clothingVisualSlot.Cullable?.AddCuller(gameObject);
+                        clothingVisualSlot.RendererController?.AddCuller(slot.gameObject);
                     }
                     else
                     {
-                        clothingVisualSlot.Cullable?.RemoveCuller(gameObject);
+                        clothingVisualSlot.RendererController?.RemoveCuller(slot.gameObject);
                     }
                 }
             }
@@ -114,23 +123,29 @@ namespace SS3D.Systems.Inventory.Clothing
         /// <summary>
         /// Get a body part that is referenced in the given culling data
         /// </summary>
-        [Client]
-        private void SetCullingOnBodyParts(ClothingItemCullingData cullingData, bool addCulling)
+        private void SetCullingOnBodyParts(ClothingVisualSlot slot, ClothingItemCullingData cullingData, bool addCulling)
         {
             foreach (BodyPart bodyPart in _healthController.BodyPartsOnEntity)
             {
-                if (cullingData.CulledBodyParts.Contains(bodyPart.BodyPartType))
+                if (!cullingData.CulledBodyParts.Contains(bodyPart.BodyPartType)) continue;
+                if (addCulling)
                 {
-                    if (addCulling)
-                    {
-                        bodyPart.GetComponent<Cullable>()?.AddCuller(gameObject);
-                    }
-                    else
-                    {
-                        bodyPart.GetComponent<Cullable>()?.RemoveCuller(gameObject);
-                    }
+                    bodyPart.GetComponent<RendererController>()?.AddCuller(slot.gameObject);
+                }
+                else
+                {
+                    bodyPart.GetComponent<RendererController>()?.RemoveCuller(slot.gameObject);
                 }
             }
         }
+
+        /// <summary>
+        /// Set culling on hairstyles
+        /// </summary>
+        private void SetCullingOnAppearance(ClothingVisualSlot slot, ClothingItemCullingData cullingData, bool addCulling)
+        {
+            _appearanceDisplayer?.SetCullingOnAppearance(slot.gameObject, cullingData, addCulling);
+        }
+
     }
 }

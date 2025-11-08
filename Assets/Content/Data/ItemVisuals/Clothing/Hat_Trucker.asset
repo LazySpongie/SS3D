@@ -19,5 +19,5 @@ MonoBehaviour:
   Human:
     ClothingModel: {fileID: -7106450658240330850, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
     AltClothingModel: {fileID: 0}
-  CullingData: {fileID: 0}
+  CullingData: {fileID: 11400000, guid: 306ee6c1eeb6b0e44b469ad54c22aa56, type: 2}
   AltCullingData: {fileID: 0}

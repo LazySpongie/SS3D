@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Actor = SS3D.Core.Behaviours.Actor;
 
 namespace SS3D.Systems.CharacterCreation

@@ -1,12 +1,5 @@
-﻿using Coimbra.Services.Events;
-using SS3D.Core;
+﻿using SS3D.Core;
 using SS3D.Core.Behaviours;
-using SS3D.Systems.Entities;
-using SS3D.Systems.Entities.Events;
-using SS3D.Systems.PlayerControl;
-using SS3D.Systems.Rounds;
-using SS3D.Systems.Rounds.Messages;
-using SS3D.UI.Buttons;
 using UnityEngine;
 using SS3D.Attributes;
 using TMPro;

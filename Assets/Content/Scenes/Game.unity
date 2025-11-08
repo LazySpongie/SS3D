@@ -161,6 +161,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3736358311482321783, guid: 8c378d8ec3d1cda4389f92d2d8703b6a, type: 3}
   m_PrefabInstance: {fileID: 4370972904279086840}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &129388056 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1450651917197540231, guid: 2d191bd0e2c3e2f4b9ec68793b19550a, type: 3}
+  m_PrefabInstance: {fileID: 3566512690706384257}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &186985837 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1395822501469018562, guid: e2f005da321fca14d8830ef19486c200, type: 3}
@@ -784,6 +795,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25696236470760b41b375e9b6939444c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &581061479 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9039283377541726869, guid: 2d191bd0e2c3e2f4b9ec68793b19550a, type: 3}
+  m_PrefabInstance: {fileID: 3566512690706384257}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &588857774 stripped
@@ -1952,7 +1974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4468402021075485018, guid: cc5383d385556f443b2a7d3202f2b2c1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -229.99998
+      value: -230.00006
       objectReference: {fileID: 0}
     - target: {fileID: 4468402021449001342, guid: cc5383d385556f443b2a7d3202f2b2c1, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -13636,6 +13658,14 @@ PrefabInstance:
       propertyPath: _embarkButton
       value: 
       objectReference: {fileID: 4370972904279086841}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: _loadButton
+      value: 
+      objectReference: {fileID: 129388056}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: _saveButton
+      value: 
+      objectReference: {fileID: 581061479}
     - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
       propertyPath: _hairSelection
       value: 

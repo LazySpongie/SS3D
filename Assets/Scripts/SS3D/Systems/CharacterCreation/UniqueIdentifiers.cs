@@ -1,17 +1,16 @@
 ﻿using SS3D.Core.Behaviours;
 using UnityEngine;
 using FishNet.Object;
-using UnityEngine.Video;
 using System.Collections.Generic;
 using FishNet.Object.Synchronizing;
 using SS3D.Data;
-using Coimbra;
+using SS3D.Attributes;
 
 namespace SS3D.Systems.CharacterCreation
 {
 
     /// <summary>
-    /// Client script that displays appearance on the player
+    /// Script on an entity that stores the current appearance and sends it to AppearanceDisplayer when changed
     /// </summary>
     public class UniqueIdentifiers : NetworkActor
     {
@@ -19,7 +18,7 @@ namespace SS3D.Systems.CharacterCreation
         /// <summary>
         /// Renderer that will display the characters appearance.
         /// </summary>
-        [SerializeField] private AppearanceDisplayer _appearance;
+        [SerializeField] [NotNull] private AppearanceDisplayer _appearanceDisplayer;
         
         [SyncObject]
         private readonly SyncDictionary<CustomizationType, string> _currentCustomization = new();
@@ -27,14 +26,15 @@ namespace SS3D.Systems.CharacterCreation
         protected override void OnAwake()
         {
             base.OnAwake();
-            _currentCustomization.OnChange += SyncCustomization;
+            _currentCustomization.OnChange += SyncAppearance;
         }
 
         #region Syncing
 
-        public void SyncCustomization(SyncDictionaryOperation op, CustomizationType type, string value, bool asServer)
+        public void SyncAppearance(SyncDictionaryOperation op, CustomizationType type, string value, bool asServer)
         {
-            // if (asServer) return;
+            if (asServer) return;
+            
             if (op != SyncDictionaryOperation.Set) return;
 
             switch (type)
@@ -43,14 +43,14 @@ namespace SS3D.Systems.CharacterCreation
                 case CustomizationType.Beardstyle:
                 case CustomizationType.Eyebrows:
                     CustomizationSO option = Assets.Get<CustomizationSO>("Customization", value);
-                    _appearance.SetStyle(type, option);
+                    _appearanceDisplayer.SetStyle(type, option);
                     break;
 
                 case CustomizationType.HairColor:
                 case CustomizationType.EyeColor:
                 case CustomizationType.SkinColor:
                     if (!ColorUtility.TryParseHtmlString("#" + value, out Color color)) break;
-                    _appearance.SetColor(type, color);
+                    _appearanceDisplayer.SetColor(type, color);
                     break;
 
                 case CustomizationType.CharacterName:
@@ -65,10 +65,10 @@ namespace SS3D.Systems.CharacterCreation
         #endregion
 
         /// <summary>
-        /// Sets customization
+        /// Called by client when their player entity is spawned to set their appearance
         /// </summary>
         [ServerRpc(RequireOwnership = false)]
-        public void SetCustomization(Dictionary<CustomizationType, string> customization)
+        public void SetAppearance(Dictionary<CustomizationType, string> customization)
         {
             foreach (KeyValuePair<CustomizationType, string> entry in customization)
             {

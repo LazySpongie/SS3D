@@ -1,16 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using SS3D.Core;
 using SS3D.Core.Behaviours;
-using SS3D.Attributes;
 using FishNet.Object;
 using SS3D.Systems.Entities;
 using SS3D.Systems.Entities.Events;
 using Coimbra.Services.Events;
 using SS3D.Logging;
-using System;
 using Coimbra;
 using SS3D.Data.Management;
 
@@ -119,7 +115,7 @@ namespace SS3D.Systems.CharacterCreation
         }
 
         /// <summary>
-        /// Callback when a player entity is spawned
+        /// Callback when a player entity is spawned to set their appearance
         /// </summary>
         [Client]
         private void HandleSpawnedPlayersUpdated(ref EventContext context, in SpawnedPlayersUpdated e)
@@ -128,7 +124,7 @@ namespace SS3D.Systems.CharacterCreation
         }
 
         /// <summary>
-        /// Get the entity for this player and send their character info to the server to be applied in-game
+        /// When the player is spawned get their entity and send their appearance to the server to be applied
         /// </summary>
         [Client]
         private void AddCustomizationToPlayer()
@@ -138,17 +134,15 @@ namespace SS3D.Systems.CharacterCreation
             if (!system.TryGetSpawnedEntity(LocalConnection, out Entity entity)) return;
 
             Dictionary<CustomizationType, string> dict = new();
-            foreach (KeyValuePair<CustomizationType, string> entry in _savedCustomization)
+            foreach (KeyValuePair<CustomizationType, string> entry in _currentCustomization)
             {
                 dict[entry.Key] = entry.Value;
             }
+
             // ServerRPC
-            entity.GetComponent<UniqueIdentifiers>()?.SetCustomization(dict);
+            entity.GetComponent<UniqueIdentifiers>()?.SetAppearance(dict);
         }
 
-        /// <summary>
-        /// Method called when the save character button is clicked.
-        /// </summary>
         [Client]
         public void SetDefault()
         {
@@ -173,16 +167,22 @@ namespace SS3D.Systems.CharacterCreation
             OnCharacterCustomizationChanged?.Invoke();
         }
         
+        /// <summary>
+        /// Set a customization option in the current character.
+        /// </summary>
         [Client]
         public void SetCustomizationOption(CustomizationType type, string option, bool invoke = true)
         {
             _currentCustomization[type] = option;
-            Log.Information(this, type + " has value: " + _currentCustomization[type]);
+            // Log.Information(this, type + " has value: " + _currentCustomization[type]);
 
             if (!invoke) return;
             OnCharacterCustomizationChanged?.Invoke();
         }
 
+        /// <summary>
+        /// Cycle through colors when a color selection button is pressed.
+        /// </summary>
         [Client]
         public void ColorButtonOnClick(CustomizationType type)
         {

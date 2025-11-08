@@ -16,22 +16,22 @@ namespace SS3D.Systems.CharacterCreation
         /// <summary>
         /// Renderer that will display the hair.
         /// </summary>
-        [SerializeField] private SkinnedMeshRenderer _hairRenderer;
+        [SerializeField] private VisualSlot _hairSlot;
 
         /// <summary>
         /// Renderer that will display the beard.
         /// </summary>
-        [SerializeField] private SkinnedMeshRenderer _beardRenderer;
+        [SerializeField] private VisualSlot _beardSlot;
 
         /// <summary>
         /// Renderer that will display the eyebrows.
         /// </summary>
-        [SerializeField] private SkinnedMeshRenderer _eyebrowRenderer;
+        [SerializeField] private VisualSlot _eyebrowSlot;
 
         /// <summary>
         /// Renderer that will display the eyes.
         /// </summary>
-        [SerializeField] private SkinnedMeshRenderer _eyeRenderer;
+        [SerializeField] private VisualSlot _eyeSlot;
 
         /// <summary>
         /// Renderers that control the skin.
@@ -42,9 +42,9 @@ namespace SS3D.Systems.CharacterCreation
         private Material _eyeMaterial;
         private Material _skinMaterial;
 
-        protected override void OnAwake()
+        protected override void OnStart()
         {
-            base.OnAwake();
+            base.OnStart();
             SetupMaterials();
         }
 
@@ -61,16 +61,14 @@ namespace SS3D.Systems.CharacterCreation
                 skin.sharedMaterials = skinMats;
             }
 
-            _eyeMaterial = new Material(_eyeRenderer.sharedMaterial);
-            _eyeRenderer.sharedMaterial = _eyeMaterial;
+            _eyeMaterial = new Material(_eyeSlot.Renderer.sharedMaterial);
+            _eyeSlot.Renderer.sharedMaterial = _eyeMaterial;
+            _eyeSlot.SetRendererMaterial(_eyeMaterial);
 
-            _eyeMaterial = new Material(_eyeRenderer.sharedMaterial);
-            _eyeRenderer.sharedMaterial = _eyeMaterial;
-            
-            _hairMaterial = new Material(_hairRenderer.sharedMaterial);
-            _hairRenderer.sharedMaterial = _hairMaterial;
-            _beardRenderer.sharedMaterial = _hairMaterial;
-            _eyebrowRenderer.sharedMaterial = _hairMaterial;
+            _hairMaterial = new Material(_hairSlot.Renderer.sharedMaterial);
+            _hairSlot.SetRendererMaterial(_hairMaterial);
+            _beardSlot.SetRendererMaterial(_hairMaterial);
+            _eyebrowSlot.SetRendererMaterial(_hairMaterial);
         }
 
         /// <summary>
@@ -109,13 +107,13 @@ namespace SS3D.Systems.CharacterCreation
             switch (type)
             {
                 case CustomizationType.Hairstyle:
-                    _hairRenderer.sharedMesh = hair.HairModel;
+                    _hairSlot.SetRendererMesh(hair.HairModel);
                     break;
                 case CustomizationType.Beardstyle:
-                    _beardRenderer.sharedMesh = hair.HairModel;
+                    _beardSlot.SetRendererMesh(hair.HairModel);
                     break;
                 case CustomizationType.Eyebrows:
-                    _eyebrowRenderer.sharedMesh = hair.HairModel;
+                    _eyebrowSlot.SetRendererMesh(hair.HairModel);
                     break;
                 default:
                     // error
@@ -124,14 +122,41 @@ namespace SS3D.Systems.CharacterCreation
         }
 
         /// <summary>
-        /// Get a body part that is referenced in the given culling data
+        /// Set culling on hair
         /// </summary>
         [Client]
-        private void SetCullingOnAppearance(ClothingItemCullingData cullingData, bool addCulling)
+        public void SetCullingOnAppearance(GameObject culler, ClothingItemCullingData cullingData, bool addCulling)
         {
-            
-            // clothingVisualSlot.Cullable?.AddCuller(gameObject);
+
+            BlendShape[] blends = { };
+            if (cullingData)
+            {
+                blends = new BlendShape[] {
+                                    new("Hat", cullingData.Hat),
+                                    new("Helmet", cullingData.Helmet),
+                                    new("Mask", cullingData.Mask),
+                                    new("Hood", cullingData.Hood),
+                                    };
+            }
+
+            SetCullingOnSlot(culler, _hairSlot, blends, addCulling, cullingData.HideHair);
+            SetCullingOnSlot(culler, _beardSlot, blends, addCulling, cullingData.HideBeard);
+            SetCullingOnSlot(culler, _eyebrowSlot, blends, addCulling, cullingData.HideEyebrows);
+            SetCullingOnSlot(culler, _eyeSlot, blends, addCulling, cullingData.HideEyes);
         }
 
+        public void SetCullingOnSlot(GameObject culler, VisualSlot slot, BlendShape[] blends, bool addCulling, bool hideSlot)
+        {
+            if (addCulling)
+            {
+                if (hideSlot) slot.RendererController.AddCuller(culler.gameObject);
+                slot.RendererController.AddBlendShapeAffector(culler.gameObject, blends);
+            }
+            else
+            {
+                if (hideSlot) slot.RendererController.RemoveCuller(culler.gameObject);
+                slot.RendererController.RemoveBlendShapeAffector(culler.gameObject);
+            }
+        }
     }
 }

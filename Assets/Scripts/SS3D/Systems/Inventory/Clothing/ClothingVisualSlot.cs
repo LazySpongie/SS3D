@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using SS3D.Logging;
-using SS3D.Core.Behaviours;
 using SS3D.Systems.Inventory.Items;
 using FishNet.Object;
+using VisualSlot = SS3D.Systems.CharacterCreation.VisualSlot;
 
 namespace SS3D.Systems.Inventory.Clothing
 {
@@ -12,7 +10,7 @@ namespace SS3D.Systems.Inventory.Clothing
     /// Networked script that syncs clothing in the characters inventory and sends it to the ClothingVisualDisplayer to be displayed.
     /// </summary>
     /// 
-    public class ClothingVisualSlot : Actor
+    public class ClothingVisualSlot : VisualSlot
     {
         [Tooltip("Set which clothing container in the inventory is using this slot.")]
         [SerializeField]
@@ -33,22 +31,10 @@ namespace SS3D.Systems.Inventory.Clothing
         private ClothingItemCullingData _cullingData;
 
         /// <summary>
-        /// Cullable script on this object
-        /// </summary>
-        private Cullable _cullable;
-
-        private SkinnedMeshRenderer _renderer;
-
-        /// <summary>
-        /// Cullable script on this object
-        /// </summary>
-        public Cullable Cullable => _cullable;
-
-        /// <summary>
         /// ClothingItemVisualData used in this slot
         /// </summary>
         public ClothingItemVisualData VisualData => _visualData;
-        
+
         /// <summary>
         /// ClothingItemCullingData used by this item
         /// </summary>
@@ -69,13 +55,6 @@ namespace SS3D.Systems.Inventory.Clothing
         /// </summary>
         public bool UseAltClothingModel => _useAltClothingModel;
 
-        protected override void OnAwake()
-        {
-            base.OnAwake();
-            _renderer = GetComponent<SkinnedMeshRenderer>();
-            _cullable = GetComponent<Cullable>();
-        }
-
         /// <summary>
         /// Assign a clothing item to be displayed on this slot.
         /// </summary>
@@ -95,7 +74,7 @@ namespace SS3D.Systems.Inventory.Clothing
             _visualData = null;
             _cullingData = null;
             RemoveClothingMesh();
-            Cullable.SetHidden(true);
+            RendererController.SetHidden(true);
         }
 
         [Client]
@@ -119,7 +98,7 @@ namespace SS3D.Systems.Inventory.Clothing
             SetClothingMesh();
             SetClothingCullingData();
 
-            Cullable.SetHidden(false);
+            RendererController.SetHidden(false);
         }
 
         /// <summary>
@@ -167,24 +146,6 @@ namespace SS3D.Systems.Inventory.Clothing
             }
 
             _cullingData = cullingData;
-        }
-
-        /// <summary>
-        /// Assign a mesh to the renderer 
-        /// </summary>
-        [Client]
-        private void SetRendererMesh(Mesh mesh)
-        {
-            _renderer.sharedMesh = mesh;
-        }
-
-        /// <summary>
-        /// Assign materials to the renderer
-        /// </summary>
-        [Client]
-        private void SetRendererMaterials(Material[] materials)
-        {
-            _renderer.sharedMaterials = materials;
         }
     }
 }

@@ -15,6 +15,7 @@ using SS3D.Systems.Inventory.Items;
 using SS3D.Systems.Inventory.Clothing;
 using System;
 using System.Collections;
+using SS3D.Systems.CharacterCreation;
 
 /// <summary>
 /// Class to handle all networking stuff related to a body part, there should be only one on a given game object.
@@ -558,7 +559,7 @@ public abstract class BodyPart : InteractionTargetNetworkBehaviour
     [Server]
     protected void HideSeveredBodyPart()
     {
-        GetComponent<Cullable>()?.SetHidden(true);
+        GetComponent<RendererController>()?.SetHidden(true);
     }
 
     [Server]
