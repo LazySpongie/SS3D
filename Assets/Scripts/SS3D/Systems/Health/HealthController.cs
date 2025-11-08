@@ -11,6 +11,7 @@ using System;
 using System.Diagnostics.Tracing;
 using System.Collections.ObjectModel;
 using System.Linq;
+using FishNet.Object.Synchronizing;
 
 namespace SS3D.Systems.Health
 {
@@ -30,9 +31,10 @@ namespace SS3D.Systems.Health
 
         public FeetController FeetController => _feetController;
 
-        private List<BodyPart> _bodyPartsOnEntity = new List<BodyPart>();
+        [SyncObject]
+        private readonly SyncList<BodyPart> _bodyPartsOnEntity = new SyncList<BodyPart>();
 
-        public ReadOnlyCollection<BodyPart> BodyPartsOnEntity => _bodyPartsOnEntity.AsReadOnly();
+        public ReadOnlyCollection<BodyPart> BodyPartsOnEntity => _bodyPartsOnEntity.GetCollection(IsServer).AsReadOnly();
 
         public event EventHandler<BodyPart> OnBodyPartRemoved;
 
@@ -57,6 +59,13 @@ namespace SS3D.Systems.Health
                 part.OnBodyPartDestroyed += HandleBodyPartDestroyedOrDetached;
                 part.OnBodyPartDetached += HandleBodyPartDestroyedOrDetached;
             }
+        }
+
+        public override void OnStartClient()
+        {
+            // client needs to have access to the bodypart list so they can be hidden when wearing clothing
+            base.OnStartClient();
+            _bodyPartsOnEntity.AddRange(GetComponentsInChildren<BodyPart>());
         }
 
         private void HandleBodyPartDestroyedOrDetached(object sender, EventArgs eventArgs)
