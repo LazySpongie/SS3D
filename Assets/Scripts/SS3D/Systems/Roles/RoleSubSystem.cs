@@ -12,6 +12,7 @@ using SS3D.Systems.Inventory.Containers;
 using SS3D.Systems.Inventory.Items;
 using SS3D.Core;
 using SS3D.Systems.Inventory.Items.Generic;
+using SS3D.Systems.Characters;
 
 namespace SS3D.Systems.Roles
 {
@@ -173,12 +174,13 @@ namespace SS3D.Systems.Roles
             IDCard idCard = (IDCard)idCardItem;
 
             // Set up ID Card data
-            idCard.OwnerName = entity.Ckey;
+            string name = entity.GetComponent<UniqueIdentifiers>().Name;
+            idCard.OwnerName = name;
             idCard.RoleName = role.Name;
             foreach (IDPermission permission in role.Permissions)
             {
                 idCard.AddPermission(permission);
-                Log.Information(this, "Added " + permission.Name + " permission to IDCard of " + entity.Ckey);
+                Log.Information(this, "Added " + permission.Name + " permission to IDCard of " + name);
             }
 
             pda.StartingIDCard = idCardItem;

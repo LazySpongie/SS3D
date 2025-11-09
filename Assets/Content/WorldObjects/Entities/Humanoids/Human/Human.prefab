@@ -788,7 +788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 1
-  <ComponentIndex>k__BackingField: 14
+  <ComponentIndex>k__BackingField: 1
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours: []
   <ParentNetworkObject>k__BackingField: {fileID: 2930813178971533500}
@@ -3717,7 +3717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 1
-  <ComponentIndex>k__BackingField: 15
+  <ComponentIndex>k__BackingField: 2
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours: []
   <ParentNetworkObject>k__BackingField: {fileID: 2930813178971533500}
@@ -6794,23 +6794,8 @@ MonoBehaviour:
   - {fileID: 8780544557873616261}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 6233962219268866637}
   - {fileID: 8067289659534850981}
-  - {fileID: 0}
-  - {fileID: 0}
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -7351,6 +7336,9 @@ MonoBehaviour:
   - {fileID: 6217532572249875957}
   - {fileID: 8793278027620475813}
   - {fileID: 7063966259298033300}
+  _hairMaterial: {fileID: 2100000, guid: fe65d328594f8d14ebbb4504ee05fa08, type: 2}
+  _eyeMaterial: {fileID: 2100000, guid: 5003e6577566f0748b94899aefcc5569, type: 2}
+  _skinMaterial: {fileID: 2100000, guid: cf191327ca9118c4483ccb0d22b33910, type: 2}
 --- !u!114 &2789067406383622075
 MonoBehaviour:
   m_ObjectHideFlags: 0

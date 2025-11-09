@@ -11,6 +11,7 @@ using SS3D.Core.Behaviours;
 using SS3D.Core.Settings;
 using SS3D.Engine.Chat;
 using SS3D.Logging;
+using SS3D.Systems.Characters;
 using SS3D.Systems.Entities.Events;
 using SS3D.Systems.Roles;
 using SS3D.Systems.Rounds;
@@ -181,12 +182,12 @@ namespace SS3D.Systems.Entities
         {
             if (!IsPlayerSpawned(player) && _hasSpawnedInitialPlayers)
             {
-                SpawnPlayer(player);
+                Entity entity = SpawnPlayer(player);
                 ChatSubSystem chatSystem = SubSystems.Get<ChatSubSystem>();
                 ChatChannels chatChannels = ScriptableSettings.GetOrFind<ChatChannels>();
                 
-                // TODO: replace with character name and role
-                chatSystem.SendServerMessage(chatChannels.stationAlertsChannel, $"{player.Ckey}, assistant, has joined the ship");
+                // TODO: replace with role
+                chatSystem.SendServerMessage(chatChannels.stationAlertsChannel, $"{entity.GetComponent<UniqueIdentifiers>().Name}, assistant, has joined the ship");
             }
         }
 
@@ -195,7 +196,7 @@ namespace SS3D.Systems.Entities
         /// </summary>
         /// <param name="playerUnique user object</param>
         [Server]
-        private void SpawnPlayer(Player player)
+        private Entity SpawnPlayer(Player player)
         {
             MindSubSystem mindSystem = SubSystems.Get<MindSubSystem>();
             mindSystem.TryCreateMind(player, out Mind createdMind);
@@ -206,6 +207,7 @@ namespace SS3D.Systems.Entities
             createdMind.SetPlayer(player);
             entity.SetMind(createdMind);
 
+            SubSystems.Get<CharacterSubSystem>().SetPlayerCharacter(entity);
             SubSystems.Get<RoleSubSystem>().GiveRoleLoadoutToPlayer(entity);
 
             _spawnedPlayers.Add(entity);
@@ -213,6 +215,7 @@ namespace SS3D.Systems.Entities
             RpcInvokeClientSpawned(entity.Owner);
 
             Log.Information(this, "Spawning mind {createdMind} on {entity}", Logs.ServerOnly, createdMind.name, entity.name);
+            return entity;
         }
 
         /// <summary>

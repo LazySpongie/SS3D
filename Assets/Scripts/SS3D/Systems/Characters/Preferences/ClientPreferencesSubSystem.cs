@@ -4,12 +4,20 @@ using SS3D.Core;
 using SS3D.Core.Behaviours;
 using FishNet.Object;
 using SS3D.Data.Management;
+using SS3D.Systems.PlayerControl;
+using SS3D.Systems.Characters.Messages;
+using SS3D.Logging;
+using SS3D.Systems.Rounds.Events;
+using Coimbra.Services.Events;
+using System;
+using SS3D.Systems.Rounds;
 
 namespace SS3D.Systems.Characters.Preferences
 {
     /// <summary>
+    /// Controls the players character in character creation
     /// </summary>
-    public class ClientPreferencesSubSystem : SubSystem
+    public class ClientPreferencesSubSystem : NetworkSubSystem
     {
         public delegate void CharacterChangedHandler(CharacterChangeType type);
 
@@ -35,28 +43,19 @@ namespace SS3D.Systems.Characters.Preferences
         protected override void OnAwake()
         {
             base.OnAwake();
-
+            if (IsServer) return;
             LoadCharactersFromDisk();
+            AddHandle(RoundStateUpdated.AddListener(HandleRoundStateUpdated));
         }
 
-        protected override void OnStart()
+        public override void OnStartClient()
         {
-            base.OnStart();
+            base.OnStartClient();
 
             SelectCharacter(0);
-            // OnCharacterChanged?.Invoke();
         }
 
-        // public override void OnStartClient()
-        // {
-        //     base.OnStartClient();
-
-        //     // OnCharacterChanged?.Invoke();
-
-        //     AddHandle(SpawnedPlayersUpdated.AddListener(HandleSpawnedPlayersUpdated));
-        // }
-
-        #region Load and Save
+        #region Character Save/Load
 
         /// <summary>
         /// Method called when the load character button is clicked.
@@ -64,8 +63,6 @@ namespace SS3D.Systems.Characters.Preferences
         [Client]
         public void LoadCharactersFromDisk()
         {
-            Debug.Log("LoadCharactersFromDisk");
-
             _characters.Clear();
             List<string> savedChars = LocalStorage.GetAllObjectsNameInFolder(SavePath);
 
@@ -104,20 +101,17 @@ namespace SS3D.Systems.Characters.Preferences
         }
 
         /// <summary>
-        /// Method called when a character is selected in the menu.
+        /// Sets a new selected character and sends it to the server.
         /// </summary>
         [Client]
         public void SelectCharacter(int index)
         {
             _selectedCharacterIndex = index;
-            _unsavedCharacter = new CharacterProfile(_characters[_selectedCharacterIndex]);
-
-            //send to server
-            OnCharacterChanged?.Invoke(CharacterChangeType.Everything);
+            ResetCharacter();
         }
 
         /// <summary>
-        /// Method called when the save character button is clicked.
+        /// Method called when the save character button is pressed.
         /// </summary>
         [Client]
         public void SaveCharacter()
@@ -125,42 +119,23 @@ namespace SS3D.Systems.Characters.Preferences
             _characters[_selectedCharacterIndex] = _unsavedCharacter;
             bool overwrite = true;
             LocalStorage.SaveObject(SavePath + "/Character" + _selectedCharacterIndex, _unsavedCharacter, overwrite);
+
+            SelectCharacter(_selectedCharacterIndex);
+        }
+
+        /// <summary>
+        /// Reset the unsaved character to the last save.
+        /// </summary>
+        [Client]
+        public void ResetCharacter()
+        {
+            _unsavedCharacter = new CharacterProfile(_characters[_selectedCharacterIndex]);
+            OnCharacterChanged?.Invoke(CharacterChangeType.Everything);
         }
         #endregion
 
-        // #region Spawn Player
-
-        // /// <summary>
-        // /// Callback when a player entity is spawned to set their appearance
-        // /// </summary>
-        // [Client]
-        // private void HandleSpawnedPlayersUpdated(ref EventContext context, in SpawnedPlayersUpdated e)
-        // {
-        //     AddCustomizationToPlayer();
-        // }
-
-        // /// <summary>
-        // /// When the player is spawned get their entity and send their appearance to the server to be applied
-        // /// </summary>
-        // [Client]
-        // private void AddCustomizationToPlayer()
-        // {
-        //     EntitySubSystem system = SubSystems.Get<EntitySubSystem>();
-
-        //     if (!system.TryGetSpawnedEntity(LocalConnection, out Entity entity)) return;
-
-        //     Dictionary<AppearanceType, string> dict = new();
-        //     foreach (KeyValuePair<AppearanceType, string> entry in SelectedCharacter.Appearance)
-        //     {
-        //         dict[entry.Key] = entry.Value;
-        //     }
-
-        //     // ServerRPC
-        //     entity.GetComponent<UniqueIdentifiers>()?.SetAppearance(SelectedCharacter);
-        // }
-        // #endregion
-        
         #region Character Setters
+        
         /// <summary>
         /// Set an appearance option in the current character.
         /// </summary>
@@ -191,5 +166,32 @@ namespace SS3D.Systems.Characters.Preferences
         }
         #endregion
         
+        #region Networking
+
+        /// <summary>
+        /// Callback when the round is starting.
+        /// </summary>
+        [Client]
+        private void HandleRoundStateUpdated(ref EventContext context, in RoundStateUpdated e)
+        {
+            if (e.RoundState != RoundState.Preparing) return;
+            SendSelectedCharacterToServer();
+        }
+
+        /// <summary>
+        /// Send the character to CharacterSubSystem.
+        /// Every client doing this at the same time could cause performance issues
+        /// </summary>
+        [Client]
+        private void SendSelectedCharacterToServer()
+        {
+            // send character to CharacterSubSystem
+            PlayerSubSystem playerSystem = SubSystems.Get<PlayerSubSystem>();
+            string ckey = playerSystem.GetCkey(LocalConnection);
+            PlayerSelectCharacterMessage selectCharacterMessage = new(ckey, SelectedCharacter);
+            ClientManager.Broadcast(selectCharacterMessage);
+        }
+        #endregion
+
     }
 }

@@ -15,14 +15,14 @@ namespace SS3D.Systems.Characters
     /// <summary>
     /// Sends selected customization to CharacterCreationSubSystem and previews customization on the lobby avatar
     /// </summary>
-    public sealed class CharacterCreationView : Actor
+    public sealed class CharacterCreationView : NetworkActor
     {
         [SerializeField] [NotNull] private AppearanceDisplayer _previewCharacter;
         [SerializeField] [NotNull] private List<TMP_Text> _previewNameTexts;
 
         [Header("Save/Load Buttons")]
         [SerializeField][NotNull] private Button _saveButton;
-        [SerializeField][NotNull] private Button _loadButton;
+        [SerializeField][NotNull] private Button _ResetButton;
         
         [Header("Name Selection")]
         [SerializeField] [NotNull] private TMP_InputField _characterNameSelection;
@@ -52,7 +52,8 @@ namespace SS3D.Systems.Characters
         protected override void OnAwake()
         {
             base.OnAwake();
-
+            if (IsServer) return;
+            
             _preferences = SubSystems.Get<ClientPreferencesSubSystem>();
 
             _preferences.OnCharacterChanged += HandleCharacterChanged;
@@ -70,7 +71,7 @@ namespace SS3D.Systems.Characters
             _skinColorSelection.onClick.AddListener(() => HandleColorSelectionChanged(AppearanceType.SkinColor));
             
             _saveButton.onClick.AddListener(HandleSaveButtonPressed);
-            _loadButton.onClick.AddListener(HandleLoadButtonPressed);
+            _ResetButton.onClick.AddListener(HandleResetButtonPressed);
              
             _characterNameSelection.onValueChanged.AddListener(HandleNameFieldChanged);
         }
@@ -78,6 +79,7 @@ namespace SS3D.Systems.Characters
         protected override void OnDestroyed()
         {
             base.OnDestroyed();
+            if (IsServer) return;
 
             _preferences.OnCharacterChanged -= HandleCharacterChanged;
 
@@ -94,7 +96,7 @@ namespace SS3D.Systems.Characters
             _skinColorSelection.onClick.RemoveListener(() => HandleColorSelectionChanged(AppearanceType.SkinColor));
 
             _saveButton.onClick.RemoveListener(HandleSaveButtonPressed);
-            _loadButton.onClick.RemoveListener(HandleLoadButtonPressed);
+            _ResetButton.onClick.RemoveListener(HandleResetButtonPressed);
 
             _characterNameSelection.onValueChanged.RemoveListener(HandleNameFieldChanged);
         }
@@ -260,16 +262,21 @@ namespace SS3D.Systems.Characters
         public void HandleSaveButtonPressed()
         {
             _preferences.SaveCharacter();
+            
+            // PlayerControl.PlayerSubSystem playerSystem = SubSystems.Get<PlayerControl.PlayerSubSystem>();
+            // string ckey = playerSystem.GetCkey(LocalConnection);
+            // Log.Information(this, ckey + "SelectCharacter");
+            // Messages.PlayerSelectCharacterMessage selectCharacterMessage = new(ckey, _preferences.SelectedCharacter);
+            // ClientManager.Broadcast(selectCharacterMessage);
         }
 
         /// <summary>
         /// Callback when a character is selected.
         /// </summary>
-        public void HandleLoadButtonPressed()
+        public void HandleResetButtonPressed()
         {
             //todo: make character list
-            _preferences.LoadCharactersFromDisk();
-            _preferences.SelectCharacter(0);
+            _preferences.ResetCharacter();
         }
 
         /// <summary>

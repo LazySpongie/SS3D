@@ -16,10 +16,10 @@ namespace SS3D.Systems.Characters.Preferences
         public Sex Sex = Sex.Male;
         public Gender Gender = Gender.Male;
 
-        [NonSerialized]
+        // [NonSerialized]
         public Dictionary<AppearanceType, string> Appearance = new();
 
-        [NonSerialized]
+        // [NonSerialized]
         public Dictionary<RoleData, JobPriority> Jobs = new();
 
         public List<string> Antags = new();

@@ -39,13 +39,13 @@ namespace SS3D.Systems.Characters
         /// </summary>
         [SerializeField] private List<SkinnedMeshRenderer> _skinRenderers;
 
-        private Material _hairMaterial;
-        private Material _eyeMaterial;
-        private Material _skinMaterial;
+        [SerializeField] private Material _hairMaterial;
+        [SerializeField] private Material _eyeMaterial;
+        [SerializeField] private Material _skinMaterial;
 
-        protected override void OnAwake()
+        protected override void OnStart()
         {
-            base.OnAwake();
+            base.OnStart();
             SetupMaterials();
         }
 
@@ -54,7 +54,7 @@ namespace SS3D.Systems.Characters
         /// </summary>
         private void SetupMaterials()
         {
-            _skinMaterial = new Material(_skinRenderers[0].sharedMaterials[0]);
+            _skinMaterial = new Material(_skinMaterial);
             Material[] skinMats = _skinRenderers[0].sharedMaterials;
             skinMats[0] = _skinMaterial;
             foreach (SkinnedMeshRenderer skin in _skinRenderers)
@@ -62,11 +62,11 @@ namespace SS3D.Systems.Characters
                 skin.sharedMaterials = skinMats;
             }
 
-            _eyeMaterial = new Material(_eyeSlot.Renderer.sharedMaterial);
+            _eyeMaterial = new Material(_eyeMaterial);
             _eyeSlot.Renderer.sharedMaterial = _eyeMaterial;
             _eyeSlot.SetRendererMaterial(_eyeMaterial);
 
-            _hairMaterial = new Material(_hairSlot.Renderer.sharedMaterial);
+            _hairMaterial = new Material(_hairMaterial);
             _hairSlot.SetRendererMaterial(_hairMaterial);
             _beardSlot.SetRendererMaterial(_hairMaterial);
             _eyebrowSlot.SetRendererMaterial(_hairMaterial);
