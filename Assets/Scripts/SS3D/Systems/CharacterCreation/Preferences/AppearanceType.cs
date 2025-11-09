@@ -1,14 +1,11 @@
 ﻿
-namespace SS3D.Systems.CharacterCreation
+namespace SS3D.Systems.CharacterCreation.Preferences
 {
     /// <summary>
     /// 
     /// </summary>
-    public enum CustomizationType
+    public enum AppearanceType
     {
-        CharacterName,
-        Role,
-        Loadout,
         Hairstyle,
         Beardstyle,
         Eyebrows,

@@ -1,5 +1,6 @@
 ﻿using Coimbra;
 using SS3D.Attributes;
+using SS3D.Systems.CharacterCreation.Preferences;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -14,20 +15,15 @@ namespace SS3D.Systems.CharacterCreation
     /// </summary>
     public class CustomizationGrid : Actor
     {
-        public delegate void CustomizationGridSelectionEventHandler(CustomizationType type, CustomizationSlot option);
+        public delegate void CustomizationGridSelectionEventHandler(CustomizationGrid grid, CustomizationSlot option);
         
-        public delegate void CustomizationGridStartEventHandler(CustomizationType type, CustomizationGrid grid);
+        public delegate void CustomizationGridStartEventHandler(CustomizationGrid grid);
 
         // When the selection changes
         public event CustomizationGridSelectionEventHandler OnCustomizationGridSelected;
         
         // When this script starts
         public event CustomizationGridStartEventHandler OnCustomizationGridStarted;
-
-        /// <summary>
-        ///  The type of customization this grid contains.
-        /// </summary>
-        [SerializeField][NotNull] private CustomizationType _customizationType;
 
         /// <summary>
         ///  The search bar for the menu.
@@ -55,21 +51,21 @@ namespace SS3D.Systems.CharacterCreation
         private List<CustomizationSlot> _customizationSlots = new List<CustomizationSlot>();
 
         /// <summary>
-        /// Currently selected customization option.
+        /// Currently selected option.
         /// </summary>
         private CustomizationSlot _selectedOption;
 
         /// <summary>
-        /// Currently selected customization option.
+        /// Currently selected option.
         /// </summary>
         public CustomizationSlot SelectedOption => _selectedOption;
-        
+
         protected override void OnStart()
         {
             LoadGrid();
 
             // need to find a way to set the selected option while this object is disabled
-            OnCustomizationGridStarted?.Invoke(_customizationType, this);
+            OnCustomizationGridStarted?.Invoke(this);
             // HandleSlotButtonPressed(_selectedOption);
         }
 
@@ -145,7 +141,7 @@ namespace SS3D.Systems.CharacterCreation
             _selectedOption.Button.interactable = false;
 
             if (!invoke) return;
-            OnCustomizationGridSelected?.Invoke(_customizationType, _selectedOption);
+            OnCustomizationGridSelected?.Invoke(this, _selectedOption);
         }
 
         /// <summary>

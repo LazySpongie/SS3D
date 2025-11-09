@@ -1974,7 +1974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4468402021075485018, guid: cc5383d385556f443b2a7d3202f2b2c1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -230.00006
+      value: -230.00003
       objectReference: {fileID: 0}
     - target: {fileID: 4468402021449001342, guid: cc5383d385556f443b2a7d3202f2b2c1, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2135,7 +2135,7 @@ GameObject:
   - component: {fileID: 1033159313}
   - component: {fileID: 1033159312}
   m_Layer: 0
-  m_Name: CharacterCreationSystem
+  m_Name: ClientPreferencesSystem
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: d5ad4eb6e2beef74da33f196e75916ee, type: 3}
   m_NavMeshLayer: 0
@@ -2171,29 +2171,6 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1033159313}
   _networkObjectCache: {fileID: 1033159313}
-  defaultCharacterName: joe
-  defaultHair: {fileID: 11400000, guid: 3d321a4a18b3a454ead9dbff4e18edc2, type: 2}
-  defaultBeard: {fileID: 11400000, guid: 89b4a9042d7f3ab42a708c3bbef44ebb, type: 2}
-  defaultEyebrows: {fileID: 11400000, guid: 95fe6a66f2f9e5640b3e332ce57e3d72, type: 2}
-  hairColours:
-  - {r: 0.2830189, g: 0.1487978, b: 0.076094694, a: 1}
-  - {r: 0.9433962, g: 0.40659767, b: 0.38714847, a: 1}
-  - {r: 0.990566, g: 0.854588, b: 0.4812656, a: 1}
-  - {r: 0.35056958, g: 0.735849, b: 0.5660802, a: 1}
-  - {r: 0.1476504, g: 0.16491263, b: 0.3962264, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
-  eyeColors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0.11160554, g: 0.38137332, b: 0.41509432, a: 1}
-  - {r: 0.17054899, g: 0.38679248, b: 0.12589, a: 1}
-  - {r: 0.5, g: 0.21359168, b: 0.040094346, a: 1}
-  skinColors:
-  - {r: 1, g: 0.7411765, b: 0.6, a: 1}
-  - {r: 0.8490566, g: 0.5821362, b: 0.43654326, a: 1}
-  - {r: 0.5849056, g: 0.3044292, b: 0.21244211, a: 1}
-  - {r: 0.3301887, g: 0.1580401, b: 0.13550197, a: 1}
-  - {r: 0.1981132, g: 0.0999911, b: 0.10391336, a: 1}
 --- !u!114 &1033159313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2639,15 +2616,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1213120741 stripped
+--- !u!114 &1213120746 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2387004029686264531, guid: 2d191bd0e2c3e2f4b9ec68793b19550a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 428659218709853934, guid: 2d191bd0e2c3e2f4b9ec68793b19550a, type: 3}
   m_PrefabInstance: {fileID: 3566512690706384257}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c5f473e4523e34892025ebc28d1a1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b24a3b7e626481488f8736b0d31a9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1253814662 stripped
@@ -2769,17 +2746,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1458666929 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1743882046067886637, guid: 2d191bd0e2c3e2f4b9ec68793b19550a, type: 3}
-  m_PrefabInstance: {fileID: 3566512690706384257}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c5f473e4523e34892025ebc28d1a1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1462625201 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4370972905076281512, guid: 8c378d8ec3d1cda4389f92d2d8703b6a, type: 3}
@@ -2960,15 +2926,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1962741443656495938, guid: 14b8b7b37cbe54a44a994f9d927bf213, type: 3}
   m_PrefabInstance: {fileID: 1962741445064829233}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1575155557 stripped
+--- !u!114 &1575155562 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9216386762228124676, guid: 2d191bd0e2c3e2f4b9ec68793b19550a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6523396340351354358, guid: 2d191bd0e2c3e2f4b9ec68793b19550a, type: 3}
   m_PrefabInstance: {fileID: 3566512690706384257}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c5f473e4523e34892025ebc28d1a1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b24a3b7e626481488f8736b0d31a9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1604094693
@@ -3073,6 +3039,17 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1633555550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8428885490798465687, guid: 2d191bd0e2c3e2f4b9ec68793b19550a, type: 3}
+  m_PrefabInstance: {fileID: 3566512690706384257}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b24a3b7e626481488f8736b0d31a9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1679380531
@@ -13669,11 +13646,11 @@ PrefabInstance:
     - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
       propertyPath: _hairSelection
       value: 
-      objectReference: {fileID: 1458666929}
+      objectReference: {fileID: 1633555550}
     - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
       propertyPath: _beardSelection
       value: 
-      objectReference: {fileID: 1213120741}
+      objectReference: {fileID: 1213120746}
     - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
       propertyPath: _previewNameText
       value: 
@@ -13681,7 +13658,7 @@ PrefabInstance:
     - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
       propertyPath: _eyebrowSelection
       value: 
-      objectReference: {fileID: 1575155557}
+      objectReference: {fileID: 1575155562}
     - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
       propertyPath: _previewCharacter
       value: 
@@ -13707,9 +13684,249 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
       propertyPath: _characterNameSelection
       value: 
       objectReference: {fileID: 1625581001}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[0].b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[0].g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[0].r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[1].b
+      value: 0.08940014
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[1].g
+      value: 0.08940014
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[1].r
+      value: 0.46226418
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[2].b
+      value: 0.4056604
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[2].g
+      value: 0.111154385
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[2].r
+      value: 0.109069064
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[3].b
+      value: 0.5377358
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[3].g
+      value: 0.43796188
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[3].r
+      value: 0.17501779
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[4].b
+      value: 0.17647058
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[4].g
+      value: 0.5372549
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: eyeColors.Array.data[4].r
+      value: 0.24661332
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[0].b
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[0].g
+      value: 0.7411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[0].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[1].b
+      value: 0.38314345
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[1].g
+      value: 0.5209463
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[1].r
+      value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[2].b
+      value: 0.23789605
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[2].g
+      value: 0.3107939
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[2].r
+      value: 0.6226415
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[3].b
+      value: 0.15125492
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[3].g
+      value: 0.15908654
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[3].r
+      value: 0.31132078
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[4].b
+      value: 0.12233763
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[4].g
+      value: 0.11414205
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: skinColors.Array.data[4].r
+      value: 0.1792453
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[0].b
+      value: 0.19215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[0].g
+      value: 0.28235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[0].r
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[1].b
+      value: 0.12517801
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[1].g
+      value: 0.15358944
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[1].r
+      value: 0.2735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[2].b
+      value: 0.2214756
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[2].g
+      value: 0.2670527
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[2].r
+      value: 0.745283
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[3].b
+      value: 0.8301887
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[3].g
+      value: 0.4528644
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[3].r
+      value: 0.20754717
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[4].b
+      value: 0.23856671
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[4].g
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[4].r
+      value: 0.18022428
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[5].b
+      value: 0.6531531
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[5].g
+      value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[5].r
+      value: 0.43422925
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[6].b
+      value: 0.11320752
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[6].g
+      value: 0.11320752
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[6].r
+      value: 0.11320752
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[7].b
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[7].g
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[7].r
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[8].b
+      value: 0.48406905
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[8].g
+      value: 0.8130162
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: hairColours.Array.data[8].r
+      value: 0.9245283
+      objectReference: {fileID: 0}
     - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
       propertyPath: _previewNameTexts.Array.size
       value: 2

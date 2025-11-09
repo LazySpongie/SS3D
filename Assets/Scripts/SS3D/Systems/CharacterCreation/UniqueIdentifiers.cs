@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using FishNet.Object.Synchronizing;
 using SS3D.Data;
 using SS3D.Attributes;
+using SS3D.Systems.CharacterCreation.Preferences;
+using System;
 
 namespace SS3D.Systems.CharacterCreation
 {
@@ -21,17 +23,25 @@ namespace SS3D.Systems.CharacterCreation
         [SerializeField] [NotNull] private AppearanceDisplayer _appearanceDisplayer;
         
         [SyncObject]
-        private readonly SyncDictionary<CustomizationType, string> _currentCustomization = new();
+        private readonly SyncVar<string> _characterName;
+        
+        [SyncObject]
+        private readonly SyncDictionary<AppearanceType, string> _currentAppearance = new();
 
         protected override void OnAwake()
         {
             base.OnAwake();
-            _currentCustomization.OnChange += SyncAppearance;
+            _currentAppearance.OnChange += SyncAppearance;
+            _characterName.OnChange += SyncCharacterName;
         }
 
         #region Syncing
 
-        public void SyncAppearance(SyncDictionaryOperation op, CustomizationType type, string value, bool asServer)
+        /// <summary>
+        /// Callback when the players appearance is changed
+        /// </summary>
+        [Client]
+        public void SyncAppearance(SyncDictionaryOperation op, AppearanceType type, string value, bool asServer)
         {
             if (asServer) return;
             
@@ -39,22 +49,18 @@ namespace SS3D.Systems.CharacterCreation
 
             switch (type)
             {
-                case CustomizationType.Hairstyle:
-                case CustomizationType.Beardstyle:
-                case CustomizationType.Eyebrows:
+                case AppearanceType.Hairstyle:
+                case AppearanceType.Beardstyle:
+                case AppearanceType.Eyebrows:
                     CustomizationSO option = Assets.Get<CustomizationSO>("Customization", value);
                     _appearanceDisplayer.SetStyle(type, option);
                     break;
 
-                case CustomizationType.HairColor:
-                case CustomizationType.EyeColor:
-                case CustomizationType.SkinColor:
+                case AppearanceType.HairColor:
+                case AppearanceType.EyeColor:
+                case AppearanceType.SkinColor:
                     if (!ColorUtility.TryParseHtmlString("#" + value, out Color color)) break;
                     _appearanceDisplayer.SetColor(type, color);
-                    break;
-
-                case CustomizationType.CharacterName:
-                    gameObject.name = value;
                     break;
                 default:
                     // no code for other customisation types has been added yet
@@ -62,17 +68,28 @@ namespace SS3D.Systems.CharacterCreation
             }
         }
 
+        /// <summary>
+        /// Callback when the characters name is changed
+        /// </summary>
+        [ServerOrClient]
+        private void SyncCharacterName(string oldName, string newName, bool asServer)
+        {
+            gameObject.name = newName;
+        }
+
         #endregion
 
         /// <summary>
-        /// Called by client when their player entity is spawned to set their appearance
+        /// Called when the entity is spawned
         /// </summary>
         [ServerRpc(RequireOwnership = false)]
-        public void SetAppearance(Dictionary<CustomizationType, string> customization)
+        public void SetAppearance(CharacterProfile character)
         {
-            foreach (KeyValuePair<CustomizationType, string> entry in customization)
+            _characterName.SetValue(character.Name, false);
+
+            foreach (KeyValuePair<AppearanceType, string> entry in character.Appearance)
             {
-                _currentCustomization[entry.Key] = entry.Value;
+                _currentAppearance[entry.Key] = entry.Value;
             }
         }
 
@@ -80,9 +97,9 @@ namespace SS3D.Systems.CharacterCreation
         /// Sets customization option
         /// </summary>
         [Server]
-        public void SetCustomizationOption(CustomizationType type, string option)
+        public void SetCustomizationOption(AppearanceType type, string option)
         {
-            _currentCustomization[type] = option;
+            _currentAppearance[type] = option;
         }
     }
 }

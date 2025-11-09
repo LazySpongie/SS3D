@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 6828459689219306641}
   - component: {fileID: 8568404150538280520}
   - component: {fileID: 3940478106137071757}
-  - component: {fileID: 9216386762228124676}
+  - component: {fileID: 6523396340351354358}
   m_Layer: 5
   m_Name: brow
   m_TagString: Untagged
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &9216386762228124676
+--- !u!114 &6523396340351354358
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,19 +317,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 222335042954560251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c5f473e4523e34892025ebc28d1a1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b24a3b7e626481488f8736b0d31a9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _customizationType: 5
   _searchBar: {fileID: 2642112098965044431}
   _slotPrefab: {fileID: 2380386451173938110, guid: 2225ab6afe6c477448cd888fba4c0c2b, type: 3}
   _contentRoot: {fileID: 8799811391974684804}
   _customizationDatabase:
   - {fileID: 11400000, guid: 95fe6a66f2f9e5640b3e332ce57e3d72, type: 2}
   - {fileID: 11400000, guid: 71b2a2caa4a79304da7d8f5bd73c146c, type: 2}
-  - {fileID: 11400000, guid: a9b83fc1ec00ec84f96f42495188acd6, type: 2}
-  - {fileID: 11400000, guid: 23e92b76514bdc54f89bbfcc6a334328, type: 2}
   - {fileID: 11400000, guid: 60bfe03b1e899084584b8b02780fa57b, type: 2}
+  - {fileID: 11400000, guid: a9b83fc1ec00ec84f96f42495188acd6, type: 2}
+  _appearanceType: 2
 --- !u!1 &302740296085686220
 GameObject:
   m_ObjectHideFlags: 0
@@ -7930,7 +7929,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2387004029686264531}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SS3D.Systems.CharacterCreation.CustomizationGrid,
           SS3D.Systems
         m_MethodName: HandleSearchFieldChanged
@@ -8616,7 +8615,7 @@ GameObject:
   - component: {fileID: 8552853263482359844}
   - component: {fileID: 2474589051263704744}
   - component: {fileID: 2100752758542249562}
-  - component: {fileID: 1743882046067886637}
+  - component: {fileID: 8428885490798465687}
   m_Layer: 5
   m_Name: hair
   m_TagString: Untagged
@@ -8710,7 +8709,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1743882046067886637
+--- !u!114 &8428885490798465687
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8719,10 +8718,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5556158645197127366}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c5f473e4523e34892025ebc28d1a1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b24a3b7e626481488f8736b0d31a9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _customizationType: 3
   _searchBar: {fileID: 8408116409773287378}
   _slotPrefab: {fileID: 2380386451173938110, guid: 2225ab6afe6c477448cd888fba4c0c2b, type: 3}
   _contentRoot: {fileID: 6161467121366857535}
@@ -8731,6 +8729,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d321a4a18b3a454ead9dbff4e18edc2, type: 2}
   - {fileID: 11400000, guid: d5855b7864ca05a40aa00f8346028cd9, type: 2}
   - {fileID: 11400000, guid: 9bed4f23bb0b35441aec2b48ae0c56c7, type: 2}
+  _appearanceType: 0
 --- !u!1 &5593101044865649678
 GameObject:
   m_ObjectHideFlags: 0
@@ -9574,7 +9573,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9216386762228124676}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SS3D.Systems.CharacterCreation.CustomizationGrid,
           SS3D.Systems
         m_MethodName: HandleSearchFieldChanged
@@ -9954,7 +9953,7 @@ GameObject:
   - component: {fileID: 5111058459397189831}
   - component: {fileID: 5899018451784149585}
   - component: {fileID: 4164934193776691107}
-  - component: {fileID: 2387004029686264531}
+  - component: {fileID: 428659218709853934}
   m_Layer: 5
   m_Name: beard
   m_TagString: Untagged
@@ -10048,7 +10047,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &2387004029686264531
+--- !u!114 &428659218709853934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10057,16 +10056,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6508012192149863865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c5f473e4523e34892025ebc28d1a1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b24a3b7e626481488f8736b0d31a9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _customizationType: 4
   _searchBar: {fileID: 5340774781458081752}
   _slotPrefab: {fileID: 2380386451173938110, guid: 2225ab6afe6c477448cd888fba4c0c2b, type: 3}
   _contentRoot: {fileID: 5883581158228238164}
   _customizationDatabase:
   - {fileID: 11400000, guid: 89b4a9042d7f3ab42a708c3bbef44ebb, type: 2}
   - {fileID: 11400000, guid: c196b5486dd0cea4aaf3730375949641, type: 2}
+  _appearanceType: 1
 --- !u!1 &6576095392634933332
 GameObject:
   m_ObjectHideFlags: 0
@@ -11701,7 +11700,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1743882046067886637}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SS3D.Systems.CharacterCreation.CustomizationGrid,
           SS3D.Systems
         m_MethodName: HandleSearchFieldChanged

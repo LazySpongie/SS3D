@@ -4,6 +4,7 @@ using FishNet.Object;
 using SS3D.Systems.Inventory.Clothing;
 using UnityEngine.Video;
 using System.Collections.Generic;
+using SS3D.Systems.CharacterCreation.Preferences;
 
 namespace SS3D.Systems.CharacterCreation
 {
@@ -42,9 +43,9 @@ namespace SS3D.Systems.CharacterCreation
         private Material _eyeMaterial;
         private Material _skinMaterial;
 
-        protected override void OnStart()
+        protected override void OnAwake()
         {
-            base.OnStart();
+            base.OnAwake();
             SetupMaterials();
         }
 
@@ -75,19 +76,19 @@ namespace SS3D.Systems.CharacterCreation
         /// Sets color
         /// </summary>
         [Client]
-        public void SetColor(CustomizationType type, Color color)
+        public void SetColor(AppearanceType type, Color color)
         {
             switch (type)
             {
-                case CustomizationType.HairColor:
+                case AppearanceType.HairColor:
                     // code
                     _hairMaterial.SetColor("_Color", color);
                     break;
-                case CustomizationType.EyeColor:
+                case AppearanceType.EyeColor:
                     // code
                     _eyeMaterial.SetColor("_Color", color);
                     break;
-                case CustomizationType.SkinColor:
+                case AppearanceType.SkinColor:
                     // code
                     _skinMaterial.SetColor("_Color", color);
                     break;
@@ -101,18 +102,18 @@ namespace SS3D.Systems.CharacterCreation
         /// Set hair beard eyebrows.
         /// </summary>
         [Client]
-        public void SetStyle(CustomizationType type, CustomizationSO customizationSO)
+        public void SetStyle(AppearanceType type, CustomizationSO customizationSO)
         {
             HairstyleSO hair = (HairstyleSO)customizationSO;
             switch (type)
             {
-                case CustomizationType.Hairstyle:
+                case AppearanceType.Hairstyle:
                     _hairSlot.SetRendererMesh(hair.HairModel);
                     break;
-                case CustomizationType.Beardstyle:
+                case AppearanceType.Beardstyle:
                     _beardSlot.SetRendererMesh(hair.HairModel);
                     break;
-                case CustomizationType.Eyebrows:
+                case AppearanceType.Eyebrows:
                     _eyebrowSlot.SetRendererMesh(hair.HairModel);
                     break;
                 default:
