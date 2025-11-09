@@ -1,4 +1,4 @@
-using SS3D.Systems.CharacterCreation;
+using SS3D.Systems.Characters;
 using SS3D.Systems.Health;
 using UnityEngine;
 

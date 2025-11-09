@@ -1,5 +1,5 @@
 ﻿
-namespace SS3D.Systems.CharacterCreation.Preferences
+namespace SS3D.Systems.Characters.Preferences
 {
     /// <summary>
     /// 

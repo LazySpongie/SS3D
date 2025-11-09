@@ -3,7 +3,7 @@ using FishNet.Object;
 using SS3D.Core.Behaviours;
 using UnityEngine;
 
-namespace SS3D.Systems.CharacterCreation
+namespace SS3D.Systems.Characters
 {
     /// <summary>
     /// Generic script to control the rendering of hairstyles and clothing items

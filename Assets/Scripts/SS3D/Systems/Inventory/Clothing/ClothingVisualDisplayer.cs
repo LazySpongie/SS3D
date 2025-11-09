@@ -7,7 +7,7 @@ using SS3D.Systems.Health;
 using SS3D.Data;
 using UnityEngine;
 using FishNet.Object;
-using SS3D.Systems.CharacterCreation;
+using SS3D.Systems.Characters;
 
 namespace SS3D.Systems.Inventory.Clothing
 {

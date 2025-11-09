@@ -1,5 +1,4 @@
-﻿
-namespace SS3D.Systems.CharacterCreation
+﻿namespace SS3D.Systems.Characters
 {
 
     public readonly struct BlendShape

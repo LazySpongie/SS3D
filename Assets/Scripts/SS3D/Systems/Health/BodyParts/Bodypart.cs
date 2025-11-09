@@ -15,7 +15,7 @@ using SS3D.Systems.Inventory.Items;
 using SS3D.Systems.Inventory.Clothing;
 using System;
 using System.Collections;
-using SS3D.Systems.CharacterCreation;
+using SS3D.Systems.Characters;
 
 /// <summary>
 /// Class to handle all networking stuff related to a body part, there should be only one on a given game object.

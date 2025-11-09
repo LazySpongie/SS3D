@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SS3D.Core.Behaviours;
 
-namespace SS3D.Systems.CharacterCreation
+namespace SS3D.Systems.Characters
 {
     /// <summary>
     /// Script to handle clothing items covering certain objects

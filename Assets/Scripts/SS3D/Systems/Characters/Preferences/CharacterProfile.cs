@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SS3D.Systems.CharacterCreation.Preferences
+namespace SS3D.Systems.Characters.Preferences
 {
 
     [Serializable]

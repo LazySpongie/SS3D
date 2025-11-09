@@ -8,9 +8,9 @@ using SS3D.Data;
 using SS3D.Logging;
 using System;
 using UnityEngine.UI;
-using SS3D.Systems.CharacterCreation.Preferences;
+using SS3D.Systems.Characters.Preferences;
 
-namespace SS3D.Systems.CharacterCreation
+namespace SS3D.Systems.Characters
 {
     /// <summary>
     /// Sends selected customization to CharacterCreationSubSystem and previews customization on the lobby avatar

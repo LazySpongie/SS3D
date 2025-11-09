@@ -4,9 +4,9 @@ using FishNet.Object;
 using SS3D.Systems.Inventory.Clothing;
 using UnityEngine.Video;
 using System.Collections.Generic;
-using SS3D.Systems.CharacterCreation.Preferences;
+using SS3D.Systems.Characters.Preferences;
 
-namespace SS3D.Systems.CharacterCreation
+namespace SS3D.Systems.Characters
 {
 
     /// <summary>

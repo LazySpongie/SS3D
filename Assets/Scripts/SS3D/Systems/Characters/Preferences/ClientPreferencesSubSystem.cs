@@ -3,16 +3,9 @@ using UnityEngine;
 using SS3D.Core;
 using SS3D.Core.Behaviours;
 using FishNet.Object;
-using SS3D.Systems.Entities;
-using SS3D.Systems.Entities.Events;
-using Coimbra.Services.Events;
-using SS3D.Logging;
-using Coimbra;
 using SS3D.Data.Management;
-using SS3D.Systems.CharacterCreation.Preferences;
-using System;
 
-namespace SS3D.Systems.CharacterCreation
+namespace SS3D.Systems.Characters.Preferences
 {
     /// <summary>
     /// </summary>

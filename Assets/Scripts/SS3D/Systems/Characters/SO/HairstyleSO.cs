@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SS3D.Systems.CharacterCreation
+namespace SS3D.Systems.Characters
 {
     
     /// <summary>

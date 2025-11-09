@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using FishNet.Object.Synchronizing;
 using SS3D.Data;
 using SS3D.Attributes;
-using SS3D.Systems.CharacterCreation.Preferences;
+using SS3D.Systems.Characters.Preferences;
 using System;
 
-namespace SS3D.Systems.CharacterCreation
+namespace SS3D.Systems.Characters
 {
 
     /// <summary>

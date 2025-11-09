@@ -2,7 +2,7 @@
 using SS3D.Logging;
 using SS3D.Systems.Inventory.Items;
 using FishNet.Object;
-using VisualSlot = SS3D.Systems.CharacterCreation.VisualSlot;
+using VisualSlot = SS3D.Systems.Characters.VisualSlot;
 
 namespace SS3D.Systems.Inventory.Clothing
 {
