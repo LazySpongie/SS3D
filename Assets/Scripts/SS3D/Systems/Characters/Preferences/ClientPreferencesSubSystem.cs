@@ -21,7 +21,15 @@ namespace SS3D.Systems.Characters.Preferences
     {
         public delegate void CharacterChangedHandler(CharacterChangeType type);
 
+        public delegate void CharacterSelectedHandler(int index);
+
+        public delegate void CharactersLoadedHandler();
+
         public event CharacterChangedHandler OnCharacterChanged;
+
+        public event CharacterSelectedHandler OnCharacterSelected;
+        
+        public event CharactersLoadedHandler OnCharactersLoaded;
 
 	    public const string SavePath = "/Characters";
 
@@ -33,6 +41,8 @@ namespace SS3D.Systems.Characters.Preferences
 
         public int SelectedCharacterIndex => _selectedCharacterIndex;
 
+        public Dictionary<int, CharacterProfile> Characters => _characters;
+        
         public CharacterProfile SelectedCharacter
         {
             get { return _characters[_selectedCharacterIndex]; }
@@ -66,18 +76,11 @@ namespace SS3D.Systems.Characters.Preferences
             _characters.Clear();
             List<string> savedChars = LocalStorage.GetAllObjectsNameInFolder(SavePath);
 
-            // Find valid saved characters
             int i = 0;
-            foreach (string name in savedChars)
+            while (true)
             {
-                // need to remove the .json from filename
-                string newName = name.Remove(name.Length - 5);
+                string filePath = SavePath + "/Character" + i;
 
-                string expectedName = "Character" + i;
-
-                if (newName != expectedName) continue;
-
-                string filePath = SavePath + "/" + newName;
                 CharacterProfile loadedcharacter =
                     LocalStorage.LoadObject<CharacterProfile>(filePath);
 
@@ -85,7 +88,10 @@ namespace SS3D.Systems.Characters.Preferences
                 if (loadedcharacter != null)
                 {
                     _characters.Add(i, loadedcharacter);
-                    // need to validate character here
+                }
+                else
+                {
+                    break;
                 }
 
                 i++;
@@ -94,10 +100,10 @@ namespace SS3D.Systems.Characters.Preferences
             // No valid characters so create a default character
             if (_characters.Count == 0)
             {
-                CharacterProfile newChar = new CharacterProfile();
-                _characters.Add(0, newChar);
-                LocalStorage.SaveObject(SavePath + "/Character0", newChar, true);
+                CreateCharacter();
             }
+
+            OnCharactersLoaded?.Invoke();
         }
 
         /// <summary>
@@ -132,6 +138,21 @@ namespace SS3D.Systems.Characters.Preferences
             _unsavedCharacter = new CharacterProfile(_characters[_selectedCharacterIndex]);
             OnCharacterChanged?.Invoke(CharacterChangeType.Everything);
         }
+
+        /// <summary>
+        /// Method called when the create character button is pressed.
+        /// </summary>
+        [Client]
+        public void CreateCharacter()
+        {
+            int index = _characters.Count;
+            CharacterProfile newChar = new CharacterProfile();
+            LocalStorage.SaveObject(SavePath + "/Character" + index, newChar, true);
+
+            LoadCharactersFromDisk();
+            SelectCharacter(_characters.Count - 1);
+        }
+
         #endregion
 
         #region Character Setters
