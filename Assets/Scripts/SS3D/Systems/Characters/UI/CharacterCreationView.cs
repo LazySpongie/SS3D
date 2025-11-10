@@ -10,14 +10,17 @@ using System;
 using UnityEngine.UI;
 using SS3D.Systems.Characters.Preferences;
 using System.Linq;
+using SS3D.Systems.Screens.Events;
+using SS3D.Systems.Screens;
 
-namespace SS3D.Systems.Characters
+namespace SS3D.Systems.Characters.UI
 {
     /// <summary>
     /// this demon controls the character creation ui and sends the players changes to ClientPreferencesSubSystem
     /// </summary>
     public sealed class CharacterCreationView : Actor
     {
+        [Header("Preview")]
         [SerializeField] [NotNull] private AppearanceDisplayer _previewCharacter;
         [SerializeField] [NotNull] private List<TMP_Text> _previewNameTexts;
 
@@ -25,16 +28,10 @@ namespace SS3D.Systems.Characters
         [SerializeField] [NotNull] private Button _saveButton;
         [SerializeField] [NotNull] private Button _ResetButton;
 
-        [Header("Character Selection")]
+        [Header("Selections")]
         [SerializeField] [NotNull] private CharacterList _characterSelection;
-        
-        [Header("Name Selection")]
         [SerializeField] [NotNull] private TMP_InputField _characterNameSelection;
-
-        [Header("Style Selection")]
         [SerializeField] [NotNull] private List<AppearanceGrid> _styleSelections = new();
-
-        [Header("Color Selection")]
         [SerializeField] [NotNull] private List<ColorSelection> _colorSelections;
         
         private ClientPreferencesSubSystem _preferences;
@@ -79,6 +76,7 @@ namespace SS3D.Systems.Characters
             _preferences.OnCharacterChanged -= HandleCharacterChanged;
             _preferences.OnCharactersLoaded -= HandleCharactersLoaded;
 
+
             _characterSelection.OnCharacterListStarted -= HandleCharacterListStarted;
             _characterSelection.OnCharacterSelected -= HandleCharacterSelectionChanged;
             _characterSelection.OnCharacterDeleted -= HandleDeleteButtonPressed;
@@ -104,7 +102,7 @@ namespace SS3D.Systems.Characters
         #endregion
 
         #region Update UI
-        
+
         /// <summary>
         /// Method called when something about the character profile has been changed.
         /// </summary>

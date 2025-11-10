@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Actor = SS3D.Core.Behaviours.Actor;
 
-namespace SS3D.Systems.Characters
+namespace SS3D.Systems.Characters.UI
 {
 
     /// <summary>
@@ -106,6 +106,8 @@ namespace SS3D.Systems.Characters
         public void SetSelectedOption(int index)
         {
             if (_characterSlots.Count == 0) return;
+            if (_selectedIndex == index) return;
+            
             _characterSlots[_selectedIndex]?.SetSelected(false);
             _selectedIndex = index;
             _characterSlots[_selectedIndex]?.SetSelected(true);

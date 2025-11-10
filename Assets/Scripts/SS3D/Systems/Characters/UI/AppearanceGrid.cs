@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using Actor = SS3D.Core.Behaviours.Actor;
 
-namespace SS3D.Systems.Characters
+namespace SS3D.Systems.Characters.UI
 {
     public class AppearanceGrid : CustomizationGrid
     {

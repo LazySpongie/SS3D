@@ -6,7 +6,7 @@ using SS3D.Core.Behaviours;
 using UnityEngine.Events;
 using SS3D.Systems.Characters.Preferences;
 
-namespace SS3D.Systems.Characters
+namespace SS3D.Systems.Characters.UI
 {
     public class ColorSelection : Actor
     {

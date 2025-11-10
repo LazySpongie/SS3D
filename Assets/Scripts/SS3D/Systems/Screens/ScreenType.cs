@@ -6,6 +6,6 @@
         Previous = 1,
         Next = 2,
         Lobby = 3,
-        CharacterCustomizer = 4,
+        CharacterCreation = 4,
     }
 }

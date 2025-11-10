@@ -27,6 +27,7 @@ namespace SS3D.Systems.Screens
             if (!Screens.TryGetValue(screen.ScreenType, out GameScreen _))
             {
                 Screens.Add(screen.ScreenType, screen);
+                SwitchTo(ScreenType.Lobby);
             }
         }
 

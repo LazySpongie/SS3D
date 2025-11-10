@@ -6667,9 +6667,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58bc7906cdd14f44b8f075d6031c8e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _screenType: 0
+  _screenType: 3
   _canvasGroup: {fileID: 4370972905076281517}
   _holder: {fileID: 4370972904293784224}
+  _characterCreationButton: {fileID: 7174890275416467753}
 --- !u!114 &3493226604345077845
 MonoBehaviour:
   m_ObjectHideFlags: 0

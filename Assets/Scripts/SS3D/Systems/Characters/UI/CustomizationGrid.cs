@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using Actor = SS3D.Core.Behaviours.Actor;
 
-namespace SS3D.Systems.Characters
+namespace SS3D.Systems.Characters.UI
 {
 
     /// <summary>
@@ -135,6 +135,7 @@ namespace SS3D.Systems.Characters
         {
             if (slot == null) slot = _customizationSlots[0];
             if (slot == null) return;
+            if (_selectedOption == slot) return;
             
             if (_selectedOption) _selectedOption.Button.interactable = true; 
             _selectedOption = slot;

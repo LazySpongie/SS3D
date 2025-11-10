@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 using SS3D.Core;
 using SS3D.Core.Behaviours;
 using FishNet.Object;
@@ -9,11 +8,9 @@ using SS3D.Systems.Characters.Messages;
 using SS3D.Logging;
 using SS3D.Systems.Rounds.Events;
 using Coimbra.Services.Events;
-using System;
 using SS3D.Systems.Rounds;
 using System.Collections.ObjectModel;
 using System.Linq;
-using UnityEditorInternal;
 
 namespace SS3D.Systems.Characters.Preferences
 {
@@ -187,7 +184,7 @@ namespace SS3D.Systems.Characters.Preferences
             _characters.Add(newChar);
             _selectedCharacterIndex = _characters.Count - 1;
             
-            SaveCharacterToDisk(newChar, true);
+            SaveCharacterToDisk(newChar);
 
             LoadCharactersFromDisk();
 
@@ -221,7 +218,7 @@ namespace SS3D.Systems.Characters.Preferences
         /// Save the character profile to disk and update the manifest.
         /// </summary>
         [Client]
-        private void SaveCharacterToDisk(CharacterProfile character, bool isNew = false)
+        private void SaveCharacterToDisk(CharacterProfile character)
         {
             UpdateCharacterProfileManifest();
 

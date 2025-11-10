@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using SS3D.Core.Behaviours;
 
-namespace SS3D.Systems.Characters
+namespace SS3D.Systems.Characters.UI
 {
     /// <summary>
     /// Slot that holds information for each hairstyle option in the character creation UI.
