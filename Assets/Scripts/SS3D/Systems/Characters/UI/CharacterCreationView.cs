@@ -14,16 +14,16 @@ using System.Linq;
 namespace SS3D.Systems.Characters
 {
     /// <summary>
-    /// Sends selected customization to CharacterCreationSubSystem and previews customization on the lobby avatar
+    /// this demon controls the character creation ui and sends the players changes to ClientPreferencesSubSystem
     /// </summary>
-    public sealed class CharacterCreationView : NetworkActor
+    public sealed class CharacterCreationView : Actor
     {
         [SerializeField] [NotNull] private AppearanceDisplayer _previewCharacter;
         [SerializeField] [NotNull] private List<TMP_Text> _previewNameTexts;
 
         [Header("Save/Load Buttons")]
-        [SerializeField][NotNull] private Button _saveButton;
-        [SerializeField][NotNull] private Button _ResetButton;
+        [SerializeField] [NotNull] private Button _saveButton;
+        [SerializeField] [NotNull] private Button _ResetButton;
 
         [Header("Character Selection")]
         [SerializeField] [NotNull] private CharacterList _characterSelection;
@@ -32,35 +32,18 @@ namespace SS3D.Systems.Characters
         [SerializeField] [NotNull] private TMP_InputField _characterNameSelection;
 
         [Header("Style Selection")]
-        // [SerializeField] [NotNull] private CustomizationGrid _hairSelection;
-        // [SerializeField] [NotNull] private CustomizationGrid _beardSelection;
-        // [SerializeField] [NotNull] private CustomizationGrid _eyebrowSelection;
-
         [SerializeField] [NotNull] private List<AppearanceGrid> _styleSelections = new();
 
-
-
         [Header("Color Selection")]
-        [SerializeField][NotNull] private Button _hairColorSelection;
-        [SerializeField][NotNull] private Button _eyeColorSelection;
-        [SerializeField][NotNull] private Button _skinColorSelection;
+        [SerializeField] [NotNull] private List<ColorSelection> _colorSelections;
         
-        [Header("Colors")]
-        [SerializeField] public List<Color> hairColours;
-        [SerializeField] public List<Color> eyeColors;
-        [SerializeField] public List<Color> skinColors;
-
-        private int _currentHairColor = 0;
-        private int _currentEyeColor = 0;
-        private int _currentSkinColor = 0;
-
         private ClientPreferencesSubSystem _preferences;
 
         #region Setup
+        
         protected override void OnAwake()
         {
             base.OnAwake();
-            if (IsServer) return;
 
             _preferences = SubSystems.Get<ClientPreferencesSubSystem>();
 
@@ -69,12 +52,8 @@ namespace SS3D.Systems.Characters
 
             _characterSelection.OnCharacterListStarted += HandleCharacterListStarted;
             _characterSelection.OnCharacterSelected += HandleCharacterSelectionChanged;
-            _characterSelection.OnCharacterDeleted += HandleCharacterDeleted;
+            _characterSelection.OnCharacterDeleted += HandleDeleteButtonPressed;
             _characterSelection.OnCreateCharacter += HandleCharacterCreated;
-
-            // _hairSelection.OnCustomizationGridStarted += HandleCustomizationGridStarted;
-            // _beardSelection.OnCustomizationGridStarted += HandleCustomizationGridStarted;
-            // _eyebrowSelection.OnCustomizationGridStarted += HandleCustomizationGridStarted;
 
             _styleSelections.ForEach(grid =>
             {
@@ -82,40 +61,28 @@ namespace SS3D.Systems.Characters
                 grid.OnCustomizationGridSelected += HandleAppearanceSelected;
             });
 
-            // _hairSelection.OnCustomizationGridSelected += HandleAppearanceSelected;
-            // _beardSelection.OnCustomizationGridSelected += HandleAppearanceSelected;
-            // _eyebrowSelection.OnCustomizationGridSelected += HandleAppearanceSelected;
-
-            _hairColorSelection.onClick.AddListener(() => HandleColorSelectionChanged(AppearanceType.HairColor));
-            _eyeColorSelection.onClick.AddListener(() => HandleColorSelectionChanged(AppearanceType.EyeColor));
-            _skinColorSelection.onClick.AddListener(() => HandleColorSelectionChanged(AppearanceType.SkinColor));
+            _colorSelections.ForEach(colorSelection =>
+            {
+                colorSelection.OnColorSelected += HandleColorSelectionChanged;
+            });
 
             _saveButton.onClick.AddListener(HandleSaveButtonPressed);
             _ResetButton.onClick.AddListener(HandleResetButtonPressed);
 
             _characterNameSelection.onValueChanged.AddListener(HandleNameFieldChanged);
         }
-        
+
         protected override void OnDestroyed()
         {
             base.OnDestroyed();
-            if (IsServer) return;
 
             _preferences.OnCharacterChanged -= HandleCharacterChanged;
             _preferences.OnCharactersLoaded -= HandleCharactersLoaded;
 
             _characterSelection.OnCharacterListStarted -= HandleCharacterListStarted;
             _characterSelection.OnCharacterSelected -= HandleCharacterSelectionChanged;
-            _characterSelection.OnCharacterDeleted -= HandleCharacterDeleted;
+            _characterSelection.OnCharacterDeleted -= HandleDeleteButtonPressed;
             _characterSelection.OnCreateCharacter -= HandleCharacterCreated;
-
-            // _hairSelection.OnCustomizationGridStarted -= HandleCustomizationGridStarted;
-            // _beardSelection.OnCustomizationGridStarted -= HandleCustomizationGridStarted;
-            // _eyebrowSelection.OnCustomizationGridStarted -= HandleCustomizationGridStarted;
-
-            // _hairSelection.OnCustomizationGridSelected -= HandleAppearanceSelected;
-            // _beardSelection.OnCustomizationGridSelected -= HandleAppearanceSelected;
-            // _eyebrowSelection.OnCustomizationGridSelected -= HandleAppearanceSelected;
 
             _styleSelections.ForEach(grid =>
             {
@@ -123,9 +90,10 @@ namespace SS3D.Systems.Characters
                 grid.OnCustomizationGridSelected -= HandleAppearanceSelected;
             });
 
-            _hairColorSelection.onClick.RemoveListener(() => HandleColorSelectionChanged(AppearanceType.HairColor));
-            _eyeColorSelection.onClick.RemoveListener(() => HandleColorSelectionChanged(AppearanceType.EyeColor));
-            _skinColorSelection.onClick.RemoveListener(() => HandleColorSelectionChanged(AppearanceType.SkinColor));
+            _colorSelections.ForEach(colorSelection =>
+            {
+                colorSelection.OnColorSelected -= HandleColorSelectionChanged;
+            });
 
             _saveButton.onClick.RemoveListener(HandleSaveButtonPressed);
             _ResetButton.onClick.RemoveListener(HandleResetButtonPressed);
@@ -136,6 +104,7 @@ namespace SS3D.Systems.Characters
         #endregion
 
         #region Update UI
+        
         /// <summary>
         /// Method called when something about the character profile has been changed.
         /// </summary>
@@ -163,6 +132,17 @@ namespace SS3D.Systems.Characters
         }
 
         /// <summary>
+        /// Set the selection of the style grids to the current option.
+        /// </summary>
+        private void SetSelectedStylesFromCurrent()
+        {
+            _styleSelections.ForEach(grid =>
+            {
+                grid.SetSelectedOptionByName(_preferences.UnsavedCharacter.Appearance[grid.AppearanceType], false);
+            });
+        }
+
+        /// <summary>
         /// Update the characters name in the ui.
         /// </summary>
         private void HandleCharacterNameChanged(string name)
@@ -174,13 +154,16 @@ namespace SS3D.Systems.Characters
             _characterNameSelection.text = name;
         }
 
+        /// <summary>
+        /// Update character list to select the correct character.
+        /// </summary>
         private void HandleCharacterSelected()
         {
             _characterSelection.SetSelectedOption(_preferences.SelectedCharacterIndex);
         }
 
         /// <summary>
-        /// Method called the players customization is changed, update the preview.
+        /// Update the preview appearance.
         /// </summary>
         private void HandleAppearanceChanged()
         {
@@ -201,33 +184,26 @@ namespace SS3D.Systems.Characters
                     case AppearanceType.SkinColor:
                         if (!ColorUtility.TryParseHtmlString("#" + _preferences.UnsavedCharacter.Appearance[type], out Color color)) break;
                         _previewCharacter.SetColor(type, color);
-                        SetColourPickerButton(type, color);
+                        SetColorPickerButton(type, color);
                         break;
                 }
             }
         }
 
-        private void SetColourPickerButton(AppearanceType type, Color color)
+        /// <summary>
+        /// Set the color pickers to the selected color.
+        /// </summary>
+        private void SetColorPickerButton(AppearanceType type, Color color)
         {
-            switch (type)
+            _colorSelections.ForEach(colorSelection =>
             {
-                case AppearanceType.HairColor:
-                    _hairColorSelection.GetComponent<Image>().color = color;
-                    break;
-                case AppearanceType.EyeColor:
-                    _eyeColorSelection.GetComponent<Image>().color = color;
-                    break;
-                case AppearanceType.SkinColor:
-                    _skinColorSelection.GetComponent<Image>().color = color;
-                    break;
-                default:
-                    // error
-                    break;
-            }
+                if (colorSelection.Type != type) return;
+                colorSelection.SetColor(color);
+            });
         }
 
         /// <summary>
-        /// Method called when the character list is loaded.
+        /// Method called when the character list object is loaded.
         /// </summary>
         private void HandleCharacterListStarted()
         {
@@ -252,46 +228,29 @@ namespace SS3D.Systems.Characters
             if (grid is AppearanceGrid appearanceGrid)
             {
                 AppearanceType type = appearanceGrid.AppearanceType;
-
-                // SetSelectedStyleFromCurrent(type, grid);
                 grid.SetSelectedOptionByName(_preferences.UnsavedCharacter.Appearance[type], false);
             }
         }
 
-        /// <summary>
-        /// Set the selection of all grids to the current option from the character profile.
-        /// </summary>
-        private void SetSelectedStylesFromCurrent()
-        {
-            
-            _styleSelections.ForEach(grid =>
-            {
-                grid.SetSelectedOptionByName(_preferences.UnsavedCharacter.Appearance[grid.AppearanceType], false);
-            });
-
-            // SetSelectedStyleFromCurrent(AppearanceType.Hairstyle, _hairSelection);
-            // SetSelectedStyleFromCurrent(AppearanceType.Beardstyle, _beardSelection);
-            // SetSelectedStyleFromCurrent(AppearanceType.Eyebrows, _eyebrowSelection);
-        }
-
-        // /// <summary>
-        // /// Set the selection of an appearance grid to the current option from the character profile.
-        // /// </summary>
-        // private void SetSelectedStyleFromCurrent(AppearanceType type, CustomizationGrid grid)
-        // {
-        //     // Need to load data and send it
-        //     switch (type)
-        //     {
-        //         case AppearanceType.Hairstyle:
-        //         case AppearanceType.Beardstyle:
-        //         case AppearanceType.Eyebrows:
-        //             grid.SetSelectedOptionByName(_preferences.UnsavedCharacter.Appearance[type], false);
-        //             break;
-        //     }
-        // }
         #endregion
 
         #region Update Character
+
+        /// <summary>
+        /// Callback when the save button is pressed.
+        /// </summary>
+        public void HandleSaveButtonPressed()
+        {
+            _preferences.SaveCharacter();
+        }
+
+        /// <summary>
+        /// Callback when a character is selected.
+        /// </summary>
+        public void HandleResetButtonPressed()
+        {
+            _preferences.ResetCharacter();
+        }
 
         /// <summary>
         /// Callback when the player clicks to create a new character.
@@ -304,7 +263,7 @@ namespace SS3D.Systems.Characters
         /// <summary>
         /// Callback when the player clicks to delete a character.
         /// </summary>
-        private void HandleCharacterDeleted(int index)
+        private void HandleDeleteButtonPressed(int index)
         {
             _preferences.DeleteCharacter(index);
         }
@@ -331,65 +290,17 @@ namespace SS3D.Systems.Characters
         public void HandleAppearanceSelected(CustomizationGrid grid, CustomizationSlot option)
         {
             if (grid is not AppearanceGrid appearanceGrid) return;
-            
+
             AppearanceType type = appearanceGrid.AppearanceType;
-            switch (type)
-            {
-                case AppearanceType.Hairstyle:
-                case AppearanceType.Beardstyle:
-                case AppearanceType.Eyebrows:
-                    _preferences.SetAppearanceOption(type, option.CustomizationSO.name);
-                    break;
-                default:
-                    // error
-                    break;
-            }
+            _preferences.SetAppearanceOption(type, option.CustomizationSO.name);
         }
-
-        /// <summary>
-        /// Callback when the save button is pressed.
-        /// </summary>
-        public void HandleSaveButtonPressed()
-        {
-            _preferences.SaveCharacter();
-        }
-
-        /// <summary>
-        /// Callback when a character is selected.
-        /// </summary>
-        public void HandleResetButtonPressed()
-        {
-            _preferences.ResetCharacter();
-        }
-
+        
         /// <summary>
         /// Callback when a color button is pressed.
         /// </summary>
-        public void HandleColorSelectionChanged(AppearanceType type)
+        public void HandleColorSelectionChanged(ColorSelection colorSelection, Color color)
         {
-            // placeholder
-            switch (type)
-            {
-                case AppearanceType.HairColor:
-                    _currentHairColor++;
-                    if (_currentHairColor >= hairColours.Count) _currentHairColor = 0;
-                    _preferences.SetColor(type, ColorUtility.ToHtmlStringRGB(hairColours[_currentHairColor]));
-                    break;
-
-                case AppearanceType.EyeColor:
-                    _currentEyeColor++;
-                    if (_currentEyeColor >= eyeColors.Count) _currentEyeColor = 0;
-                    _preferences.SetColor(type, ColorUtility.ToHtmlStringRGB(eyeColors[_currentEyeColor]));
-                    break;
-
-                case AppearanceType.SkinColor:
-                    _currentSkinColor++;
-                    if (_currentSkinColor >= skinColors.Count) _currentSkinColor = 0;
-                    _preferences.SetColor(type, ColorUtility.ToHtmlStringRGB(skinColors[_currentSkinColor]));
-                    break;
-                default:
-                    break;
-            }
+            _preferences.SetColor(colorSelection.Type, ColorUtility.ToHtmlStringRGB(color));
         }
         #endregion
         

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5587bb68730e04288d41000b70752e, type: 3}
+  m_Name: Eyes
+  m_EditorClassIdentifier: 
+  Colors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 1, g: 1, b: 1, a: 0}
+  - {r: 0.5188679, g: 0.16887683, b: 0.16887683, a: 0}
+  - {r: 0.12237452, g: 0.19540218, b: 0.4716981, a: 0}
+  - {r: 0.1954432, g: 0.6792453, b: 0.5798259, a: 0}
+  - {r: 0.31834614, g: 0.6784314, b: 0.19607842, a: 0}
+  - {r: 0.6792453, g: 0.3509686, b: 0.05446779, a: 0}
+  - {r: 0.6784314, g: 0.054901972, b: 0.635914, a: 0}
