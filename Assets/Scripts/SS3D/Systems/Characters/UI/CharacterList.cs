@@ -102,7 +102,6 @@ namespace SS3D.Systems.Characters
         /// </summary>
         public void SetSelectedOption(int index)
         {
-
             if (_characterSlots.Count == 0) return;
             _characterSlots[_selectedIndex].interactable = true;
             _selectedIndex = index;
@@ -114,9 +113,9 @@ namespace SS3D.Systems.Characters
         /// </summary>
         public void SetName(string name, int index)
         {
+            if (_characterSlots.Count == 0) return;
             _characterSlots[index].GetComponentInChildren<TMP_Text>().text = name;
         }
-
 
         /// <summary>
         /// Clear all slots in the content area of the menu.
