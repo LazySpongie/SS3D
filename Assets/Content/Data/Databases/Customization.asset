@@ -16,24 +16,42 @@ MonoBehaviour:
   AssetGroup: {fileID: 11400000, guid: a167ca69613ee974e9e4708216d7ceca, type: 2}
   Assets:
     _list:
-    - _key: Default
-      _value: {fileID: 11400000, guid: 95fe6a66f2f9e5640b3e332ce57e3d72, type: 2}
-    - _key: Bold
-      _value: {fileID: 11400000, guid: 71b2a2caa4a79304da7d8f5bd73c146c, type: 2}
-    - _key: Classic
-      _value: {fileID: 11400000, guid: a9b83fc1ec00ec84f96f42495188acd6, type: 2}
-    - _key: Circles
-      _value: {fileID: 11400000, guid: 23e92b76514bdc54f89bbfcc6a334328, type: 2}
-    - _key: Dainty
-      _value: {fileID: 11400000, guid: 60bfe03b1e899084584b8b02780fa57b, type: 2}
-    - _key: Danish
-      _value: {fileID: 11400000, guid: c196b5486dd0cea4aaf3730375949641, type: 2}
-    - _key: Bald
-      _value: {fileID: 11400000, guid: 89b4a9042d7f3ab42a708c3bbef44ebb, type: 2}
-    - _key: Anime
-      _value: {fileID: 11400000, guid: 3d321a4a18b3a454ead9dbff4e18edc2, type: 2}
-    - _key: Beep
-      _value: {fileID: 11400000, guid: d5855b7864ca05a40aa00f8346028cd9, type: 2}
     - _key: Fry
       _value: {fileID: 11400000, guid: 9bed4f23bb0b35441aec2b48ae0c56c7, type: 2}
+    - _key: Clown
+      _value: {fileID: 11400000, guid: 09574933a437fdc4585dc56883dd7afa, type: 2}
+    - _key: Emo
+      _value: {fileID: 11400000, guid: aa2a44282daa80440959dcd0ed1a6d1d, type: 2}
+    - _key: Mullet
+      _value: {fileID: 11400000, guid: d18116e1905cdfc4e88ce7dc45e51260, type: 2}
+    - _key: ShortMessy
+      _value: {fileID: 11400000, guid: 535ef778cf841d5418eead217d5f4312, type: 2}
+    - _key: Mohawk
+      _value: {fileID: 11400000, guid: 2fb31659357702345bab733200573958, type: 2}
+    - _key: Mane
+      _value: {fileID: 11400000, guid: abd8c4290b5f3ea478af6bd1998648fa, type: 2}
+    - _key: PoofyBansShort
+      _value: {fileID: 11400000, guid: bc9dab35bc3e3324a846dfbb2a04e3e7, type: 2}
+    - _key: Simple
+      _value: {fileID: 11400000, guid: fdde1c0123bd9cd41892780a0fee18de, type: 2}
+    - _key: Saxon
+      _value: {fileID: 11400000, guid: d089ca371a846ad43b391d3e756d90a6, type: 2}
+    - _key: Beep
+      _value: {fileID: 11400000, guid: d5855b7864ca05a40aa00f8346028cd9, type: 2}
+    - _key: Anime
+      _value: {fileID: 11400000, guid: 3d321a4a18b3a454ead9dbff4e18edc2, type: 2}
+    - _key: Bald
+      _value: {fileID: 11400000, guid: 89b4a9042d7f3ab42a708c3bbef44ebb, type: 2}
+    - _key: Danish
+      _value: {fileID: 11400000, guid: c196b5486dd0cea4aaf3730375949641, type: 2}
+    - _key: Dainty
+      _value: {fileID: 11400000, guid: 60bfe03b1e899084584b8b02780fa57b, type: 2}
+    - _key: Circles
+      _value: {fileID: 11400000, guid: 23e92b76514bdc54f89bbfcc6a334328, type: 2}
+    - _key: Classic
+      _value: {fileID: 11400000, guid: a9b83fc1ec00ec84f96f42495188acd6, type: 2}
+    - _key: Bold
+      _value: {fileID: 11400000, guid: 71b2a2caa4a79304da7d8f5bd73c146c, type: 2}
+    - _key: Default
+      _value: {fileID: 11400000, guid: 95fe6a66f2f9e5640b3e332ce57e3d72, type: 2}
     _new: 

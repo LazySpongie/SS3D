@@ -2526,6 +2526,7 @@ MonoBehaviour:
   _canvasGroup: {fileID: 170886901}
   _holder: {fileID: 1661909058903019662}
   _lobbyButton: {fileID: 6625599135143574264}
+  _previewCamera: {fileID: 0}
 --- !u!114 &1227885501812673557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9360,6 +9361,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d321a4a18b3a454ead9dbff4e18edc2, type: 2}
   - {fileID: 11400000, guid: d5855b7864ca05a40aa00f8346028cd9, type: 2}
   - {fileID: 11400000, guid: 9bed4f23bb0b35441aec2b48ae0c56c7, type: 2}
+  - {fileID: 11400000, guid: 09574933a437fdc4585dc56883dd7afa, type: 2}
+  - {fileID: 11400000, guid: aa2a44282daa80440959dcd0ed1a6d1d, type: 2}
+  - {fileID: 11400000, guid: abd8c4290b5f3ea478af6bd1998648fa, type: 2}
+  - {fileID: 11400000, guid: 2fb31659357702345bab733200573958, type: 2}
+  - {fileID: 11400000, guid: d18116e1905cdfc4e88ce7dc45e51260, type: 2}
+  - {fileID: 11400000, guid: bc9dab35bc3e3324a846dfbb2a04e3e7, type: 2}
+  - {fileID: 11400000, guid: 535ef778cf841d5418eead217d5f4312, type: 2}
+  - {fileID: 11400000, guid: fdde1c0123bd9cd41892780a0fee18de, type: 2}
   _appearanceType: 0
 --- !u!1 &5593101044865649678
 GameObject:
@@ -9857,6 +9866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8790ef449f28e3249a5e0173cb47617c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _previewCamera: {fileID: 0}
 --- !u!1 &5786303608507989011
 GameObject:
   m_ObjectHideFlags: 0
@@ -10932,6 +10942,7 @@ MonoBehaviour:
   _customizationDatabase:
   - {fileID: 11400000, guid: 89b4a9042d7f3ab42a708c3bbef44ebb, type: 2}
   - {fileID: 11400000, guid: c196b5486dd0cea4aaf3730375949641, type: 2}
+  - {fileID: 11400000, guid: d089ca371a846ad43b391d3e756d90a6, type: 2}
   _appearanceType: 1
 --- !u!1 &6576095392634933332
 GameObject:
@@ -13586,7 +13597,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6886300645002393901}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

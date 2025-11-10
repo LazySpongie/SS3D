@@ -212,7 +212,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 779107774233065848, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: 779107774233065848, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
 --- !u!1 &2207730063960764759
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +286,7 @@ MonoBehaviour:
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
+    Position: {x: -0.65835714, y: 1.1670547, z: 0.050554566}
     Rotation: {x: -0.00000008146034, y: -0, z: -0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -483,13 +483,14 @@ MonoBehaviour:
   _weight: 1
   _startingTraits: []
   _rigidbody: {fileID: 6209280579436442931}
-  _itemVisualData: {fileID: 0}
+  _startingItemVisualData: {fileID: 0}
   _meshFilter: {fileID: 0}
   _renderer: {fileID: 0}
   _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 2213116588677504453}
   AttachmentPointAlt: {fileID: 2213116588677504453}
   _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!114 &2043125828508283566
 MonoBehaviour:
@@ -642,4 +643,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _renderer: {fileID: 4001260357921928063}

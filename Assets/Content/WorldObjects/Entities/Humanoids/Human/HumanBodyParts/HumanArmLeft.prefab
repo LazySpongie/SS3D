@@ -301,13 +301,14 @@ MonoBehaviour:
   _weight: 0
   _startingTraits: []
   _rigidbody: {fileID: 7884751941553947161}
-  _itemVisualData: {fileID: 0}
+  _startingItemVisualData: {fileID: 0}
   _meshFilter: {fileID: 0}
   _renderer: {fileID: 0}
   _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 9160028094263019472}
   AttachmentPointAlt: {fileID: 9160028094263019472}
   _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!114 &8560433685005156343
 MonoBehaviour:
@@ -333,7 +334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _renderer: {fileID: 753117864336002031}
 --- !u!1 &3892664671836465895
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,4 +463,4 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 6930368532989859695, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: 6930368532989859695, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}

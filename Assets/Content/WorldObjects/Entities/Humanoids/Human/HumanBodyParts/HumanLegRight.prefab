@@ -98,7 +98,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -4241497595815756514, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: -4241497595815756514, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
 --- !u!1 &8229224862104558823
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,13 +392,14 @@ MonoBehaviour:
   _weight: 0
   _startingTraits: []
   _rigidbody: {fileID: -877250859192271158}
-  _itemVisualData: {fileID: 0}
+  _startingItemVisualData: {fileID: 0}
   _meshFilter: {fileID: 0}
   _renderer: {fileID: 0}
   _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 4061394400744717875}
   AttachmentPointAlt: {fileID: 4061394400744717875}
   _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!114 &1454556291825162564
 MonoBehaviour:
@@ -463,4 +464,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _renderer: {fileID: 568686121754585084}

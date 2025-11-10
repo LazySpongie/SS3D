@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726264406199374682}
-  m_Mesh: {fileID: 4744537895405016745, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: 4744537895405016745, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
 --- !u!23 &6714887804241280903
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 2482166521292498734}
   - component: {fileID: 8187159198088897848}
   - component: {fileID: 8312465371777337006}
+  - component: {fileID: 1088763023440096940}
   m_Layer: 10
   m_Name: HumanLungRight
   m_TagString: Untagged
@@ -253,8 +254,14 @@ MonoBehaviour:
   _weight: 1
   _startingTraits: []
   _rigidbody: {fileID: 987575419316456724}
+  _startingItemVisualData: {fileID: 0}
+  _meshFilter: {fileID: 0}
+  _renderer: {fileID: 0}
+  _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 7383662845613626736}
   AttachmentPointAlt: {fileID: 0}
+  _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!114 &8187159198088897848
 MonoBehaviour:
@@ -272,7 +279,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 6158070572286981653}
   _networkObjectCache: {fileID: 6158070572286981653}
   _parentBodyPart: {fileID: 0}
-  _skinnedMeshRenderer: {fileID: 0}
+  _bodyPartType: 0
   _bodyPartItem: {fileID: 8304480218026041231}
   _internalBodyParts: {fileID: 0}
   _bodyCollider: {fileID: 0}
@@ -297,3 +304,15 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 6158070572286981653}
   _bodyPart: {fileID: 8187159198088897848}
   isBleeding: 0
+--- !u!114 &1088763023440096940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8304480218026041231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5674218650751824428}
   - component: {fileID: 8360202902009561000}
   - component: {fileID: 1799650741258744035}
+  - component: {fileID: 7924400709005504179}
   m_Layer: 10
   m_Name: HumanHeart
   m_TagString: Untagged
@@ -155,8 +156,14 @@ MonoBehaviour:
   _weight: 1
   _startingTraits: []
   _rigidbody: {fileID: 7023398927436552214}
+  _startingItemVisualData: {fileID: 0}
+  _meshFilter: {fileID: 0}
+  _renderer: {fileID: 0}
+  _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 771444556984483954}
   AttachmentPointAlt: {fileID: 0}
+  _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!114 &8360202902009561000
 MonoBehaviour:
@@ -174,7 +181,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 4159476743201579799}
   _networkObjectCache: {fileID: 4159476743201579799}
   _parentBodyPart: {fileID: 0}
-  _skinnedMeshRenderer: {fileID: 0}
+  _bodyPartType: 0
   _bodyPartItem: {fileID: 2302397424301738637}
   _internalBodyParts: {fileID: 0}
   _bodyCollider: {fileID: 0}
@@ -197,6 +204,18 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 4159476743201579799}
   _bodyPart: {fileID: 8360202902009561000}
   isBleeding: 0
+--- !u!114 &7924400709005504179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2302397424301738637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7410821763857303128
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +257,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7410821763857303128}
-  m_Mesh: {fileID: -8448853110147345245, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: -8448853110147345245, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
 --- !u!23 &3601930144330263173
 MeshRenderer:
   m_ObjectHideFlags: 0

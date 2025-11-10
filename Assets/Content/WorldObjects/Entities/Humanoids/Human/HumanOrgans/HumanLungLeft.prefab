@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5108938019209573932}
   - component: {fileID: 965431884132741063}
   - component: {fileID: 2197908233274138374}
+  - component: {fileID: 6553415060478583906}
   m_Layer: 10
   m_Name: HumanLungLeft
   m_TagString: Untagged
@@ -155,8 +156,14 @@ MonoBehaviour:
   _weight: 1
   _startingTraits: []
   _rigidbody: {fileID: 7575168781253286934}
+  _startingItemVisualData: {fileID: 0}
+  _meshFilter: {fileID: 0}
+  _renderer: {fileID: 0}
+  _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 210824205509592178}
   AttachmentPointAlt: {fileID: 0}
+  _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!114 &965431884132741063
 MonoBehaviour:
@@ -174,7 +181,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 3594199936646473495}
   _networkObjectCache: {fileID: 3594199936646473495}
   _parentBodyPart: {fileID: 0}
-  _skinnedMeshRenderer: {fileID: 0}
+  _bodyPartType: 0
   _bodyPartItem: {fileID: 1705603677127675533}
   _internalBodyParts: {fileID: 0}
   _bodyCollider: {fileID: 0}
@@ -199,6 +206,18 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 3594199936646473495}
   _bodyPart: {fileID: 965431884132741063}
   isBleeding: 0
+--- !u!114 &6553415060478583906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705603677127675533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7962576220267135576
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +259,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7962576220267135576}
-  m_Mesh: {fileID: 6614665779154328340, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: 6614665779154328340, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
 --- !u!23 &4153699440103763589
 MeshRenderer:
   m_ObjectHideFlags: 0

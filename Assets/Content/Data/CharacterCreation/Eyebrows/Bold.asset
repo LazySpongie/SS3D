@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NameString: Bold
   icon: {fileID: 21300000, guid: 5a97d5afa6254804f81b7ba956296996, type: 3}
-  HairModel: {fileID: -6286783219284285172, guid: 3ddb292c238ee6c4fa684395f5aa0ec7, type: 3}
+  HairModel: {fileID: -8349464965470310634, guid: 678d643d389f4d249b1e7f675a6728b8, type: 3}

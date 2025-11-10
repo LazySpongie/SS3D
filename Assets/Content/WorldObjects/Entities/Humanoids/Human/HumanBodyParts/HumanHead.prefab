@@ -409,7 +409,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -963133539427622498, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: -963133539427622498, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
   m_Bones:
   - {fileID: 0}
   - {fileID: 0}
@@ -539,7 +539,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4761734105124712184}
-  m_Mesh: {fileID: 3111722850488922510, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: 3111722850488922510, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
 --- !u!23 &6399478301585684159
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -623,7 +623,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4859481259485706272}
-  m_Mesh: {fileID: -2329092180217662506, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: -2329092180217662506, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
 --- !u!23 &1227641652599760678
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -713,7 +713,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5081194299586980647}
-  m_Mesh: {fileID: 4101507759368341734, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: 4101507759368341734, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
 --- !u!23 &5287015612536748417
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -975,7 +975,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7747239514947731023}
-  m_Mesh: {fileID: -963133539427622498, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: -963133539427622498, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
 --- !u!23 &6246301732010440110
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1297,13 +1297,14 @@ MonoBehaviour:
   _weight: 0
   _startingTraits: []
   _rigidbody: {fileID: 4892245229350837848}
-  _itemVisualData: {fileID: 0}
+  _startingItemVisualData: {fileID: 0}
   _meshFilter: {fileID: 0}
   _renderer: {fileID: 0}
   _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 3842349965181237474}
   AttachmentPointAlt: {fileID: 3842349965181237474}
   _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
 --- !u!114 &9144611586984572002
 MonoBehaviour:
@@ -1425,7 +1426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _renderer: {fileID: 5982081358960133349}
 --- !u!1 &8010198090661034686
 GameObject:
   m_ObjectHideFlags: 0

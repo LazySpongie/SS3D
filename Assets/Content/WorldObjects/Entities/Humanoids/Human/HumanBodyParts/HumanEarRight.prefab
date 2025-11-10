@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 4259797456202353733}
   - component: {fileID: 286891394951643036}
   - component: {fileID: 3626868207557942187}
+  - component: {fileID: 994117631727548872}
   m_Layer: 10
   m_Name: HumanEarRight
   m_TagString: Untagged
@@ -197,7 +198,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 3111722850488922510, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: 3111722850488922510, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
   m_Bones:
   - {fileID: 0}
   - {fileID: 0}
@@ -319,6 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19f823e20acab740ba5150747863eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clothingSlotType: 0
 --- !u!114 &3626868207557942187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,9 +341,27 @@ MonoBehaviour:
   _weight: 0
   _startingTraits: []
   _rigidbody: {fileID: 0}
+  _startingItemVisualData: {fileID: 0}
+  _meshFilter: {fileID: 0}
+  _renderer: {fileID: 0}
+  _meshCollider: {fileID: 0}
   AttachmentPoint: {fileID: 0}
   AttachmentPointAlt: {fileID: 0}
+  _currentItemVisualState: 0
+  _currentItemVisualName: 
   _container: {fileID: 0}
+--- !u!114 &994117631727548872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3299576395946724586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9124564804110276306
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,4 +460,4 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 3111722850488922510, guid: f553c8289710b5e4dab99c3bcbbb802e, type: 3}
+  m_Mesh: {fileID: 3111722850488922510, guid: 3bc000bfb0b9c4c41a3b96fe3e7f3c94, type: 3}
