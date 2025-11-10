@@ -14204,6 +14204,10 @@ PrefabInstance:
       value: 0.1792453
       objectReference: {fileID: 0}
     - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: _styleSelections.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
       propertyPath: hairColours.Array.data[0].b
       value: 0.19215687
       objectReference: {fileID: 0}
@@ -14315,6 +14319,18 @@ PrefabInstance:
       propertyPath: _previewNameTexts.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: _styleSelections.Array.data[0]
+      value: 
+      objectReference: {fileID: 1633555550}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: _styleSelections.Array.data[1]
+      value: 
+      objectReference: {fileID: 1213120746}
+    - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
+      propertyPath: _styleSelections.Array.data[2]
+      value: 
+      objectReference: {fileID: 1575155562}
     - target: {fileID: 4938382127301101663, guid: 313c7a6f7eaaf4f4cb80cbe0fe77005d, type: 3}
       propertyPath: _previewNameTexts.Array.data[0]
       value: 

@@ -2,6 +2,7 @@
 using SS3D.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
+using SS3D.Core.Behaviours;
 
 namespace SS3D.Systems.Characters
 {
@@ -9,7 +10,7 @@ namespace SS3D.Systems.Characters
     /// Slot that holds information for each hairstyle option in the character creation UI.
     /// They get created when the character creation menu starts.
     /// </summary>
-    public class CustomizationSlot : MonoBehaviour
+    public class CustomizationSlot : Actor
     {
         [SerializeField] [NotNull] protected Button _button;
 

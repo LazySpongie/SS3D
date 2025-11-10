@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 2641643324154165660}
   - component: {fileID: 253590128339441732}
   - component: {fileID: 6368011285687984655}
+  - component: {fileID: 5767328587379322094}
   m_Layer: 5
   m_Name: CharacterSlot
   m_TagString: Untagged
@@ -279,6 +280,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5767328587379322094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5441400110165004031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ba628e3542a1940a2163b3f979c25c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterButton: {fileID: 6368011285687984655}
+  _deleteButton: {fileID: 7357002318589212893}
+  _text: {fileID: 8851199555682573472}
 --- !u!1 &5490683329450249539
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +397,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
     m_PressedColor: {r: 0.6132076, g: 0, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

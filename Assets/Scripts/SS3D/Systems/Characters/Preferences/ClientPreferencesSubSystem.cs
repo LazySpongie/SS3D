@@ -11,6 +11,9 @@ using SS3D.Systems.Rounds.Events;
 using Coimbra.Services.Events;
 using System;
 using SS3D.Systems.Rounds;
+using System.Collections.ObjectModel;
+using System.Linq;
+using UnityEditorInternal;
 
 namespace SS3D.Systems.Characters.Preferences
 {
@@ -31,9 +34,12 @@ namespace SS3D.Systems.Characters.Preferences
         
         public event CharactersLoadedHandler OnCharactersLoaded;
 
-	    public const string SavePath = "/Characters";
+        public const string CharacterSavePath = "/Characters/Saved";
+        
+	    public const string CharacterManifestSavePath = "/Characters";
 
-        private Dictionary<int, CharacterProfile> _characters = new();
+        private List<CharacterProfile> _characters = new();
+
 
         private int _selectedCharacterIndex = 0;
 
@@ -41,7 +47,18 @@ namespace SS3D.Systems.Characters.Preferences
 
         public int SelectedCharacterIndex => _selectedCharacterIndex;
 
-        public Dictionary<int, CharacterProfile> Characters => _characters;
+        public ReadOnlyCollection<CharacterProfile> Characters => _characters.AsReadOnly();
+
+        public ReadOnlyCollection<string> CharacterNames
+        {
+            get
+            {
+                List<string> list = new();
+                _characters.ForEach(profile => list.Add(profile.Name));
+
+                return list.AsReadOnly();
+            }
+        }
         
         public CharacterProfile SelectedCharacter
         {
@@ -62,52 +79,53 @@ namespace SS3D.Systems.Characters.Preferences
         {
             base.OnStartClient();
 
-            SelectCharacter(0);
+            SelectCharacter(_selectedCharacterIndex);
         }
 
         #region Character Save/Load
 
         /// <summary>
-        /// Method called when the load character button is clicked.
+        /// Load saved characters from the save folder.
         /// </summary>
         [Client]
         public void LoadCharactersFromDisk()
         {
             _characters.Clear();
-            List<string> savedChars = LocalStorage.GetAllObjectsNameInFolder(SavePath);
 
-            int i = 0;
-            while (true)
+            _selectedCharacterIndex = 0;
+
+            // need to make a function to validate or repair the char manifest
+            
+            CharacterProfileManifest characterManifest = LocalStorage.LoadObject<CharacterProfileManifest>(CharacterManifestSavePath + "/CharacterManifest");
+
+            if (characterManifest != null || characterManifest.Characters != null)
             {
-                string filePath = SavePath + "/Character" + i;
+                _selectedCharacterIndex = characterManifest.LastSelected;
 
-                CharacterProfile loadedcharacter =
-                    LocalStorage.LoadObject<CharacterProfile>(filePath);
-
-                // Validate 
-                if (loadedcharacter != null)
+                foreach (string name in characterManifest.Characters)
                 {
-                    _characters.Add(i, loadedcharacter);
-                }
-                else
-                {
-                    break;
-                }
+                    string filePath = CharacterSavePath + "/" + name;
 
-                i++;
+                    CharacterProfile loadedcharacter =
+                        LocalStorage.LoadObject<CharacterProfile>(filePath);
+
+                    if (loadedcharacter == null) continue;
+
+                    _characters.Add(loadedcharacter);
+                }
             }
-
+            
             // No valid characters so create a default character
             if (_characters.Count == 0)
             {
-                CreateCharacter();
+                CreateCharacter(false);
             }
 
             OnCharactersLoaded?.Invoke();
         }
 
         /// <summary>
-        /// Sets a new selected character and sends it to the server.
+        /// Select a character from the list of characters.
         /// </summary>
         [Client]
         public void SelectCharacter(int index)
@@ -117,14 +135,29 @@ namespace SS3D.Systems.Characters.Preferences
         }
 
         /// <summary>
-        /// Method called when the save character button is pressed.
+        /// Save the changes to the current character.
         /// </summary>
         [Client]
         public void SaveCharacter()
         {
+            // To prevent overwriting save files we have to make sure the name is unique
+            if (CharacterNames.Contains(_unsavedCharacter.Name) & SelectedCharacter.Name != _unsavedCharacter.Name)
+            {
+                Log.Warning(this, "Duplicate character name: " + _unsavedCharacter.Name + " - cannot save character.");
+                return;
+            }
+
+            // if the character is being renamed we need to rename the save file
+            if (SelectedCharacter.Name != _unsavedCharacter.Name)
+            {
+                string oldfile = CharacterSavePath + "/" + SelectedCharacter.Name;
+                string newfile = CharacterSavePath + "/" + _unsavedCharacter.Name;
+                LocalStorage.RenameFile(oldfile, newfile);
+            }
+
             _characters[_selectedCharacterIndex] = _unsavedCharacter;
-            bool overwrite = true;
-            LocalStorage.SaveObject(SavePath + "/Character" + _selectedCharacterIndex, _unsavedCharacter, overwrite);
+
+            SaveCharacterToDisk(SelectedCharacter);
 
             SelectCharacter(_selectedCharacterIndex);
         }
@@ -136,21 +169,97 @@ namespace SS3D.Systems.Characters.Preferences
         public void ResetCharacter()
         {
             _unsavedCharacter = new CharacterProfile(_characters[_selectedCharacterIndex]);
-            OnCharacterChanged?.Invoke(CharacterChangeType.Everything);
+
+            OnCharacterChanged?.Invoke(CharacterChangeType.Load);
         }
 
         /// <summary>
-        /// Method called when the create character button is pressed.
+        /// Create a new character.
         /// </summary>
         [Client]
-        public void CreateCharacter()
+        public void CreateCharacter(bool select = true)
         {
-            int index = _characters.Count;
             CharacterProfile newChar = new CharacterProfile();
-            LocalStorage.SaveObject(SavePath + "/Character" + index, newChar, true);
+
+            // need to avoid overwriting other characters
+            newChar.Name = GetNewCharacterFileName(newChar.Name);
+
+            _characters.Add(newChar);
+            _selectedCharacterIndex = _characters.Count - 1;
+            
+            SaveCharacterToDisk(newChar, true);
 
             LoadCharactersFromDisk();
+
+            if (!select) return;
             SelectCharacter(_characters.Count - 1);
+        }
+
+        /// <summary>
+        /// Delete a specified character.
+        /// </summary>
+        [Client]
+        public void DeleteCharacter(int index)
+        {
+            if (index == _selectedCharacterIndex) return;
+
+            LocalStorage.DeleteFile(CharacterSavePath + "/" + _characters[index].Name);
+
+            CharacterProfile selectedChar = SelectedCharacter;
+            _characters.RemoveAt(index);
+            _selectedCharacterIndex = _characters.IndexOf(selectedChar);
+
+            UpdateCharacterProfileManifest();
+
+            // LoadCharactersFromDisk();
+            OnCharactersLoaded?.Invoke();
+
+            SelectCharacter(_selectedCharacterIndex);
+        }
+
+        /// <summary>
+        /// Save the character profile to disk and update the manifest.
+        /// </summary>
+        [Client]
+        private void SaveCharacterToDisk(CharacterProfile character, bool isNew = false)
+        {
+            UpdateCharacterProfileManifest();
+
+            LocalStorage.SaveObject(CharacterSavePath + "/" + character.Name, character, true);
+        }
+
+        /// <summary>
+        /// Return a unique name if a file with the same name already exists.
+        /// </summary>
+        [Client]
+        private string GetNewCharacterFileName(string name)
+        {
+            string newName = name;
+            int i = 1;
+            while (true)
+            {
+                if (LocalStorage.FolderAlreadyContainsName(CharacterSavePath, newName))
+                {
+                    // character1, character2, character3, etc
+                    newName = name + i;
+                    i++;
+                }
+                else
+                {
+                    return newName;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Keep track of every saved character
+        /// </summary>
+        [Client]
+        private void UpdateCharacterProfileManifest()
+        {
+            CharacterProfileManifest characterManifest = new CharacterProfileManifest(_selectedCharacterIndex, CharacterNames.ToList());
+            
+            LocalStorage.SaveObject(CharacterManifestSavePath + "/CharacterManifest", characterManifest, true);
         }
 
         #endregion
@@ -163,6 +272,8 @@ namespace SS3D.Systems.Characters.Preferences
         [Client]
         public void SetAppearanceOption(AppearanceType type, string option, bool invoke = true)
         {
+            if (option == string.Empty) return;
+
             _unsavedCharacter.Appearance[type] = option;
             if (!invoke) return;
             OnCharacterChanged?.Invoke(CharacterChangeType.Appearance);
@@ -173,6 +284,8 @@ namespace SS3D.Systems.Characters.Preferences
         /// </summary>
         public void SetCharacterName(string name)
         {
+            if (name == string.Empty || name == _unsavedCharacter.Name) return;
+
             _unsavedCharacter.Name = name;
             OnCharacterChanged?.Invoke(CharacterChangeType.Name);
         }
@@ -182,6 +295,8 @@ namespace SS3D.Systems.Characters.Preferences
         /// </summary>
         public void SetColor(AppearanceType type, string color)
         {
+            if (color == string.Empty) return;
+
             _unsavedCharacter.Appearance[type] = color;
             OnCharacterChanged?.Invoke(CharacterChangeType.Appearance);
         }

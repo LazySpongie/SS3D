@@ -10,7 +10,7 @@ namespace SS3D.Systems.Characters.Preferences
     [Serializable]
     public class CharacterProfile : ISerializationCallbackReceiver
     {
-        public string Name = "John Beep";
+        public string Name = "New Character";
         public string FlavorText = string.Empty;
         public int Age = 18;
         public Sex Sex = Sex.Male;

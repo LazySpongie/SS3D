@@ -16,20 +16,21 @@ namespace SS3D.Systems.Characters
     /// </summary>
     public class CharacterList : Actor
     {
-        public delegate void CharacterSelectionEventHandler(int index);
+        public delegate void CharacterSlotEventHandler(int index);
         
-        public delegate void CharacterListStartEventHandler();
+        public delegate void CharacterListEventHandler();
 
-        public delegate void CreateCharacterEventHandler();
+        // When this script starts it needs to be setup
+        public event CharacterListEventHandler OnCharacterListStarted;
 
-        // When the selection changes
-        public event CharacterSelectionEventHandler OnCharacterSelected;
-
-        // When this script starts
-        public event CharacterListStartEventHandler OnCharacterListStarted;
+        // When the player clicks to select a character
+        public event CharacterSlotEventHandler OnCharacterSelected;
         
-        // When a character is created
-        public event CreateCharacterEventHandler OnCreateCharacter;
+        // When the player clicks to delete a character
+        public event CharacterSlotEventHandler OnCharacterDeleted;
+
+        // When the player clicks to create a character
+        public event CharacterListEventHandler OnCreateCharacter;
 
         /// <summary>
         ///  The prefab for a single character slot UI.
@@ -49,7 +50,7 @@ namespace SS3D.Systems.Characters
         /// <summary>
         /// List of slots created in the menu.
         /// </summary>
-        private List<Button> _characterSlots = new();
+        private List<CharacterSlot> _characterSlots = new();
 
         /// <summary>
         /// Currently selected option.
@@ -77,25 +78,27 @@ namespace SS3D.Systems.Characters
         public void LoadList(List<string> names)
         {
             ClearList();
-            
+            _selectedIndex = 0;
             // _createCharacterButton.transform.SetSiblingIndex(0);
 
             foreach (string name in names)
             {
-                Button _slot = Instantiate(_slotPrefab, _contentRoot.transform, true).GetComponent<Button>();
+                CharacterSlot _slot = Instantiate(_slotPrefab, _contentRoot.transform, true).GetComponent<CharacterSlot>();
 
                 _slot.transform.localScale = Vector3.one;
 
                 _characterSlots.Add(_slot);
 
-                _slot.GetComponentInChildren<TMP_Text>().text = name;
+                _slot.SetName(name);
 
-                _slot.onClick.AddListener(() => HandleSlotButtonPressed(_slot));
+                _slot.DeleteButton.onClick.AddListener(() => HandleDeleteButtonPressed(_slot));
+                _slot.CharacterButton.onClick.AddListener(() => HandleSlotButtonPressed(_slot));
 
             }
 
             _createCharacterButton.transform.SetSiblingIndex(_contentRoot.transform.childCount);
         }
+
 
         /// <summary>
         /// Set the currently selected option.
@@ -103,11 +106,11 @@ namespace SS3D.Systems.Characters
         public void SetSelectedOption(int index)
         {
             if (_characterSlots.Count == 0) return;
-            _characterSlots[_selectedIndex].interactable = true;
+            _characterSlots[_selectedIndex]?.SetSelected(false);
             _selectedIndex = index;
-            _characterSlots[_selectedIndex].interactable = false;
+            _characterSlots[_selectedIndex]?.SetSelected(true);
         }
-        
+
         /// <summary>
         /// Set the currently selected option.
         /// </summary>
@@ -115,6 +118,21 @@ namespace SS3D.Systems.Characters
         {
             if (_characterSlots.Count == 0) return;
             _characterSlots[index].GetComponentInChildren<TMP_Text>().text = name;
+        }
+        
+        /// <summary>
+        /// Load a list of character names and place them in the UI.
+        /// </summary>
+        public void SetNames(List<string> names)
+        {
+            if (_characterSlots.Count == 0) return;
+            
+            int i = 0;
+            foreach (CharacterSlot slot in _characterSlots)
+            {
+                slot.SetName(names[i]);
+                i++;
+            }
         }
 
         /// <summary>
@@ -130,14 +148,23 @@ namespace SS3D.Systems.Characters
         }
 
         /// <summary>
-        /// Called when an option in the grid is selected, set the option as the selected option.
+        /// Called when the player clicks a character, set the character as the selected option.
         /// </summary>
-        private void HandleSlotButtonPressed(Button slot)
+        private void HandleSlotButtonPressed(CharacterSlot slot)
         {
             int index = _characterSlots.IndexOf(slot);
             OnCharacterSelected?.Invoke(index);
         }
 
+        /// <summary>
+        /// Called when the player clicks the delete button on a character.
+        /// </summary>
+        private void HandleDeleteButtonPressed(CharacterSlot slot)
+        {
+            int index = _characterSlots.IndexOf(slot);
+            OnCharacterDeleted?.Invoke(index);
+        }
+        
         /// <summary>
         /// Called when the create character button is pressed.
         /// </summary>
