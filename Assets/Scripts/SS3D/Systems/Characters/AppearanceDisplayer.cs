@@ -5,6 +5,7 @@ using SS3D.Systems.Inventory.Clothing;
 using UnityEngine.Video;
 using System.Collections.Generic;
 using SS3D.Systems.Characters.Preferences;
+using System;
 
 namespace SS3D.Systems.Characters
 {
@@ -14,6 +15,10 @@ namespace SS3D.Systems.Characters
     /// </summary>
     public class AppearanceDisplayer : Actor
     {
+        [Header("Bone Scaler")]
+        [SerializeField] private BoneScaler _boneScaler;
+
+        [Header("Style Slots")]
         /// <summary>
         /// Renderer that will display the hair.
         /// </summary>
@@ -34,11 +39,13 @@ namespace SS3D.Systems.Characters
         /// </summary>
         [SerializeField] private VisualSlot _eyeSlot;
 
+        [Header("Skin Renderers")]
         /// <summary>
         /// Renderers that control the skin.
         /// </summary>
         [SerializeField] private List<SkinnedMeshRenderer> _skinRenderers;
 
+        [Header("Materials")]
         [SerializeField] private Material _hairMaterial;
         [SerializeField] private Material _eyeMaterial;
         [SerializeField] private Material _skinMaterial;
@@ -127,6 +134,29 @@ namespace SS3D.Systems.Characters
                     // error
                     break;
             }
+        }
+
+        /// <summary>
+        /// Set body scales.
+        /// </summary>
+        [Client]
+        public void SetBody(BodyType type, float value)
+        {
+            value = Mathf.Clamp(value, 0.5f, 1.5f);
+
+            if (_boneScaler == null) return;
+
+            switch (type)
+            {
+                case BodyType.Height:
+                    _boneScaler.heightInput = value;
+                    break;
+                default:
+                    // error
+                    break;
+            }
+            
+            _boneScaler.ScaleBones();
         }
 
         /// <summary>

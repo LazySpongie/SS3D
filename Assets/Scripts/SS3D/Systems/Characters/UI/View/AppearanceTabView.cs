@@ -25,8 +25,7 @@ namespace SS3D.Systems.Characters.UI.View
         [SerializeField] [NotNull] private List<ColorSelection> _colorSelections;
 
         [Header("Sliders")]
-        // [SerializeField] [NotNull] private List<Slider> _bodySliders;
-        [SerializeField] [NotNull] private Slider _heightSlider;
+        [SerializeField] [NotNull] private List<BodySlider> _sliders;
 
         private ClientPreferencesSubSystem _preferences;
 
@@ -59,7 +58,11 @@ namespace SS3D.Systems.Characters.UI.View
                 colorSelection.OnColorSelected += HandleColorSelectionChanged;
             });
 
-            _heightSlider.onValueChanged.AddListener(HandleHeightSliderChanged);
+            _sliders.ForEach(slider =>
+            {
+                slider.OnValueChanged += HandleBodySliderChanged;
+                slider.OnStarted += HandleBodySliderStarted;
+            });
         }
 
         protected override void OnDestroyed()
@@ -77,7 +80,11 @@ namespace SS3D.Systems.Characters.UI.View
                 colorSelection.OnColorSelected -= HandleColorSelectionChanged;
             });
 
-            _heightSlider.onValueChanged.RemoveListener(HandleHeightSliderChanged);
+            _sliders.ForEach(slider =>
+            {
+                slider.OnValueChanged -= HandleBodySliderChanged;
+                slider.OnStarted -= HandleBodySliderStarted;
+            });
 
         }
 
@@ -114,14 +121,19 @@ namespace SS3D.Systems.Characters.UI.View
                     SetBodySliders();
                     break;
                 case CharacterChangeType.Appearance:
+                    SetStyleSelections();
                     SetColorPickers();
+                    SetBodySliders();
                     break;
             }
         }
 
         private void SetBodySliders()
         {
-            _heightSlider.SetValueWithoutNotify(float.Parse(_character?.GetBody(BodyType.Height)));
+            _sliders.ForEach(slider =>
+            {
+                slider.SetValue(float.Parse(_character?.GetBody(slider.Type)));
+            });
         }
 
         private void SetStyleSelections()
@@ -157,7 +169,7 @@ namespace SS3D.Systems.Characters.UI.View
                 colorSelection.SetColor(color);
             });
         }
-        
+
         /// <summary>
         /// Method called when a grid is loaded so the correct option can be set as selected in the ui.
         /// </summary>
@@ -170,6 +182,16 @@ namespace SS3D.Systems.Characters.UI.View
                 grid.SetSelectedOptionByName(_character?.GetStyle(type), false);
             }
         }
+        
+        /// <summary>
+        /// Method called when a slider is loaded so the correct value can be set in the ui.
+        /// </summary>
+        private void HandleBodySliderStarted(BodySlider slider)
+        {
+            if (_character == null) return;
+            slider.SetValue(float.Parse(_character.GetBody(slider.Type)));
+        }
+
 
         #endregion
 
@@ -195,9 +217,9 @@ namespace SS3D.Systems.Characters.UI.View
         /// <summary>
         /// Callback when a color button is pressed.
         /// </summary>
-        private void HandleHeightSliderChanged(float input)
+        private void HandleBodySliderChanged(BodyType type, float value)
         {
-            _preferences.SetBody(BodyType.Height, input.ToString());
+            _preferences.SetBody(type, value.ToString());
         }
         
         #endregion

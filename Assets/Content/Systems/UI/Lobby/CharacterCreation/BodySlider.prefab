@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8295488101420104077}
   - component: {fileID: 776443371994883611}
   - component: {fileID: 4910338336296144282}
+  - component: {fileID: 4746053630913878783}
   m_Layer: 5
-  m_Name: Slider_Customization
+  m_Name: BodySlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,6 +99,20 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1
+--- !u!114 &4746053630913878783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296563009702102432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174bfd770ed6820408fd1c7720f0a1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 0
+  _slider: {fileID: 47707670478893296}
 --- !u!1001 &4747399986983015472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -495,6 +510,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 438f56fe839e5c645b04b0db240fcc21, type: 3}
+--- !u!114 &47707670478893296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4704954279350609088, guid: 438f56fe839e5c645b04b0db240fcc21, type: 3}
+  m_PrefabInstance: {fileID: 4747399986983015472}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &47707670539268667 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4704954278481815051, guid: 438f56fe839e5c645b04b0db240fcc21, type: 3}

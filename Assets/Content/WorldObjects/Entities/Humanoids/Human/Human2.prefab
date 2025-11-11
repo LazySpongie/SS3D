@@ -7926,7 +7926,7 @@ MonoBehaviour:
   - {fileID: 6233962219268866637}
   - {fileID: 8067289659534850981}
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
+    Position: {x: -1.9447646, y: -0.000000059604645, z: 0.38353074}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -8452,6 +8452,7 @@ MonoBehaviour:
   _beardSlot: {fileID: 6867108293782968791}
   _eyebrowSlot: {fileID: 8100376576424995965}
   _eyeSlot: {fileID: 3010380833479673802}
+  _boneScaler: {fileID: 475580107463887159}
   _skinRenderers:
   - {fileID: 270151793522417329}
   - {fileID: 3355837623697654740}
@@ -8483,7 +8484,50 @@ MonoBehaviour:
   _componentIndexCache: 18
   _addedNetworkObject: {fileID: 2930813178971533500}
   _networkObjectCache: {fileID: 2930813178971533500}
-  _name: 
+  _profile:
+    Name: New Character
+    FlavorText: 
+    Age: 18
+    Sex: 0
+    Gender: 0
+    Antags: []
+    Traits: []
+    _styles:
+      _list:
+      - _key: 0
+        _value: Bald
+      - _key: 1
+        _value: Bald
+      - _key: 2
+        _value: Default
+      _new: 0
+    _Colors:
+      _list:
+      - _key: 1
+        _value: 804831
+      - _key: 2
+        _value: 000000
+      - _key: 0
+        _value: FFBD99
+      _new: 0
+    _Body:
+      _list:
+      - _key: 0
+        _value: 0
+      - _key: 2
+        _value: 0
+      - _key: 1
+        _value: 0
+      - _key: 4
+        _value: 0
+      - _key: 5
+        _value: 0
+      - _key: 6
+        _value: 0
+      _new: 0
+    _jobs:
+      _list: []
+      _new: {fileID: 0}
   _appearanceDisplayer: {fileID: 2900610772125535890}
 --- !u!1 &6472674363010172163
 GameObject:
@@ -9322,6 +9366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5996551297883255533}
+  - component: {fileID: 475580107463887159}
   m_Layer: 0
   m_Name: Armature
   m_TagString: Untagged
@@ -9345,6 +9390,57 @@ Transform:
   m_Father: {fileID: 5927494552340417975}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &475580107463887159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7778829183169170306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f936cc7db640d4da850a2af0123007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hips: {fileID: 3960317445716045629}
+  spine: {fileID: 4913926211648168539}
+  chest: {fileID: 8414373426636609123}
+  neck: {fileID: 5225029405411557369}
+  head: {fileID: 1072842605446999515}
+  shoulderL: {fileID: 9016350948291137322}
+  armL: {fileID: 1928878719405885206}
+  forearmL: {fileID: 683496107307434277}
+  handL: {fileID: 670724369055125879}
+  shoulderR: {fileID: 6933849747095314180}
+  armR: {fileID: 8554205005196587596}
+  forearmR: {fileID: 9032586310250826830}
+  handR: {fileID: 2712790233940143948}
+  thighL: {fileID: 3933712924249351043}
+  lowerLegL: {fileID: 9004830862825569536}
+  footL: {fileID: 8172633024589726100}
+  thighR: {fileID: 5952814281671407458}
+  lowerLegR: {fileID: 8626545250323751877}
+  footR: {fileID: 245909079309879276}
+  waist: {fileID: 2506028812039871514}
+  belly: {fileID: 3764564530140305960}
+  butt: {fileID: 8919205202414099846}
+  breastL: {fileID: 691947973029767698}
+  breastR: {fileID: 8270865498401203596}
+  muscleChest: {fileID: 1210405080366206524}
+  muscleShoulderL: {fileID: 8052650337908429819}
+  muscleShoulderR: {fileID: 887985632572050748}
+  bicepL: {fileID: 7515536915725595279}
+  bicepR: {fileID: 337756671735131000}
+  muscleNeck: {fileID: 6128050704599493434}
+  torsoWidth: {fileID: 8512925393782143894}
+  thighWidthL: {fileID: 2413769756920085893}
+  thighWidthR: {fileID: 5523952166888179340}
+  heightInput: 1
+  weightInput: 1
+  muscleInput: 1
+  chestInput: 1
+  buttInput: 1
+  waistInput: 1
 --- !u!1 &7785072146518853461
 GameObject:
   m_ObjectHideFlags: 0

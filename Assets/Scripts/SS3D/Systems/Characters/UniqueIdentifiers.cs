@@ -69,6 +69,12 @@ namespace SS3D.Systems.Characters
                 SetVisualColor(type);
             }
 
+            foreach (int i in Enum.GetValues(typeof(BodyType)))
+            {
+                BodyType type = (BodyType)i;
+                _appearanceDisplayer.SetBody(type, float.Parse(newChar.GetBody(type)));
+            }
+
             // body sliders here
         }
 
