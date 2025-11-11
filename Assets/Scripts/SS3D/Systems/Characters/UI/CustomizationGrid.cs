@@ -43,7 +43,7 @@ namespace SS3D.Systems.Characters.UI
         /// <summary>
         /// List of customization options to load in the menu.
         /// </summary>
-        [SerializeField] private List<CustomizationSO> _customizationDatabase;
+        [SerializeField] private CustomizationOptionsSO _customizationDatabase;
 
         /// <summary>
         /// List of slots created in the menu.
@@ -64,9 +64,13 @@ namespace SS3D.Systems.Characters.UI
         {
             LoadGrid();
 
-            // need to find a way to set the selected option while this object is disabled
+            _searchBar.onValueChanged.AddListener(HandleSearchFieldChanged);
             OnCustomizationGridStarted?.Invoke(this);
-            // HandleSlotButtonPressed(_selectedOption);
+        }
+
+        protected override void OnDestroyed()
+        {
+            _searchBar.onValueChanged.RemoveListener(HandleSearchFieldChanged);
         }
 
         /// <summary>
@@ -89,7 +93,7 @@ namespace SS3D.Systems.Characters.UI
         {
             ClearGrid();
             // _objectDatabase = _tileSystem.Loader.Assets;
-            foreach (CustomizationSO asset in _customizationDatabase)
+            foreach (CustomizationSO asset in _customizationDatabase.Options)
             {
                 CustomizationSlot _slot = Instantiate(_slotPrefab, _contentRoot.transform, true).GetComponent<CustomizationSlot>();
                 _slot.gameObject.transform.localScale = Vector3.one;
@@ -148,9 +152,9 @@ namespace SS3D.Systems.Characters.UI
         /// <summary>
         /// Called when the text in the search box is changed.
         /// </summary>
-        public void HandleSearchFieldChanged()
+        public void HandleSearchFieldChanged(string text)
         {
-            FilterCustomization(_searchBar?.text);
+            FilterCustomization(text);
         }
     }
 }
