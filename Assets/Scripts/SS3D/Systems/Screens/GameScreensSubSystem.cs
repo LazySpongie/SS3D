@@ -16,7 +16,7 @@ using InputSubSystem = SS3D.Systems.Inputs.InputSubSystem;
 
 namespace SS3D.Systems.Screens
 {
-    public sealed class GameScreensController : NetworkActor
+    public class GameScreensSubSystem : NetworkSubSystem
     {
         [SerializeField] private bool _blockSwitchToNone;
 
@@ -30,12 +30,18 @@ namespace SS3D.Systems.Screens
             _blockSwitchToNone = true;
             _spawnedState = PlayerSpawnedState.IsNotSpawned;
 
-            AddHandle(ChangeGameScreenEvent.AddListener(HandleChangeGameScreen));
+            AddHandle(ChangeGameScreen.AddListener(HandleChangeGameScreen));
             AddHandle(SpawnedPlayersUpdated.AddListener(HandleSpawnedPlayersUpdated));
             AddHandle(RoundStateUpdated.AddListener(HandleRoundStateUpdated));
 
             _controls = SubSystems.Get<InputSubSystem>().Inputs.Other;
             _controls.ToggleMenu.performed += HandleToggleMenu;
+        }
+
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
+            SwitchScreen(ScreenType.Lobby);
         }
 
         protected override void OnDestroyed()
@@ -53,7 +59,32 @@ namespace SS3D.Systems.Screens
             }
 
             ScreenType screenToSwitchTo = GameScreens.ActiveScreen == ScreenType.Lobby ? ScreenType.None : ScreenType.Lobby;
-            GameScreens.SwitchTo(screenToSwitchTo);
+            SwitchScreen(screenToSwitchTo);
+        }
+
+        /// <summary>
+        /// Called when another script requests to change the gamescreen.
+        /// </summary>
+        private void HandleChangeGameScreen(ref EventContext context, in ChangeGameScreen e)
+        {
+            ScreenType screenType = e.Screen;
+
+            switch (screenType)
+            {
+                case ScreenType.None:
+                    MarkNewlySpawnedPlayerAsAwaitingConfirmation();
+                    break;
+                case ScreenType.Lobby:
+                    break;
+                case ScreenType.CharacterCreation:
+                    // dont want the player to be able to open char creation while ingame
+                    if (_spawnedState == PlayerSpawnedState.ConfirmedSpawned) return;
+                    break;
+                default:
+                    break;
+            }
+            
+            SwitchScreen(screenType);
         }
 
         private void HandleSpawnedPlayersUpdated(ref EventContext context, in SpawnedPlayersUpdated e)
@@ -70,7 +101,7 @@ namespace SS3D.Systems.Screens
                 GivePlayerAccessToGame();
             }
 
-            UpdateScreen();
+            UpdateScreenBasedOnSpawnState();
         }
 
         private void HandleRoundStateUpdated(ref EventContext context, in RoundStateUpdated e)
@@ -86,27 +117,16 @@ namespace SS3D.Systems.Screens
             }
         }
 
-        private void HandleChangeGameScreen(ref EventContext context, in ChangeGameScreenEvent e)
-        {
-            ScreenType screenType = e.Screen;
-
-            if (screenType == ScreenType.None)
-            {
-                MarkNewlySpawnedPlayerAsAwaitingConfirmation();
-            }
-        }
-
-
-        private void UpdateScreen()
+        private void UpdateScreenBasedOnSpawnState()
         {
             switch (_spawnedState)
             {
                 case PlayerSpawnedState.IsNotSpawned:
                 case PlayerSpawnedState.AwaitingConfirmationOfSpawn:
-                    GameScreens.SwitchTo(ScreenType.Lobby);
+                    SwitchScreen(ScreenType.Lobby);
                     break;
                 case PlayerSpawnedState.ConfirmedSpawned:
-                    GameScreens.SwitchTo(ScreenType.None);
+                    SwitchScreen(ScreenType.None);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -121,7 +141,16 @@ namespace SS3D.Systems.Screens
             _blockSwitchToNone = true;
             _spawnedState = PlayerSpawnedState.IsNotSpawned;
 
-            UpdateScreen();
+            UpdateScreenBasedOnSpawnState();
+        }
+
+        /// <summary>
+        /// Switch the game screen.
+        /// </summary>
+        private void SwitchScreen(ScreenType type)
+        {
+            GameScreens.SwitchTo(type);
+            new GameScreenChanged(GameScreens.ActiveScreen, GameScreens.LastScreen).Invoke(this);
         }
 
         /// <summary>
@@ -134,7 +163,7 @@ namespace SS3D.Systems.Screens
             _blockSwitchToNone = false;
             _spawnedState = PlayerSpawnedState.ConfirmedSpawned;
 
-            UpdateScreen();
+            UpdateScreenBasedOnSpawnState();
         }
 
         /// <summary>
@@ -148,7 +177,7 @@ namespace SS3D.Systems.Screens
                 _spawnedState = PlayerSpawnedState.AwaitingConfirmationOfSpawn;
             }
 
-            UpdateScreen();
+            UpdateScreenBasedOnSpawnState();
         }
 
         /// <summary>

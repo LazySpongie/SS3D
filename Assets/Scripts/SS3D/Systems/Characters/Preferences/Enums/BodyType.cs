@@ -4,19 +4,14 @@ namespace SS3D.Systems.Characters.Preferences
     /// <summary>
     /// 
     /// </summary>
-    public enum AppearanceType
+    public enum BodyType
     {
-        Hairstyle,
-        Beardstyle,
-        Eyebrows,
-        SkinColor,
-        HairColor,
-        EyeColor,
         Height,
         Weight,
         Muscle,
         Jaw,
         Chest,
         Butt,
+        Waist,
     }
 }

@@ -7,6 +7,8 @@ using SS3D.Core;
 using SS3D.Engine.Chat;
 using SS3D.Logging;
 using SS3D.Systems.Rounds.Messages;
+using SS3D.Systems.Characters;
+using SS3D.Systems.Roles;
 
 namespace SS3D.Systems.Rounds
 {
@@ -47,6 +49,13 @@ namespace SS3D.Systems.Rounds
             Log.Information(this, "Preparing round", Logs.ServerOnly);
 
             RoundState = RoundState.Preparing;
+            // the characters of ready players are obtained when RoundState changes to Preparing
+
+            // CharacterSubSystem should have all the characters now
+
+            RoleSubSystem roleSystem = SubSystems.Get<RoleSubSystem>();
+            
+            // RoleSubSystem assign roles here
 
             TimeSpan second = TimeSpan.FromMilliseconds(500);
             await UniTask.Delay(second);

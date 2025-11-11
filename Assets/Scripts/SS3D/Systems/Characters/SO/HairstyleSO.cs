@@ -13,7 +13,7 @@ namespace SS3D.Systems.Characters
         [Header("Models")]
 
         [Tooltip("Mesh displayed on player model.")]
-        public Mesh HairModel;
+        public Mesh Model;
         
     }
 }

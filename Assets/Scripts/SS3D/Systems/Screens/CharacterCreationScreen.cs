@@ -1,5 +1,6 @@
 ﻿using SS3D.Attributes;
 using SS3D.Systems.Characters.UI;
+using SS3D.Systems.Screens.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,8 +11,6 @@ namespace SS3D.Systems.Screens
 
         [Header("Buttons")]
         [SerializeField] [NotNull] private Button _lobbyButton;
-
-        [SerializeField] [NotNull] private PreviewCamera _previewCamera;
         
         protected override void OnAwake()
         {
@@ -30,10 +29,7 @@ namespace SS3D.Systems.Screens
         /// </summary>
         private void HandleLobbyButton()
         {
-            // this should be changed to an event and done in the view instead
-            _previewCamera.ResetCamera();
-
-            GameScreens.SwitchTo(ScreenType.Lobby);
+            new ChangeGameScreen(ScreenType.Lobby).Invoke(this);
         }
 
     }

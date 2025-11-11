@@ -14,13 +14,13 @@ namespace SS3D.Systems.Characters.UI
         
         public event ColorChangedHandler OnColorSelected;
 
-        [SerializeField] private AppearanceType _type;
+        [SerializeField] private ColorType _type;
         [SerializeField] private ColorOptionsSO _colors;
         [SerializeField] private Button _button;
 
         private int _currentIndex = 0;
 
-        public AppearanceType Type => _type;
+        public ColorType Type => _type;
 
         protected override void OnAwake()
         {

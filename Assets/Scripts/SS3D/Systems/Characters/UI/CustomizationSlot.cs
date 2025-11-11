@@ -16,9 +16,10 @@ namespace SS3D.Systems.Characters.UI
 
         public Button Button => _button;
 
-        [SerializeField]
-        protected Image Image;
+        [SerializeField] protected Image Image;
+
         [SerializeField] [NotNull] protected TMP_Text OptionName;
+        
         protected CustomizationSO _customizationSO;
 
         public CustomizationSO CustomizationSO => _customizationSO;
@@ -30,8 +31,8 @@ namespace SS3D.Systems.Characters.UI
         {
             _customizationSO = customizationSO;
             Image.sprite = customizationSO.icon;
+            Image.enabled = customizationSO.icon != null;
             OptionName.text = customizationSO.NameString;
-            // _customizationGrid = GetComponentInParent<CustomizationGrid>(); 
         }
     }
 }

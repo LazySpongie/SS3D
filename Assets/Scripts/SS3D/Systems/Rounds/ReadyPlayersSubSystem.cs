@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Coimbra.Services.Events;
 using FishNet.Connection;
 using FishNet.Object;
@@ -22,6 +24,8 @@ namespace SS3D.Systems.Rounds
     public class ReadyPlayersSubSystem : NetworkSubSystem
     {
         [SyncObject] private readonly SyncList<Player> _readyPlayers = new();
+
+        public ReadOnlyCollection<Player> ReadyPlayers => _readyPlayers.GetCollection(IsServer).AsReadOnly();
 
         public override void OnStartServer()
         {

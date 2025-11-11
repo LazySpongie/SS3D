@@ -78,8 +78,8 @@ namespace SS3D.Systems.Characters.UI
         public void LoadList(List<string> names)
         {
             ClearList();
-            _selectedIndex = 0;
-            // _createCharacterButton.transform.SetSiblingIndex(0);
+
+            _selectedIndex = -1;
 
             foreach (string name in names)
             {
@@ -97,8 +97,8 @@ namespace SS3D.Systems.Characters.UI
             }
 
             _createCharacterButton.transform.SetSiblingIndex(_contentRoot.transform.childCount);
+            
         }
-
 
         /// <summary>
         /// Set the currently selected option.
@@ -108,7 +108,10 @@ namespace SS3D.Systems.Characters.UI
             if (_characterSlots.Count == 0) return;
             if (_selectedIndex == index) return;
             
-            _characterSlots[_selectedIndex]?.SetSelected(false);
+            if (_selectedIndex != -1) 
+            {
+                _characterSlots[_selectedIndex]?.SetSelected(false);
+            }
             _selectedIndex = index;
             _characterSlots[_selectedIndex]?.SetSelected(true);
         }
@@ -116,7 +119,7 @@ namespace SS3D.Systems.Characters.UI
         /// <summary>
         /// Set the currently selected option.
         /// </summary>
-        public void SetName(string name, int index)
+        public void SetName(int index, string name)
         {
             if (_characterSlots.Count == 0) return;
             _characterSlots[index].GetComponentInChildren<TMP_Text>().text = name;

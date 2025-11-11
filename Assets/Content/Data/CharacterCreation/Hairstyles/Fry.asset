@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fry
   m_EditorClassIdentifier: 
   NameString: Fry
-  icon: {fileID: 1673523991, guid: 04e9f7d80affa6549b78fa48f29cdf83, type: 3}
-  HairModel: {fileID: -1219034847283553598, guid: 678d643d389f4d249b1e7f675a6728b8, type: 3}
+  icon: {fileID: 0}
+  Model: {fileID: -1219034847283553598, guid: 678d643d389f4d249b1e7f675a6728b8, type: 3}

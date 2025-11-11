@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using SS3D.Core;
 using SS3D.Logging;
+using SS3D.Systems.Screens.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,9 @@ namespace SS3D.Systems.Screens
             return false;
         }
 
+        /// <summary>
+        /// Should only be called from GameScreensSubSystem so update event can be invoked
+        /// </summary>
         [ServerOrClient]
         public static void SwitchTo(ScreenType screenToSwitchTo)
         {
@@ -72,7 +76,7 @@ namespace SS3D.Systems.Screens
 
             Log.Information(typeof(GameScreens), $"Switching game screen to {screenToSwitchTo}");
 
-            foreach (KeyValuePair<ScreenType,GameScreen> screenEntry in Screens)
+            foreach (KeyValuePair<ScreenType, GameScreen> screenEntry in Screens)
             {
                 GameScreen screen = screenEntry.Value;
 

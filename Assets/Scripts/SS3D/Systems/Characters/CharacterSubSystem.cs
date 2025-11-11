@@ -13,6 +13,7 @@ using FishNet.Connection;
 using SS3D.Systems.PlayerControl.Events;
 using SS3D.Systems.PlayerControl;
 using SS3D.Logging;
+using SS3D.Systems.Rounds;
 
 namespace SS3D.Systems.Characters
 {
@@ -27,9 +28,25 @@ namespace SS3D.Systems.Characters
         {
             base.OnStartServer();
 
-            ServerManager.RegisterBroadcast<PlayerSelectCharacterMessage>(HandlePlayerSelectCharacter);
+            ServerManager.RegisterBroadcast<ClientSendCharacterMessage>(HandleClientSentCharacter);
 
             AddHandle(OnlinePlayersChanged.AddListener(HandleUserLeftServer));
+        }
+
+        /// <summary>
+        /// When a player is spawned set their character profile
+        /// </summary>
+        [Server]
+        public void SetPlayerCharacter(Entity entity)
+        {
+            _characters.TryGetValue(entity.Ckey, out CharacterProfile character);
+            
+            // returns a blank character profile if character is null
+            character = new CharacterProfile(character);
+
+            entity.GetComponent<UniqueIdentifiers>()?.SetFromCharacterProfile(character);
+
+            Log.Information(this, "Added character profile " + character.Name + " to player " + entity.Ckey);
         }
 
         /// <summary>
@@ -45,33 +62,18 @@ namespace SS3D.Systems.Characters
         }
 
         /// <summary>
-        /// When a user selects a character save it to the list.
+        /// Save the character profile sent by each client to a dictionary.
         /// Message sent by ClientPreferencesSubSystem.
         /// </summary>
         [Server]
-        private void HandlePlayerSelectCharacter(NetworkConnection connection, PlayerSelectCharacterMessage message)
+        private void HandleClientSentCharacter(NetworkConnection connection, ClientSendCharacterMessage message)
         {
-            Log.Information(this, message.Ckey + "selected character: " + message.Character.Name);
+            Log.Information(this, message.Ckey + " assigned character: " + message.Character.Name);
             if (!_characters.TryAdd(message.Ckey, message.Character))
             {
                 _characters[message.Ckey] = message.Character;
             }
         }
-        
-        /// <summary>
-        /// When a player is spawned send their character profile to their UniqueIdentifiers
-        /// </summary>
-        [Server]
-        public void SetPlayerCharacter(Entity entity)
-        {
-            _characters.TryGetValue(entity.Ckey, out CharacterProfile character);
-            character = new CharacterProfile(character);
 
-            if (character == null) character = new CharacterProfile();
-
-            entity.GetComponent<UniqueIdentifiers>()?.SetFromCharacterProfile(character);
-
-            Log.Information(this, "Added character profile " + _characters[entity.Ckey].Name + " to player " + entity.Ckey);
-        }
     }
 }

@@ -43,6 +43,18 @@ namespace SS3D.Systems.Characters
         [SerializeField] private Material _eyeMaterial;
         [SerializeField] private Material _skinMaterial;
 
+        private Material _hair;
+        private Material _eye;
+        private Material _skin;
+
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+            _skin = new Material(_skinMaterial);
+            _eye = new Material(_eyeMaterial);
+            _hair = new Material(_hairMaterial);
+        }
+
         protected override void OnStart()
         {
             base.OnStart();
@@ -54,43 +66,38 @@ namespace SS3D.Systems.Characters
         /// </summary>
         private void SetupMaterials()
         {
-            _skinMaterial = new Material(_skinMaterial);
             Material[] skinMats = _skinRenderers[0].sharedMaterials;
-            skinMats[0] = _skinMaterial;
+            skinMats[0] = _skin;
             foreach (SkinnedMeshRenderer skin in _skinRenderers)
             {
                 skin.sharedMaterials = skinMats;
             }
 
-            _eyeMaterial = new Material(_eyeMaterial);
-            _eyeSlot.Renderer.sharedMaterial = _eyeMaterial;
-            _eyeSlot.SetRendererMaterial(_eyeMaterial);
-
-            _hairMaterial = new Material(_hairMaterial);
-            _hairSlot.SetRendererMaterial(_hairMaterial);
-            _beardSlot.SetRendererMaterial(_hairMaterial);
-            _eyebrowSlot.SetRendererMaterial(_hairMaterial);
+            _eyeSlot.SetRendererMaterial(_eye);
+            _hairSlot.SetRendererMaterial(_hair);
+            _beardSlot.SetRendererMaterial(_hair);
+            _eyebrowSlot.SetRendererMaterial(_hair);
         }
 
         /// <summary>
         /// Sets color
         /// </summary>
         [Client]
-        public void SetColor(AppearanceType type, Color color)
+        public void SetColor(ColorType type, Color color)
         {
             switch (type)
             {
-                case AppearanceType.HairColor:
+                case ColorType.HairColor:
                     // code
-                    _hairMaterial.SetColor("_Color", color);
+                    _hair.SetColor("_Color", color);
                     break;
-                case AppearanceType.EyeColor:
+                case ColorType.EyeColor:
                     // code
-                    _eyeMaterial.SetColor("_Color", color);
+                    _eye.SetColor("_Color", color);
                     break;
-                case AppearanceType.SkinColor:
+                case ColorType.SkinColor:
                     // code
-                    _skinMaterial.SetColor("_Color", color);
+                    _skin.SetColor("_Color", color);
                     break;
                 default:
                     // error
@@ -102,19 +109,19 @@ namespace SS3D.Systems.Characters
         /// Set hair beard eyebrows.
         /// </summary>
         [Client]
-        public void SetStyle(AppearanceType type, CustomizationSO customizationSO)
+        public void SetStyle(StyleType type, CustomizationSO customizationSO)
         {
             HairstyleSO hair = (HairstyleSO)customizationSO;
             switch (type)
             {
-                case AppearanceType.Hairstyle:
-                    _hairSlot.SetRendererMesh(hair.HairModel);
+                case StyleType.Hairstyle:
+                    _hairSlot.SetRendererMesh(hair.Model);
                     break;
-                case AppearanceType.Beardstyle:
-                    _beardSlot.SetRendererMesh(hair.HairModel);
+                case StyleType.Beardstyle:
+                    _beardSlot.SetRendererMesh(hair.Model);
                     break;
-                case AppearanceType.Eyebrows:
-                    _eyebrowSlot.SetRendererMesh(hair.HairModel);
+                case StyleType.Eyebrows:
+                    _eyebrowSlot.SetRendererMesh(hair.Model);
                     break;
                 default:
                     // error

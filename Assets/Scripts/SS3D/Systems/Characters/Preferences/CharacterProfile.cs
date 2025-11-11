@@ -17,7 +17,31 @@ namespace SS3D.Systems.Characters.Preferences
         public Gender Gender = Gender.Male;
 
         // [NonSerialized]
-        public Dictionary<AppearanceType, string> Appearance = new();
+        public Dictionary<StyleType, string> Styles = new Dictionary<StyleType, string>
+            {
+                { StyleType.Hairstyle,     "Bald" },
+                { StyleType.Beardstyle,    "Bald" },
+                { StyleType.Eyebrows,      "Default" },
+
+            };
+
+        public Dictionary<ColorType, string> Colors = new Dictionary<ColorType, string>
+            {
+                { ColorType.HairColor,     "804831" },
+                { ColorType.EyeColor,      "000000" },
+                { ColorType.SkinColor,     "FFBD99" },
+
+            };
+
+        public Dictionary<BodyType, string> Body = new Dictionary<BodyType, string>
+            {
+                { BodyType.Height,        "0" },
+                { BodyType.Muscle,        "0" },
+                { BodyType.Weight,        "0" },
+                { BodyType.Chest,         "0" },
+                { BodyType.Butt,          "0" },
+                { BodyType.Waist,         "0" },
+            };
 
         // [NonSerialized]
         public Dictionary<RoleData, JobPriority> Jobs = new();
@@ -33,18 +57,6 @@ namespace SS3D.Systems.Characters.Preferences
         /// </summary>
         public CharacterProfile()
         {
-            Appearance = new Dictionary<AppearanceType, string>
-            {
-                { AppearanceType.Hairstyle,     "Bald" },
-                { AppearanceType.Beardstyle,    "Bald" },
-                { AppearanceType.Eyebrows,      "Default" },
-
-                { AppearanceType.HairColor,     "804831" },
-                { AppearanceType.EyeColor,      "000000" },
-                { AppearanceType.SkinColor,     "FFBD99" },
-
-                // SLIDER DEFAULTS GO HERE
-            };
         }
 
         /// <summary>
@@ -52,53 +64,101 @@ namespace SS3D.Systems.Characters.Preferences
         /// </summary>
         public CharacterProfile(CharacterProfile character)
         {
+            if (character == null) character = new CharacterProfile();
             Name = character.Name;
             FlavorText = character.FlavorText;
             Age = character.Age;
             Sex = character.Sex;
             Gender = character.Gender;
-            Appearance = new Dictionary<AppearanceType, string>(character.Appearance);
+            Styles = new Dictionary<StyleType, string>(character.Styles);
+            Colors = new Dictionary<ColorType, string>(character.Colors);
+            Body = new Dictionary<BodyType, string>(character.Body);
             Jobs = new Dictionary<RoleData, JobPriority>(character.Jobs);
             Antags = new List<string>(character.Antags);
             Traits = new List<string>(character.Traits);
         }
+        #endregion
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        // public CharacterProfile(string name, float value)
-        // {
-        //     Name = "John Beep";
-        //     FlavorText = string.Empty;
-        //     Age = 18;
-        //     Sex = Sex.Male;
-        //     Gender = Gender.Male;
-        //     Appearance = new Dictionary<AppearanceType, string>()
-        // }
+        #region Getters
+
+        public string GetName()
+        {
+            if (Name != string.Empty)
+            {
+                return Name;
+            }
+            else
+            {
+                return new CharacterProfile().Name;
+            }
+        }
+
+        public string GetStyle(StyleType type)
+        {
+            if (Styles.ContainsKey(type))
+            {
+                return Styles[type];
+            }
+            else
+            {
+                return new CharacterProfile().Styles[type];
+            }
+        }
+
+        public string GetColor(ColorType type)
+        {
+            if (Colors.ContainsKey(type))
+            {
+                return Colors[type];
+            }
+            else
+            {
+                return new CharacterProfile().Colors[type];
+            }
+        }
+
+        public string GetBody(BodyType type)
+        {
+            if (Body.ContainsKey(type))
+            {
+                return Body[type];
+            }
+            else
+            {
+                return new CharacterProfile().Body[type];
+            }
+        }
+        
         #endregion
 
         #region Serialization
 
-        // i dont think SerializableDictionary is able to be sent over the network so i have to do this
-        [SerializeField]
-        private SerializableDictionary<AppearanceType, string> _appearance;
-        [SerializeField]
-        private SerializableDictionary<RoleData, JobPriority> _jobs;
+        [SerializeField] private SerializableDictionary<StyleType, string> _styles;
+        [SerializeField] private SerializableDictionary<ColorType, string> _Colors;
+        [SerializeField] private SerializableDictionary<BodyType, string> _Body;
+        [SerializeField] private SerializableDictionary<RoleData, JobPriority> _jobs;
 
         public void OnAfterDeserialize()
         {
-            Appearance = new Dictionary<AppearanceType, string>(_appearance);
-            _appearance.Clear();
+            Styles = new Dictionary<StyleType, string>(_styles);
+            Colors = new Dictionary<ColorType, string>(_Colors);
+            Body = new Dictionary<BodyType, string>(_Body);
             Jobs = new Dictionary<RoleData, JobPriority>(_jobs);
+
+            _styles.Clear();
+            _Colors.Clear();
+            _Body.Clear();
             _jobs.Clear();
         }
 
         public void OnBeforeSerialize()
         {
-            _appearance = new SerializableDictionary<AppearanceType, string>(Appearance);
+            _styles = new SerializableDictionary<StyleType, string>(Styles);
+            _Colors = new SerializableDictionary<ColorType, string>(Colors);
+            _Body = new SerializableDictionary<BodyType, string>(Body);
             _jobs = new SerializableDictionary<RoleData, JobPriority>(Jobs);
-            // SerializableDictionary<AppearanceType, string> Appearance;
         }
+
         #endregion
     }
 }

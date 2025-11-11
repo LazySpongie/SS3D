@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc07f2597c9d9364abdf7593f44fa7ac, type: 3}
   m_Name: Bald
   m_EditorClassIdentifier: 
-  NameString: Bald
-  icon: {fileID: 21300000, guid: b3905a73a6672d9449647aaf036e23fc, type: 3}
-  HairModel: {fileID: 0}
+  NameString: 
+  icon: {fileID: 21300000, guid: e0109717a842e6c498ae6642bc46dede, type: 3}
+  Model: {fileID: 0}

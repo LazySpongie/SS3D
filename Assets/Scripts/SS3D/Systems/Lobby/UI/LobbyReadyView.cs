@@ -1,6 +1,7 @@
 ﻿using Coimbra.Services.Events;
 using SS3D.Core;
 using SS3D.Core.Behaviours;
+using SS3D.Systems.Characters.Preferences;
 using SS3D.Systems.Entities;
 using SS3D.Systems.Entities.Events;
 using SS3D.Systems.PlayerControl;
@@ -101,8 +102,12 @@ namespace SS3D.Systems.Lobby.UI
         {
             PlayerSubSystem playerSystem = SubSystems.Get<PlayerSubSystem>();
             EntitySubSystem entitySystem = SubSystems.Get<EntitySubSystem>();
+            ClientPreferencesSubSystem preferencesSystem = SubSystems.Get<ClientPreferencesSubSystem>();
+
+            preferencesSystem.EmbarkCharacter();
 
             Player player = playerSystem.GetPlayer(LocalConnection);
+            
             entitySystem.CmdSpawnLatePlayer(player);
         }
 

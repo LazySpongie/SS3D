@@ -106,6 +106,7 @@ namespace SS3D.Systems.Roles
                 assistantRole.AddPlayer(player);
                 _rolePlayers.Add(player, assistantRole.Role);
             }
+
             else
             {
                 securityRole.AddPlayer(player);

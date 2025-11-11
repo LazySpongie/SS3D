@@ -20,10 +20,10 @@ namespace SS3D.Systems.Characters.UI
         public delegate void CustomizationGridStartEventHandler(CustomizationGrid grid);
 
         // When the selection changes
-        public event CustomizationGridSelectionEventHandler OnCustomizationGridSelected;
+        public event CustomizationGridSelectionEventHandler OnSelected;
         
         // When this script starts
-        public event CustomizationGridStartEventHandler OnCustomizationGridStarted;
+        public event CustomizationGridStartEventHandler OnStarted;
 
         /// <summary>
         ///  The search bar for the menu.
@@ -65,7 +65,7 @@ namespace SS3D.Systems.Characters.UI
             LoadGrid();
 
             _searchBar.onValueChanged.AddListener(HandleSearchFieldChanged);
-            OnCustomizationGridStarted?.Invoke(this);
+            OnStarted?.Invoke(this);
         }
 
         protected override void OnDestroyed()
@@ -146,7 +146,7 @@ namespace SS3D.Systems.Characters.UI
             _selectedOption.Button.interactable = false;
 
             if (!invoke) return;
-            OnCustomizationGridSelected?.Invoke(this, _selectedOption);
+            OnSelected?.Invoke(this, _selectedOption);
         }
 
         /// <summary>

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Clown
   m_EditorClassIdentifier: 
   NameString: Clown
-  icon: {fileID: 21300000, guid: 5d527d1323f6be04aa535b3a3ba7aefe, type: 3}
-  HairModel: {fileID: -5637377037208027932, guid: 678d643d389f4d249b1e7f675a6728b8, type: 3}
+  icon: {fileID: 0}
+  Model: {fileID: -5637377037208027932, guid: 678d643d389f4d249b1e7f675a6728b8, type: 3}

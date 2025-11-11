@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Emo
   m_EditorClassIdentifier: 
   NameString: Emo
-  icon: {fileID: 21300000, guid: b3905a73a6672d9449647aaf036e23fc, type: 3}
-  HairModel: {fileID: -5663591320761906130, guid: 678d643d389f4d249b1e7f675a6728b8, type: 3}
+  icon: {fileID: 0}
+  Model: {fileID: -5663591320761906130, guid: 678d643d389f4d249b1e7f675a6728b8, type: 3}

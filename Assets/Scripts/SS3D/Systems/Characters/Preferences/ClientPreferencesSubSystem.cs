@@ -11,6 +11,10 @@ using Coimbra.Services.Events;
 using SS3D.Systems.Rounds;
 using System.Collections.ObjectModel;
 using System.Linq;
+using SS3D.Systems.Characters.Events;
+using SS3D.Systems.Entities;
+using System.Diagnostics;
+using System.Drawing;
 
 namespace SS3D.Systems.Characters.Preferences
 {
@@ -19,17 +23,6 @@ namespace SS3D.Systems.Characters.Preferences
     /// </summary>
     public class ClientPreferencesSubSystem : NetworkSubSystem
     {
-        public delegate void CharacterChangedHandler(CharacterChangeType type);
-
-        public delegate void CharacterSelectedHandler(int index);
-
-        public delegate void CharactersLoadedHandler();
-
-        public event CharacterChangedHandler OnCharacterChanged;
-
-        public event CharacterSelectedHandler OnCharacterSelected;
-        
-        public event CharactersLoadedHandler OnCharactersLoaded;
 
         public const string CharacterSavePath = "/Characters/Saved";
         
@@ -37,10 +30,12 @@ namespace SS3D.Systems.Characters.Preferences
 
         private List<CharacterProfile> _characters = new();
 
-
         private int _selectedCharacterIndex = 0;
 
         private CharacterProfile _unsavedCharacter;
+
+
+        private bool _hasMadeChanges = false;
 
         public int SelectedCharacterIndex => _selectedCharacterIndex;
 
@@ -68,7 +63,6 @@ namespace SS3D.Systems.Characters.Preferences
         {
             base.OnAwake();
             if (IsServer) return;
-            LoadCharactersFromDisk();
             AddHandle(RoundStateUpdated.AddListener(HandleRoundStateUpdated));
         }
 
@@ -76,6 +70,7 @@ namespace SS3D.Systems.Characters.Preferences
         {
             base.OnStartClient();
 
+            LoadCharactersFromDisk();
             SelectCharacter(_selectedCharacterIndex);
         }
 
@@ -111,14 +106,14 @@ namespace SS3D.Systems.Characters.Preferences
                     _characters.Add(loadedcharacter);
                 }
             }
-            
+
             // No valid characters so create a default character
             if (_characters.Count == 0)
             {
                 CreateCharacter(false);
             }
-
-            OnCharactersLoaded?.Invoke();
+            
+            InvokeCharacterListChanged();
         }
 
         /// <summary>
@@ -137,10 +132,12 @@ namespace SS3D.Systems.Characters.Preferences
         [Client]
         public void SaveCharacter()
         {
+            if (!_hasMadeChanges) return;
+
             // To prevent overwriting save files we have to make sure the name is unique
             if (CharacterNames.Contains(_unsavedCharacter.Name) & SelectedCharacter.Name != _unsavedCharacter.Name)
             {
-                Log.Warning(this, "Duplicate character name: " + _unsavedCharacter.Name + " - cannot save character.");
+                Log.Warning(this, "Duplicate character name: " + _unsavedCharacter.Name + " - cannot save.");
                 return;
             }
 
@@ -156,6 +153,9 @@ namespace SS3D.Systems.Characters.Preferences
 
             SaveCharacterToDisk(SelectedCharacter);
 
+            // the characters name may have been changed so the list has changed as well
+            InvokeCharacterListChanged();
+
             SelectCharacter(_selectedCharacterIndex);
         }
 
@@ -165,9 +165,10 @@ namespace SS3D.Systems.Characters.Preferences
         [Client]
         public void ResetCharacter()
         {
+            _hasMadeChanges = false;
             _unsavedCharacter = new CharacterProfile(_characters[_selectedCharacterIndex]);
 
-            OnCharacterChanged?.Invoke(CharacterChangeType.Load);
+            InvokeCharacterChanged(CharacterChangeType.Load);
         }
 
         /// <summary>
@@ -209,7 +210,7 @@ namespace SS3D.Systems.Characters.Preferences
             UpdateCharacterProfileManifest();
 
             // LoadCharactersFromDisk();
-            OnCharactersLoaded?.Invoke();
+            InvokeCharacterListChanged();
 
             SelectCharacter(_selectedCharacterIndex);
         }
@@ -262,69 +263,122 @@ namespace SS3D.Systems.Characters.Preferences
         #endregion
 
         #region Character Setters
-        
+
         /// <summary>
-        /// Set an appearance option in the current character.
+        /// Set a style option in the current character.
         /// </summary>
         [Client]
-        public void SetAppearanceOption(AppearanceType type, string option, bool invoke = true)
+        public void SetStyle(StyleType type, string option)
         {
             if (option == string.Empty) return;
 
-            _unsavedCharacter.Appearance[type] = option;
-            if (!invoke) return;
-            OnCharacterChanged?.Invoke(CharacterChangeType.Appearance);
+            _hasMadeChanges = true;
+            _unsavedCharacter.Styles[type] = option;
+
+            InvokeCharacterChanged(CharacterChangeType.Appearance);
+        }
+
+        /// <summary>
+        /// Set a color in the current character.
+        /// </summary>
+        [Client]
+        public void SetColor(ColorType type, string option)
+        {
+            if (option == string.Empty) return;
+
+            _hasMadeChanges = true;
+            _unsavedCharacter.Colors[type] = option;
+
+            InvokeCharacterChanged(CharacterChangeType.Appearance);
+        }
+        
+        /// <summary>
+        /// Set a body slider in the current character.
+        /// </summary>
+        [Client]
+        public void SetBody(BodyType type, string option)
+        {
+            if (option == string.Empty) return;
+
+            _hasMadeChanges = true;
+            _unsavedCharacter.Body[type] = option;
+
+            InvokeCharacterChanged(CharacterChangeType.Appearance);
         }
 
         /// <summary>
         /// Set the current characters name.
         /// </summary>
+        [Client]
         public void SetCharacterName(string name)
         {
             if (name == string.Empty || name == _unsavedCharacter.Name) return;
 
+            _hasMadeChanges = true;
             _unsavedCharacter.Name = name;
-            OnCharacterChanged?.Invoke(CharacterChangeType.Name);
+
+            InvokeCharacterChanged(CharacterChangeType.Name);
         }
 
-        /// <summary>
-        /// Set the current characters name.
-        /// </summary>
-        public void SetColor(AppearanceType type, string color)
-        {
-            if (color == string.Empty) return;
-
-            _unsavedCharacter.Appearance[type] = color;
-            OnCharacterChanged?.Invoke(CharacterChangeType.Appearance);
-        }
         #endregion
-        
+
         #region Networking
 
         /// <summary>
-        /// Callback when the round is starting.
+        /// When pressing the embark button
+        /// </summary>
+        [Client]
+        public void EmbarkCharacter()
+        {
+            PlayerSubSystem playerSystem = SubSystems.Get<PlayerSubSystem>();
+            Player player = playerSystem.GetPlayer(LocalConnection);
+
+            SendCharacter(player.Ckey);
+        }
+        
+        /// <summary>
+        /// When the round is preparing and the player is ready send their character to server.
         /// </summary>
         [Client]
         private void HandleRoundStateUpdated(ref EventContext context, in RoundStateUpdated e)
         {
             if (e.RoundState != RoundState.Preparing) return;
-            SendSelectedCharacterToServer();
+
+            PlayerSubSystem playerSystem = SubSystems.Get<PlayerSubSystem>();
+            Player player = playerSystem.GetPlayer(LocalConnection);
+            
+            ReadyPlayersSubSystem readyPlayersSystem = SubSystems.Get<ReadyPlayersSubSystem>();
+            if (!readyPlayersSystem.ReadyPlayers.Contains(player)) return;
+
+            SendCharacter(player.Ckey);
         }
 
         /// <summary>
         /// Send the character to CharacterSubSystem.
-        /// Every client doing this at the same time could cause performance issues
+        /// Has to be public so it can be called when pressing the embark button
         /// </summary>
         [Client]
-        private void SendSelectedCharacterToServer()
+        private void SendCharacter(string ckey)
         {
-            // send character to CharacterSubSystem
-            PlayerSubSystem playerSystem = SubSystems.Get<PlayerSubSystem>();
-            string ckey = playerSystem.GetCkey(LocalConnection);
-            PlayerSelectCharacterMessage selectCharacterMessage = new(ckey, SelectedCharacter);
+            ClientSendCharacterMessage selectCharacterMessage = new(ckey, SelectedCharacter);
             ClientManager.Broadcast(selectCharacterMessage);
         }
         #endregion
 
+        #region Events
+
+        [Client]
+        private void InvokeCharacterChanged(CharacterChangeType type)
+        {
+            new LocalLobbyCharacterChanged(_selectedCharacterIndex, _unsavedCharacter, type).Invoke(this);
+        }
+
+        [Client]
+        private void InvokeCharacterListChanged()
+        {
+            new LocalLobbyCharacterListChanged(_characters, CharacterNames.ToList()).Invoke(this);
+        }
+        
+        #endregion
     }
 }

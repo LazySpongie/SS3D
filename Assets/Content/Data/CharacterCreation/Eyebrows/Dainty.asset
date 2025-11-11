@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Dainty
   m_EditorClassIdentifier: 
   NameString: Dainty
-  icon: {fileID: 21300000, guid: 5a97d5afa6254804f81b7ba956296996, type: 3}
-  HairModel: {fileID: 6602150680355384330, guid: 678d643d389f4d249b1e7f675a6728b8, type: 3}
+  icon: {fileID: 0}
+  Model: {fileID: 6602150680355384330, guid: 678d643d389f4d249b1e7f675a6728b8, type: 3}

@@ -1,4 +1,5 @@
 ﻿using SS3D.Attributes;
+using SS3D.Systems.Screens.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +27,7 @@ namespace SS3D.Systems.Screens
         /// </summary>
         private void HandleOpenMenuButton()
         {
-            GameScreens.SwitchTo(ScreenType.CharacterCreation);
+            new ChangeGameScreen(ScreenType.CharacterCreation).Invoke(this);
         }
     }
 }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Circles
   m_EditorClassIdentifier: 
   NameString: Circles
-  icon: {fileID: 21300000, guid: 5a97d5afa6254804f81b7ba956296996, type: 3}
-  HairModel: {fileID: 5341934498146441572, guid: 678d643d389f4d249b1e7f675a6728b8, type: 3}
+  icon: {fileID: 0}
+  Model: {fileID: 5341934498146441572, guid: 678d643d389f4d249b1e7f675a6728b8, type: 3}

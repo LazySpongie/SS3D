@@ -2,11 +2,11 @@
 
 namespace SS3D.Systems.Screens.Events
 {
-    public partial struct ChangeGameScreenEvent : IEvent
+    public partial struct ChangeGameScreen : IEvent
     {
         public readonly ScreenType Screen;
 
-        public ChangeGameScreenEvent(ScreenType screen)
+        public ChangeGameScreen(ScreenType screen)
         {
             Screen = screen;
         }
