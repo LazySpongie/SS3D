@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8077688232817585695}
   - component: {fileID: 6784985989167311465}
   - component: {fileID: 6867056689763851080}
-  - component: {fileID: 4490407053575933066}
+  - component: {fileID: 1480671167336335729}
   m_Layer: 10
   m_Name: HumanArmRight
   m_TagString: Untagged
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4490407053575933066
+--- !u!114 &1480671167336335729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -331,9 +331,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 832941577213411195}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 533d7535225c96d428d99d1b51bf7db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bodyPartType: 3
 --- !u!1 &7354608457772552911
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,11 +7,11 @@ namespace SS3D.Systems.Characters.Preferences
     public enum BodyType
     {
         Height,
-        Weight,
-        Muscle,
+        Belly,
         Jaw,
+        UpperBody,
         Chest,
-        Butt,
         Waist,
+        LowerBody,
     }
 }

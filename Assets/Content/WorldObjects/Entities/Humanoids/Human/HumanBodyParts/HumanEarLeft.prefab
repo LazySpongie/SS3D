@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 5613254179663885797}
   - component: {fileID: 2220908672758897322}
   - component: {fileID: 44955526540156704}
+  - component: {fileID: 3456924151729699676}
   m_Layer: 10
   m_Name: HumanEarLeft
   m_TagString: Untagged
@@ -430,6 +431,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3456924151729699676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3861326785315191697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533d7535225c96d428d99d1b51bf7db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bodyPartType: 10
 --- !u!1 &7464748784573264830
 GameObject:
   m_ObjectHideFlags: 0

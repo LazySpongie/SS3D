@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 3617335994165229519}
   - component: {fileID: 5077178896765091160}
   - component: {fileID: 3325623441715482320}
-  - component: {fileID: 469971543057239166}
+  - component: {fileID: 2622213122317631517}
   m_Layer: 10
   m_Name: HumanHandLeft
   m_TagString: Untagged
@@ -631,7 +631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
---- !u!114 &469971543057239166
+--- !u!114 &2622213122317631517
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -640,6 +640,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2207730063960764759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 533d7535225c96d428d99d1b51bf7db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bodyPartType: 4

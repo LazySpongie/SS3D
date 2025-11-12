@@ -27,7 +27,7 @@ namespace SS3D.Systems.Inventory.Clothing
         /// Health controller to access the body parts so they can be hidden to avoid clipping.
         /// </summary>
         [SerializeField]
-        private HealthController _healthController;
+        private Transform _bodyPartRoot;
 
         /// <summary>
         /// AppearanceDisplay to hide hairstyles when hats are worn.
@@ -125,7 +125,7 @@ namespace SS3D.Systems.Inventory.Clothing
         /// </summary>
         private void SetCullingOnBodyParts(ClothingVisualSlot slot, ClothingItemCullingData cullingData, bool addCulling)
         {
-            foreach (BodyPart bodyPart in _healthController.BodyPartsOnEntity)
+            foreach (BodyPart bodyPart in _bodyPartRoot.GetComponentsInChildren<BodyPart>())
             {
                 if (!cullingData.CulledBodyParts.Contains(bodyPart.BodyPartType)) continue;
                 if (addCulling)

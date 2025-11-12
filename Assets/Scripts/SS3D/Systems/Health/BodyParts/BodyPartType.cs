@@ -16,6 +16,9 @@ namespace SS3D.Systems.Health
         LegRight,
         FootLeft,
         FootRight,
+        EarLeft,
+        EarRight,
+        Eyes,
     }
     
 }

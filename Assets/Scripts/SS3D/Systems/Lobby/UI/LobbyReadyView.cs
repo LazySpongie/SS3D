@@ -66,38 +66,60 @@ namespace SS3D.Systems.Lobby.UI
         {
             EntitySubSystem system = SubSystems.Get<EntitySubSystem>();
 
-            bool isPlayedSpawned = system.IsPlayerSpawned(LocalConnection);
+            bool isPlayerSpawned = system.IsPlayerSpawned(LocalConnection);
 
-            if (isPlayedSpawned && roundState == RoundState.Ongoing)
+            switch (roundState)
             {
-                _readyButton.Disabled = true;
-                _readyButton.SetActive(true);
-                _embarkButton.Disabled = true;
-                _embarkButton.SetActive(false);
-            }
+                case RoundState.Preparing:
+                case RoundState.WarmingUp:
+                    RoundPreparing();
+                    break;
 
-            if (!isPlayedSpawned && roundState == RoundState.Ongoing)
-            {
-                _readyButton.Disabled = true;
-                _readyButton.SetActive(false);
-                _embarkButton.Disabled = false;
-                _embarkButton.SetActive(true);
-            }
+                case RoundState.Ongoing:
+                    RoundOngoing(isPlayerSpawned);
+                    break;
 
-            if (roundState == RoundState.Stopped)
-            {
-                _readyButton.Pressed = false;
-                _readyButton.Disabled = false;
-                _readyButton.SetActive(true);
-
-                _embarkButton.Pressed = false;
-                _embarkButton.Disabled = true;
-                _embarkButton.Highlighted = false;
-
-                _embarkButton.SetActive(false);
+                case RoundState.Stopped:
+                    RoundStopped();
+                    break;
             }
         }
 
+        private void RoundPreparing()
+        {
+            // _readyButton.Pressed = false;
+            _readyButton.Disabled = true;
+            _readyButton.SetActive(false);
+
+            // _embarkButton.Pressed = false;
+            _embarkButton.Disabled = true;
+            _embarkButton.SetActive(true);
+        }
+
+        private void RoundOngoing(bool isPlayerSpawned)
+        {
+            bool isLateJoiner = !isPlayerSpawned;
+            
+            _readyButton.Disabled = true;
+            _readyButton.SetActive(false);
+
+            _embarkButton.Disabled = !isLateJoiner;
+            _embarkButton.SetActive(isLateJoiner);
+        }
+
+        private void RoundStopped()
+        {
+            _readyButton.Pressed = false;
+            _readyButton.Disabled = false;
+            _readyButton.SetActive(true);
+
+            _embarkButton.Pressed = false;
+            _embarkButton.Disabled = true;
+            _embarkButton.Highlighted = false;
+
+            _embarkButton.SetActive(false);
+        }
+        
         private void HandleEmbarkButtonPressed(bool pressed)
         {
             PlayerSubSystem playerSystem = SubSystems.Get<PlayerSubSystem>();

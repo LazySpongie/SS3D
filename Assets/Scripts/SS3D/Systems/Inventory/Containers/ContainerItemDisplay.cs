@@ -119,7 +119,8 @@ namespace SS3D.Systems.Inventory.Containers
                 // It's currently deleting the game object containing the item, why is this here ?
                 itemParent.gameObject.Dispose(true);
             }
-
+            
+            item.transform.localScale = Vector3.one;
             _displayedItems[index] = null;
         }
     }

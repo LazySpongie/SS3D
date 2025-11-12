@@ -36,12 +36,12 @@ namespace SS3D.Systems.Characters.Preferences
         public Dictionary<BodyType, string> Body = new Dictionary<BodyType, string>
             {
                 { BodyType.Height,        "1" },
-                { BodyType.Muscle,        "0" },
-                { BodyType.Weight,        "0.7" },
+                { BodyType.Belly,         "1" },
                 { BodyType.Jaw,           "1" },
+                { BodyType.UpperBody,     "1" },
                 { BodyType.Chest,         "0" },
-                { BodyType.Butt,          "1" },
                 { BodyType.Waist,         "1" },
+                { BodyType.LowerBody,     "1" },
             };
 
         // [NonSerialized]

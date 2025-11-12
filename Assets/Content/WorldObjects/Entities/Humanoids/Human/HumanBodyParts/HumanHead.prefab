@@ -342,6 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5017298469925696243}
   - component: {fileID: 9090507935543918689}
+  - component: {fileID: 6869862965750424056}
   m_Layer: 12
   m_Name: HumanEyes
   m_TagString: Untagged
@@ -466,6 +467,19 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0000013299286, y: 0.59018487, z: 0.09121799}
     m_Extent: {x: 0.050214067, y: 0.023840845, z: 0.009652421}
   m_DirtyAABB: 0
+--- !u!114 &6869862965750424056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3841126823261259202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533d7535225c96d428d99d1b51bf7db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bodyPartType: 12
 --- !u!1 &3965233620304509214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,7 +1052,7 @@ GameObject:
   - component: {fileID: 3065600715364136503}
   - component: {fileID: 3854834578962148855}
   - component: {fileID: 1711607012168321612}
-  - component: {fileID: 3137910327751757000}
+  - component: {fileID: 311010837727540629}
   m_Layer: 10
   m_Name: HumanHead
   m_TagString: Untagged
@@ -1414,7 +1428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3137910327751757000
+--- !u!114 &311010837727540629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1423,9 +1437,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8006468508714419156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 533d7535225c96d428d99d1b51bf7db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bodyPartType: 0
 --- !u!1 &8010198090661034686
 GameObject:
   m_ObjectHideFlags: 0

@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 5308582014386986525}
   - component: {fileID: 2667861044257637155}
   - component: {fileID: 8049927839799613062}
-  - component: {fileID: 2186355376903572685}
+  - component: {fileID: 1851783849895263343}
   m_Layer: 10
   m_Name: HumanTorso
   m_TagString: Untagged
@@ -1007,7 +1007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2186355376903572685
+--- !u!114 &1851783849895263343
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1016,9 +1016,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5562010227207703736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 533d7535225c96d428d99d1b51bf7db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bodyPartType: 1
 --- !u!1 &6030422096952570203
 GameObject:
   m_ObjectHideFlags: 0

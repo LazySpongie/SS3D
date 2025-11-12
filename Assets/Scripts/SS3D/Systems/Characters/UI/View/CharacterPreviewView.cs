@@ -119,29 +119,15 @@ namespace SS3D.Systems.Characters.UI.View
             foreach (int i in Enum.GetValues(typeof(StyleType)))
             {
                 StyleType type = (StyleType)i;
-                switch (type)
-                {
-                    case StyleType.Hairstyle:
-                    case StyleType.Beardstyle:
-                    case StyleType.Eyebrows:
-                        CustomizationSO option = Assets.Get<CustomizationSO>("Customization", character.GetStyle(type));
-                        _previewCharacter.SetStyle(type, option);
-                        break;
-                }
+                CustomizationSO option = Assets.Get<CustomizationSO>("Customization", character.GetStyle(type));
+                _previewCharacter.SetStyle(type, option);
             }
 
             foreach (int i in Enum.GetValues(typeof(ColorType)))
             {
                 ColorType type = (ColorType)i;
-                switch (type)
-                {
-                    case ColorType.HairColor:
-                    case ColorType.EyeColor:
-                    case ColorType.SkinColor:
-                        if (!ColorUtility.TryParseHtmlString("#" + character.GetColor(type), out Color color)) break;
-                        _previewCharacter.SetColor(type, color);
-                        break;
-                }
+                if (!ColorUtility.TryParseHtmlString("#" + character.GetColor(type), out Color color)) break;
+                _previewCharacter.SetColor(type, color); 
             }
 
             foreach (int i in Enum.GetValues(typeof(BodyType)))

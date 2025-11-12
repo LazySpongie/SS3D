@@ -49,8 +49,6 @@ namespace SS3D.Systems.Rounds
             Log.Information(this, "Preparing round", Logs.ServerOnly);
 
             RoundState = RoundState.Preparing;
-            // the characters of ready players are obtained when RoundState changes to Preparing
-
             // CharacterSubSystem should have all the characters now
 
             RoleSubSystem roleSystem = SubSystems.Get<RoleSubSystem>();

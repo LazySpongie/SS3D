@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 9190760884376883877}
   - component: {fileID: -5030209921304096726}
   - component: {fileID: 1037856391843740945}
-  - component: {fileID: 7163743929829085723}
+  - component: {fileID: 5141194786287533578}
   m_Layer: 10
   m_Name: HumanLegLeft
   m_TagString: Untagged
@@ -353,7 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00534faac6488c47893490f2bf4c5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7163743929829085723
+--- !u!114 &5141194786287533578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -362,9 +362,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3470038122221450171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 533d7535225c96d428d99d1b51bf7db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bodyPartType: 6
 --- !u!1 &5476864907382440327
 GameObject:
   m_ObjectHideFlags: 0

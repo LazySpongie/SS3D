@@ -9,26 +9,43 @@ namespace SS3D.Systems.Characters.UI
     /// </summary>
     public class PreviewCamera : Actor
     {
-        [SerializeField] private float _sensitivity = 100f;
+        [SerializeField] public float Sensitivity = 100f;
+        [SerializeField] public float MinPitch = -90f;
+        [SerializeField] public float MaxPitch = 90f;
+        [SerializeField] public float ZoomSensitivity = 100f;
+        [SerializeField] public float MinDistance = 1.2f;
+        [SerializeField] public float MaxDistance = 5f;
+        
         private float _yaw = 0f;
         private float _pitch = 0f;
 
         private Quaternion _startRotation;
+        private Transform _camera;
 
         protected override void OnAwake()
         {
             base.OnAwake();
             _startRotation = transform.rotation;
+            _camera = GetComponentInChildren<Camera>().transform;
         }
 
         public void ResetCamera()
         {
             transform.rotation = _startRotation;
         }
-        
-        public void MouseInput(PointerEventData eventData)
+
+        public void ScrollInput(float delta)
         {
-            HandleInput(eventData.delta);
+            Vector3 pos = _camera.localPosition;
+            pos.z -= delta * ZoomSensitivity * Time.deltaTime;
+            pos.z = Mathf.Clamp(pos.z, MinDistance, MaxDistance);
+            _camera.localPosition = pos;
+
+        }
+        
+        public void MouseInput(Vector2 inputDelta)
+        {
+            HandleInput(inputDelta);
 
             Quaternion yawRotation = Quaternion.Euler(_pitch, _yaw, 0f);
 
@@ -42,9 +59,9 @@ namespace SS3D.Systems.Characters.UI
 
         private void HandleInput(Vector2 inputDelta)
         {
-            _yaw += inputDelta.x * _sensitivity * Time.deltaTime;
-            _pitch += inputDelta.y * _sensitivity * Time.deltaTime;
-            _pitch = Mathf.Clamp(_pitch, -90, 90);
+            _yaw += inputDelta.x * Sensitivity * Time.deltaTime;
+            _pitch += inputDelta.y * Sensitivity * Time.deltaTime;
+            _pitch = Mathf.Clamp(_pitch, MinPitch, MaxPitch);
         }
 
     }

@@ -60,16 +60,18 @@ namespace SS3D.Systems.Characters
         protected override void OnAwake()
         {
             base.OnAwake();
-            if (IsServer) return;
+
+            if (IsServerOnly) return;
+
             _skin = new Material(_skinMaterial);
             _eye = new Material(_eyeMaterial);
             _hair = new Material(_hairMaterial);
         }
 
-        [Client]
-        public override void OnStartClient()
+        protected override void OnStart()
         {
             base.OnStart();
+            if (IsServerOnly) return;
             SetupMaterials();
         }
 
@@ -152,35 +154,35 @@ namespace SS3D.Systems.Characters
 
             if (_boneScaler == null) return;
 
-            if (IsServer & !(type == BodyType.Height || type == BodyType.Weight)) return;
-
             switch (type)
             {
                 case BodyType.Height:
                     _boneScaler.heightInput = value;
                     break;
-                case BodyType.Weight:
-                    _boneScaler.weightInput = value;
+                case BodyType.Belly:
+                    _boneScaler.bellyInput = value;
                     break;
-                case BodyType.Muscle:
-                    _boneScaler.muscleInput = value;
+                case BodyType.UpperBody:
+                    _boneScaler.upperBodyInput = value;
                     break;
                 case BodyType.Chest:
                     _boneScaler.chestInput = value;
                     break;
-                case BodyType.Butt:
-                    _boneScaler.buttInput = value;
+                case BodyType.LowerBody:
+                    _boneScaler.lowerBodyInput = value;
                     break;
                 case BodyType.Waist:
                     _boneScaler.waistInput = value;
                     break;
                 case BodyType.Jaw:
-                    BlendShape[] blends = { new BlendShape("Female", value * 100f) };
+                    BlendShape[] blends = { new BlendShape("Female", (1 - value) * 100f) };
                     _headRenderer.AddBlendShapeAffector(gameObject, blends);
                     break;
             }
-            
-            _boneScaler.ScaleBones();
+
+            // when called on an ingame character the server needs to update physics but not cosmetic bones
+            // has to be IsClient instead of IsServer otherwise the host will be affected
+            _boneScaler.ScaleBones(IsServerOnly);
         }
 
         /// <summary>
