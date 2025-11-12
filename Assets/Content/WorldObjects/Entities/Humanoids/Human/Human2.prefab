@@ -8448,11 +8448,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc9f7935c7e22d4f8b504cfb14721d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boneScaler: {fileID: 475580107463887159}
   _hairSlot: {fileID: 2296881914883861168}
   _beardSlot: {fileID: 6867108293782968791}
   _eyebrowSlot: {fileID: 8100376576424995965}
   _eyeSlot: {fileID: 3010380833479673802}
-  _boneScaler: {fileID: 475580107463887159}
   _skinRenderers:
   - {fileID: 270151793522417329}
   - {fileID: 3355837623697654740}
@@ -8466,6 +8466,7 @@ MonoBehaviour:
   - {fileID: 6217532572249875957}
   - {fileID: 8793278027620475813}
   - {fileID: 7063966259298033300}
+  _headRenderer: {fileID: 8878637773665654428}
   _hairMaterial: {fileID: 2100000, guid: fe65d328594f8d14ebbb4504ee05fa08, type: 2}
   _eyeMaterial: {fileID: 2100000, guid: 5003e6577566f0748b94899aefcc5569, type: 2}
   _skinMaterial: {fileID: 2100000, guid: cf191327ca9118c4483ccb0d22b33910, type: 2}
@@ -9402,23 +9403,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f936cc7db640d4da850a2af0123007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hips: {fileID: 3960317445716045629}
-  spine: {fileID: 4913926211648168539}
-  chest: {fileID: 8414373426636609123}
-  neck: {fileID: 5225029405411557369}
   head: {fileID: 1072842605446999515}
-  shoulderL: {fileID: 9016350948291137322}
-  armL: {fileID: 1928878719405885206}
   forearmL: {fileID: 683496107307434277}
   handL: {fileID: 670724369055125879}
-  shoulderR: {fileID: 6933849747095314180}
-  armR: {fileID: 8554205005196587596}
   forearmR: {fileID: 9032586310250826830}
   handR: {fileID: 2712790233940143948}
-  thighL: {fileID: 3933712924249351043}
   lowerLegL: {fileID: 9004830862825569536}
   footL: {fileID: 8172633024589726100}
-  thighR: {fileID: 5952814281671407458}
   lowerLegR: {fileID: 8626545250323751877}
   footR: {fileID: 245909079309879276}
   waist: {fileID: 2506028812039871514}
@@ -16101,6 +16092,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7346838480958185366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8878637773665654428 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3137910327751757000, guid: cc54bc74b2f4c2349b1f84b501b0a091, type: 3}
+  m_PrefabInstance: {fileID: 5817343205059369556}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e0c0368bf5aa2b4da0fa4d1dc2fd3f2, type: 3}

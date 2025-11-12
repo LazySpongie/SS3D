@@ -147,12 +147,8 @@ namespace SS3D.Systems.Characters.UI.View
             foreach (int i in Enum.GetValues(typeof(BodyType)))
             {
                 BodyType type = (BodyType)i;
-                switch (type)
-                {
-                    case BodyType.Height:
-                        _previewCharacter.SetBody(type, float.Parse(character.GetBody(type)));
-                        break;
-                }
+                _previewCharacter.SetBody(type, float.Parse(character.GetBody(type)));
+                
             }
         }
 

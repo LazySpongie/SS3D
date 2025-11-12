@@ -89,7 +89,8 @@ namespace SS3D.Systems.Characters
         /// </summary>
         public void AddBlendShapeAffector(GameObject obj, BlendShape[] blendShapes)
         {
-            _blendShapeAffectors.Add(obj, blendShapes);
+            _blendShapeAffectors[obj] = blendShapes;
+            // _blendShapeAffectors.Add(obj, blendShapes);
             UpdateBlendShapes();
         }
 

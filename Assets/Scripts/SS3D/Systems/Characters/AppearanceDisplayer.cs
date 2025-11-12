@@ -6,6 +6,7 @@ using UnityEngine.Video;
 using System.Collections.Generic;
 using SS3D.Systems.Characters.Preferences;
 using System;
+using Cysharp.Threading.Tasks.Triggers;
 
 namespace SS3D.Systems.Characters
 {
@@ -13,7 +14,7 @@ namespace SS3D.Systems.Characters
     /// <summary>
     /// Client script that displays appearance on the player
     /// </summary>
-    public class AppearanceDisplayer : Actor
+    public class AppearanceDisplayer : NetworkActor
     {
         [Header("Bone Scaler")]
         [SerializeField] private BoneScaler _boneScaler;
@@ -39,11 +40,13 @@ namespace SS3D.Systems.Characters
         /// </summary>
         [SerializeField] private VisualSlot _eyeSlot;
 
-        [Header("Skin Renderers")]
+        [Header("Renderers")]
         /// <summary>
         /// Renderers that control the skin.
         /// </summary>
         [SerializeField] private List<SkinnedMeshRenderer> _skinRenderers;
+        
+        [SerializeField] private RendererController _headRenderer;
 
         [Header("Materials")]
         [SerializeField] private Material _hairMaterial;
@@ -57,12 +60,14 @@ namespace SS3D.Systems.Characters
         protected override void OnAwake()
         {
             base.OnAwake();
+            if (IsServer) return;
             _skin = new Material(_skinMaterial);
             _eye = new Material(_eyeMaterial);
             _hair = new Material(_hairMaterial);
         }
 
-        protected override void OnStart()
+        [Client]
+        public override void OnStartClient()
         {
             base.OnStart();
             SetupMaterials();
@@ -71,6 +76,7 @@ namespace SS3D.Systems.Characters
         /// <summary>
         /// Create instanced materials so the color can be changed
         /// </summary>
+        [Client]
         private void SetupMaterials()
         {
             Material[] skinMats = _skinRenderers[0].sharedMaterials;
@@ -139,20 +145,38 @@ namespace SS3D.Systems.Characters
         /// <summary>
         /// Set body scales.
         /// </summary>
-        [Client]
+        [ServerOrClient]
         public void SetBody(BodyType type, float value)
         {
-            value = Mathf.Clamp(value, 0.5f, 1.5f);
+            value = Mathf.Clamp(value, 0.1f, 4f);
 
             if (_boneScaler == null) return;
+
+            if (IsServer & !(type == BodyType.Height || type == BodyType.Weight)) return;
 
             switch (type)
             {
                 case BodyType.Height:
                     _boneScaler.heightInput = value;
                     break;
-                default:
-                    // error
+                case BodyType.Weight:
+                    _boneScaler.weightInput = value;
+                    break;
+                case BodyType.Muscle:
+                    _boneScaler.muscleInput = value;
+                    break;
+                case BodyType.Chest:
+                    _boneScaler.chestInput = value;
+                    break;
+                case BodyType.Butt:
+                    _boneScaler.buttInput = value;
+                    break;
+                case BodyType.Waist:
+                    _boneScaler.waistInput = value;
+                    break;
+                case BodyType.Jaw:
+                    BlendShape[] blends = { new BlendShape("Female", value * 100f) };
+                    _headRenderer.AddBlendShapeAffector(gameObject, blends);
                     break;
             }
             
@@ -183,6 +207,7 @@ namespace SS3D.Systems.Characters
             SetCullingOnSlot(culler, _eyeSlot, blends, addCulling, cullingData.HideEyes);
         }
 
+        [Client]
         public void SetCullingOnSlot(GameObject culler, VisualSlot slot, BlendShape[] blends, bool addCulling, bool hideSlot)
         {
             if (addCulling)

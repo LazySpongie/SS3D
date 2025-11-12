@@ -49,11 +49,19 @@ namespace SS3D.Systems.Characters
         /// <summary>
         /// Callback when the characters profile is modified
         /// </summary>
-        [Client]
+        [ServerOrClient]
         private void SyncCharacterProfile(CharacterProfile oldChar, CharacterProfile newChar, bool asServer)
         {
 
             gameObject.name = newChar.Name;
+
+            foreach (int i in Enum.GetValues(typeof(BodyType)))
+            {
+                BodyType type = (BodyType)i;
+                _appearanceDisplayer.SetBody(type, float.Parse(newChar.GetBody(type)));
+            }
+
+            if (asServer) return;
 
             foreach (int i in Enum.GetValues(typeof(StyleType)))
             {
@@ -69,19 +77,13 @@ namespace SS3D.Systems.Characters
                 SetVisualColor(type);
             }
 
-            foreach (int i in Enum.GetValues(typeof(BodyType)))
-            {
-                BodyType type = (BodyType)i;
-                _appearanceDisplayer.SetBody(type, float.Parse(newChar.GetBody(type)));
-            }
-
-            // body sliders here
         }
 
         #endregion
 
         #region Set Visuals
 
+        [Client]
         private void SetVisualStyle(StyleType type)
         {
             CustomizationSO option = Assets.Get<CustomizationSO>("Customization", _profile.GetStyle(type));
@@ -90,6 +92,7 @@ namespace SS3D.Systems.Characters
             _appearanceDisplayer.SetStyle(type, option);
         }
 
+        [Client]
         private void SetVisualColor(ColorType type)
         {
             if (!ColorUtility.TryParseHtmlString("#" + _profile.GetColor(type), out Color color)) return;
