@@ -91,7 +91,7 @@ namespace SS3D.Systems.Characters.UI
         public void LoadGrid()
         {
             ClearGrid();
-            // _objectDatabase = _tileSystem.Loader.Assets;
+            
             foreach (CustomizationSO asset in _customizationDatabase.Options)
             {
                 CustomizationSlot _slot = Instantiate(_slotPrefab, _contentRoot.transform, true).GetComponent<CustomizationSlot>();
@@ -126,6 +126,7 @@ namespace SS3D.Systems.Characters.UI
         {
             for (int i = _customizationSlots.Count - 1; i >= 0; i--)
             {
+                _customizationSlots[i].Button.onClick.RemoveListener(() => HandleSlotButtonPressed(_customizationSlots[i]));
                 _customizationSlots[i].gameObject.Dispose(true);
                 _customizationSlots.RemoveAt(i);
             }

@@ -12,6 +12,7 @@ namespace SS3D.Systems.Roles
     public class RoleData : ScriptableObject
     {
         [SerializeField] private string _roleName;
+        [SerializeField] private bool _departmentHead;
         [SerializeField] private GameObject _pdaPrefab;
         [SerializeField] private GameObject _idCardPrefab;
         [SerializeField] private List<IDPermission> _permissions = new List<IDPermission>();

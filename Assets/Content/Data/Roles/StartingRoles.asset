@@ -12,8 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840fa1a907d5a7642adc129fbb261736, type: 3}
   m_Name: StartingRoles
   m_EditorClassIdentifier: 
-  Roles:
-  - Data: {fileID: 11400000, guid: 1928692fbc0905b4195e6a72d04f474d, type: 2}
-    AvailableRoles: 0
-  - Data: {fileID: 11400000, guid: 7485a795dffb1c94385d7b05561d2d78, type: 2}
-    AvailableRoles: 1
+  OverFlowRole: {fileID: 11400000, guid: 1928692fbc0905b4195e6a72d04f474d, type: 2}
+  PriorityRoles:
+  - {fileID: 11400000, guid: 575f0900e0dfe0a418bb42a372694dce, type: 2}
+  Departments:
+  - Department: {fileID: 11400000, guid: d82797948182af6408e9c683d2e63abb, type: 2}
+    Roles:
+    - Data: {fileID: 11400000, guid: 575f0900e0dfe0a418bb42a372694dce, type: 2}
+      AvailableRoles: 1
+  - Department: {fileID: 11400000, guid: 2999318d1d44652408fedb60aaca8f3b, type: 2}
+    Roles:
+    - Data: {fileID: 11400000, guid: 3577296625ff10547872463b3a2410cb, type: 2}
+      AvailableRoles: 1
+    - Data: {fileID: 11400000, guid: 51cc0fbe928f8c645bd3f2aa06b7c634, type: 2}
+      AvailableRoles: 1
+    - Data: {fileID: 11400000, guid: 7485a795dffb1c94385d7b05561d2d78, type: 2}
+      AvailableRoles: 2
+  - Department: {fileID: 11400000, guid: 2ac1c42181925b740b3f6e8e59e2b0fa, type: 2}
+    Roles:
+    - Data: {fileID: 11400000, guid: c9b74653f43c3d84890c6d216e25d521, type: 2}
+      AvailableRoles: 1
+    - Data: {fileID: 11400000, guid: 238ec640ecdc5e141a9d848cfa8ee74e, type: 2}
+      AvailableRoles: 2
+  - Department: {fileID: 11400000, guid: 0190f9f52a6108a4e90c8d9cd5590e64, type: 2}
+    Roles:
+    - Data: {fileID: 11400000, guid: b88455ab0b5c6f742993353a292f4758, type: 2}
+      AvailableRoles: 3

@@ -12,3 +12,4 @@ namespace SS3D.Systems.Roles
         public int AvailableRoles;
     }
 }
+

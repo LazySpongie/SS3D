@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2197c1d93e4c39a4d958f015762fc338, type: 3}
-  m_Name: Security
+  m_Name: Head of Security
   m_EditorClassIdentifier: 
-  _roleName: Security
+  _roleName: Head of Security
+  _departmentHead: 1
   _pdaPrefab: {fileID: 5261116577612792016, guid: 79260483ae5d3e04fa272e092b49abac, type: 3}
   _idCardPrefab: {fileID: 5261116577612792016, guid: d8b0c8d1ddcdeb24d9763054c103c9fe, type: 3}
   _permissions:

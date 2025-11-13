@@ -20,18 +20,21 @@ namespace SS3D.Systems.Characters.UI
         private float _pitch = 0f;
 
         private Quaternion _startRotation;
+        private Vector3 _startPosition;
         private Transform _camera;
 
         protected override void OnAwake()
         {
             base.OnAwake();
-            _startRotation = transform.rotation;
             _camera = GetComponentInChildren<Camera>().transform;
+            _startRotation = transform.rotation;
+            _startPosition = _camera.localPosition;
         }
 
         public void ResetCamera()
         {
             transform.rotation = _startRotation;
+            _camera.localPosition = _startPosition;
         }
 
         public void ScrollInput(float delta)

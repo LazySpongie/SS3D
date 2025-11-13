@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2eeadacdb653bf43a701b8176cb90e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _colorPicker: {fileID: 0}
   _styleSelections: []
   _colorSelections: []
+  _sliders: []
 --- !u!1 &1014815575735222775
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +173,7 @@ Transform:
   - {fileID: 4342532298964866589}
   - {fileID: 5610417909570951701}
   m_Father: {fileID: 4302234173120300220}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3954865580235035471
 GameObject:
@@ -283,7 +285,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4302234173120300220}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4302234172762346563
 MonoBehaviour:
@@ -330,13 +332,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8424351062188270559}
   - {fileID: 4302234173416297488}
   - {fileID: 4302234174483338743}
   - {fileID: 4302234174352566334}
   - {fileID: 4302234172762346588}
   - {fileID: 4302234173151314615}
   - {fileID: 4302234173136898545}
-  - {fileID: 8424351062188270559}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -406,7 +408,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4302234173120300220}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4302234173136898544
 MonoBehaviour:
@@ -454,7 +456,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4302234173120300220}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4302234173151314614
 MonoBehaviour:
@@ -499,7 +501,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4302234173120300220}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4302234173416297495
 MonoBehaviour:
@@ -550,7 +552,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4302234173120300220}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4302234174352566335
 MonoBehaviour:
@@ -600,7 +602,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4302234173120300220}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4302234174483338742
 MonoBehaviour:
@@ -628,8 +630,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5610417909570951701}
+  - component: {fileID: 8714605462989595120}
   m_Layer: 0
-  m_Name: RolesTabView
+  m_Name: RoleTabView
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 39036f56f13e21b48ac592bc470c2c6a, type: 3}
   m_NavMeshLayer: 0
@@ -650,3 +653,22 @@ Transform:
   m_Father: {fileID: 8424351062188270559}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8714605462989595120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5205421788033328635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10cff9373293dd94aa04404b62bad2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rolesAvailable: {fileID: 11400000, guid: 1ac202e4643a5ee41b99ccfe7dcc0092, type: 2}
+  _rolePrefRoot: {fileID: 0}
+  _roleSlotPrefab: {fileID: 2119624395141950098, guid: c369f3bc80f86224494fef848c9edbfe, type: 3}
+  _departmentPrefab: {fileID: 660201125029859658, guid: 0866e96cdc785dc40bdd29f8a4144bea, type: 3}
+  _fallbackRoleSlot: {fileID: 0}
+  _antagPrefRoot: {fileID: 0}
+  _antagSlotPrefab: {fileID: 0}

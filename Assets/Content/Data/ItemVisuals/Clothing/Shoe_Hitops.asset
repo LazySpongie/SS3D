@@ -18,6 +18,6 @@ MonoBehaviour:
   HandModel: {fileID: 0}
   Human:
     ClothingModel: {fileID: -6802408581776391992, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
-    AltClothingModel: {fileID: 3409560818138700609, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+    AltClothingModel: {fileID: -4872733928690095626, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
   CullingData: {fileID: 11400000, guid: 2442b07064c4f1c44b33fe68555613b0, type: 2}
   AltCullingData: {fileID: 11400000, guid: 35a8b52af4f811f4c8abc577ad346f20, type: 2}

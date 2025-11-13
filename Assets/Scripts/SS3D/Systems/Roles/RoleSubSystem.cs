@@ -16,11 +16,16 @@ using SS3D.Systems.Characters;
 
 namespace SS3D.Systems.Roles
 {
+    /// <summary>
+    /// Controls the assignment of roles when the round prepares
+    /// </summary>
     public class RoleSubSystem : NetworkSubSystem
     {
         [SerializeField] private RolesAvailable _rolesAvailable;
         private List<RoleCounter> _roleCounters = new List<RoleCounter>();
         private Dictionary<Player, RoleData> _rolePlayers = new Dictionary<Player, RoleData>();
+
+        public RolesAvailable RolesAvailable => _rolesAvailable;
 
         #region Setup
         protected override void OnStart()
@@ -49,13 +54,16 @@ namespace SS3D.Systems.Roles
                 Log.Error(this, "Initial Available Roles not set!");
             }
 
-            foreach (RolesData role in _rolesAvailable.Roles)
+            foreach (DepartmentsData department in _rolesAvailable.Departments)
             {
-                RoleCounter roleCounter = new RoleCounter();
-                roleCounter.Role = role.Data;
-                roleCounter.AvailableRoles = role.AvailableRoles;
+                foreach (RolesData role in department.Roles)
+                {
+                    RoleCounter roleCounter = new RoleCounter();
+                    roleCounter.Role = role.Data;
+                    roleCounter.AvailableRoles = role.AvailableRoles;
 
-                _roleCounters.Add(roleCounter);
+                    _roleCounters.Add(roleCounter);
+                }
             }
         }
         #endregion
@@ -98,20 +106,20 @@ namespace SS3D.Systems.Roles
         /// <param name="player</param>
         private void AssignPlayerRole(Player player)
         {
-            RoleCounter assistantRole = _roleCounters.FirstOrDefault(rc => rc.Role.Name == "Assistant");
-            RoleCounter securityRole = _roleCounters.FirstOrDefault(rc => rc.Role.Name == "Security");
+            // RoleCounter assistantRole = _roleCounters.FirstOrDefault(rc => rc.Role.Name == "Assistant");
+            // RoleCounter securityRole = _roleCounters.FirstOrDefault(rc => rc.Role.Name == "Security");
 
-            if (securityRole == null || securityRole.CurrentRoles == securityRole.AvailableRoles)
-            {
-                assistantRole.AddPlayer(player);
-                _rolePlayers.Add(player, assistantRole.Role);
-            }
+            // if (securityRole == null || securityRole.CurrentRoles == securityRole.AvailableRoles)
+            // {
+            //     assistantRole.AddPlayer(player);
+            //     _rolePlayers.Add(player, assistantRole.Role);
+            // }
 
-            else
-            {
-                securityRole.AddPlayer(player);
-                _rolePlayers.Add(player, securityRole.Role);
-            }
+            // else
+            // {
+            //     securityRole.AddPlayer(player);
+            //     _rolePlayers.Add(player, securityRole.Role);
+            // }
         }
 
         /// <summary>

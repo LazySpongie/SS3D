@@ -24,7 +24,6 @@ namespace SS3D.Systems.Inventory.Clothing
         public bool HideHair;
         public bool HideBeard;
         public bool HideEyebrows;
-        public bool HideEyes;
 
         [Header("Corrective Blendshapes")]
 

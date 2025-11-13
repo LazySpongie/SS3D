@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ad3bea70a380c4e8e097b5da172bbf, type: 3}
   m_Name: Mask
   m_EditorClassIdentifier: 
-  CulledClothingSlots: 
+  CulledClothingSlots: 02000000
   CulledBodyParts: 
   HideHair: 0
   HideBeard: 1

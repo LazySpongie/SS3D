@@ -188,6 +188,7 @@ namespace SS3D.Systems.Inventory.UI
                     break;
 
                 case ContainerType.Neck:
+                    // need to add neck slot prefab
                     slot = null;
                     break;
 

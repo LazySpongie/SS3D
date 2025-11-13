@@ -13,8 +13,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using SS3D.Systems.Characters.Events;
 using SS3D.Systems.Entities;
-using System.Diagnostics;
-using System.Drawing;
 
 namespace SS3D.Systems.Characters.Preferences
 {
@@ -224,6 +222,7 @@ namespace SS3D.Systems.Characters.Preferences
             UpdateCharacterProfileManifest();
 
             LocalStorage.SaveObject(CharacterSavePath + "/" + character.Name, character, true);
+            character.AfterSerialize();
         }
 
         /// <summary>
@@ -318,6 +317,48 @@ namespace SS3D.Systems.Characters.Preferences
             _unsavedCharacter.Name = name;
 
             InvokeCharacterChanged(CharacterChangeType.Name);
+        }
+
+        /// <summary>
+        /// Set the current characters name.
+        /// </summary>
+        [Client]
+        public void SetJobPreference(string name, RolePriority priority)
+        {
+            _hasMadeChanges = true;
+
+            if (name == string.Empty)
+            {
+                _unsavedCharacter.OverFlowRole = priority == RolePriority.High;
+                InvokeCharacterChanged(CharacterChangeType.Jobs);
+                return;
+            }
+            
+            switch (priority)
+            {
+                case RolePriority.Never:
+                    _unsavedCharacter.Roles.Remove(name);
+                    break;
+                case RolePriority.Low:
+                case RolePriority.Medium:
+
+                    _unsavedCharacter.Roles[name] = priority;
+                    break;
+
+                case RolePriority.High:
+                
+                    string oldFav = _unsavedCharacter.FavoriteRole;
+                    if (oldFav != string.Empty)
+                    {
+                        _unsavedCharacter.Roles[oldFav] = RolePriority.Medium;
+                    }
+
+                    _unsavedCharacter.FavoriteRole = name;
+                    _unsavedCharacter.Roles[name] = priority;
+                    break;
+            }
+
+            InvokeCharacterChanged(CharacterChangeType.Jobs);
         }
 
         #endregion

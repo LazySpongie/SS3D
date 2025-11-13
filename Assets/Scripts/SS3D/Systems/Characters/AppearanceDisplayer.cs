@@ -81,10 +81,22 @@ namespace SS3D.Systems.Characters
         [Client]
         private void SetupMaterials()
         {
-            Material[] skinMats = _skinRenderers[0].sharedMaterials;
-            skinMats[0] = _skin;
             foreach (SkinnedMeshRenderer skin in _skinRenderers)
             {
+                Material[] skinMats = skin.sharedMaterials;
+                
+                int i = 0;
+                foreach (Material material in skin.sharedMaterials)
+                {
+                    if (material.ToString() == _skinMaterial.ToString()) 
+                    {
+                        skinMats[i] = _skin;
+                        continue;
+                    }
+
+                    i++;
+                }
+
                 skin.sharedMaterials = skinMats;
             }
 
@@ -206,7 +218,6 @@ namespace SS3D.Systems.Characters
             SetCullingOnSlot(culler, _hairSlot, blends, addCulling, cullingData.HideHair);
             SetCullingOnSlot(culler, _beardSlot, blends, addCulling, cullingData.HideBeard);
             SetCullingOnSlot(culler, _eyebrowSlot, blends, addCulling, cullingData.HideEyebrows);
-            SetCullingOnSlot(culler, _eyeSlot, blends, addCulling, cullingData.HideEyes);
         }
 
         [Client]

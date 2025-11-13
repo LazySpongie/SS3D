@@ -138,6 +138,8 @@ public class ColorPickerControl : Actor
 
     private void UpdateSVImage()
     {
+        if (_svTex == null) return;
+        
         for (int y = 0; y < _svTex.height; y++)
         {
             for (int x = 0; x < _svTex.width; x++)
