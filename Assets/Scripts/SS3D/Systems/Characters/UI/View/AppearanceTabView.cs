@@ -20,6 +20,9 @@ namespace SS3D.Systems.Characters.UI.View
     /// </summary>
     public sealed class AppearanceTabView : Actor
     {
+        [Header("Color Picker")]
+        [SerializeField] [NotNull] private ColorPickerControl _colorPicker;
+
         [Header("Selections")]
         [SerializeField] [NotNull] private List<StyleGrid> _styleSelections = new();
         [SerializeField] [NotNull] private List<ColorSelection> _colorSelections;
@@ -55,7 +58,7 @@ namespace SS3D.Systems.Characters.UI.View
 
             _colorSelections.ForEach(colorSelection =>
             {
-                colorSelection.OnColorSelected += HandleColorSelectionChanged;
+                colorSelection.OnPressed += HandleColorSelectionPressed;
             });
 
             _sliders.ForEach(slider =>
@@ -63,6 +66,9 @@ namespace SS3D.Systems.Characters.UI.View
                 slider.OnValueChanged += HandleBodySliderChanged;
                 slider.OnStarted += HandleBodySliderStarted;
             });
+
+            _colorPicker.OnValueChanged += HandleColorSelectionChanged;
+            _colorPicker.OnClosed += CloseColorPicker;
         }
 
         protected override void OnDestroyed()
@@ -77,7 +83,7 @@ namespace SS3D.Systems.Characters.UI.View
 
             _colorSelections.ForEach(colorSelection =>
             {
-                colorSelection.OnColorSelected -= HandleColorSelectionChanged;
+                colorSelection.OnPressed -= HandleColorSelectionPressed;
             });
 
             _sliders.ForEach(slider =>
@@ -86,6 +92,8 @@ namespace SS3D.Systems.Characters.UI.View
                 slider.OnStarted -= HandleBodySliderStarted;
             });
 
+            _colorPicker.OnValueChanged -= HandleColorSelectionChanged;
+            _colorPicker.OnClosed -= CloseColorPicker;
         }
 
         #endregion
@@ -182,7 +190,7 @@ namespace SS3D.Systems.Characters.UI.View
                 grid.SetSelectedOptionByName(_character?.GetStyle(type), false);
             }
         }
-        
+
         /// <summary>
         /// Method called when a slider is loaded so the correct value can be set in the ui.
         /// </summary>
@@ -192,7 +200,28 @@ namespace SS3D.Systems.Characters.UI.View
             slider.SetValue(float.Parse(_character.GetBody(slider.Type)));
         }
 
+        #endregion
 
+        #region Color Picking
+
+        /// <summary>
+        /// Callback when a color button is pressed.
+        /// </summary>
+        private void HandleColorSelectionPressed(ColorType type)
+        {
+            _colorPicker.SetActive(true);
+            _colorPicker.Type = type;
+            _colorPicker.SetColorFromHex(_character.GetColor(type));
+        }
+
+        /// <summary>
+        /// Callback when a color button is pressed.
+        /// </summary>
+        private void CloseColorPicker()
+        {
+            _colorPicker.SetActive(false);
+        }
+        
         #endregion
 
         #region Set Character
@@ -207,15 +236,15 @@ namespace SS3D.Systems.Characters.UI.View
         }
 
         /// <summary>
-        /// Callback when a color button is pressed.
+        /// Callback when a color is chosen.
         /// </summary>
-        private void HandleColorSelectionChanged(ColorSelection colorSelection, Color color)
+        private void HandleColorSelectionChanged(ColorType type, Color color)
         {
-            _preferences.SetColor(colorSelection.Type, ColorUtility.ToHtmlStringRGB(color));
+            _preferences.SetColor(type, ColorUtility.ToHtmlStringRGB(color));
         }
 
         /// <summary>
-        /// Callback when a color button is pressed.
+        /// Callback when a body slider is changed.
         /// </summary>
         private void HandleBodySliderChanged(BodyType type, float value)
         {

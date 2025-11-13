@@ -1,6 +1,5 @@
 ﻿using Coimbra;
 using SS3D.Attributes;
-using SS3D.Systems.Characters.Preferences;
 using System;
 using System.Collections.Generic;
 using TMPro;

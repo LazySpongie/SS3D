@@ -16,7 +16,6 @@ namespace SS3D.Systems.Characters.Preferences
         public Sex Sex = Sex.Male;
         public Gender Gender = Gender.Male;
 
-        // [NonSerialized]
         public Dictionary<StyleType, string> Styles = new Dictionary<StyleType, string>
             {
                 { StyleType.Hairstyle,     "Bald" },

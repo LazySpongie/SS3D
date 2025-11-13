@@ -360,9 +360,10 @@ namespace SS3D.Systems.Characters.Preferences
         [Client]
         private void SendCharacter(string ckey)
         {
-            ClientSendCharacterMessage selectCharacterMessage = new(ckey, SelectedCharacter);
+            ClientSendCharacterMessage selectCharacterMessage = new(ckey, new CharacterProfile(SelectedCharacter));
             ClientManager.Broadcast(selectCharacterMessage);
         }
+
         #endregion
 
         #region Events
