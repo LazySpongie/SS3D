@@ -59,13 +59,8 @@ namespace SS3D.Systems.Rounds
         }
 
         [Server]
-        private void RemoveReadyPlayer(Player player, ChangeType changeType)
+        public void RemoveReadyPlayer(Player player)
         {
-            if (changeType == ChangeType.Addition)
-            {
-                return;
-            }
-
             if (player == null)
             {
                 return;
@@ -122,7 +117,8 @@ namespace SS3D.Systems.Rounds
         [Server]
         private void HandleUserLeftServer(ref EventContext context, in OnlinePlayersChanged e)
         {
-            RemoveReadyPlayer(e.ChangedPlayer, e.ChangeType);
+            if (e.ChangeType != ChangeType.Removal) return;
+            RemoveReadyPlayer(e.ChangedPlayer);
         }
 
         /// <summary>

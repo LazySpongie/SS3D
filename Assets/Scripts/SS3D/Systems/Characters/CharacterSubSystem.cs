@@ -14,6 +14,7 @@ using SS3D.Systems.PlayerControl.Events;
 using SS3D.Systems.PlayerControl;
 using SS3D.Logging;
 using SS3D.Systems.Rounds;
+using System.Collections.ObjectModel;
 
 namespace SS3D.Systems.Characters
 {
@@ -22,7 +23,10 @@ namespace SS3D.Systems.Characters
     /// </summary>
     public class CharacterSubSystem : NetworkSubSystem
     {
-        private Dictionary<string, CharacterProfile> _characters = new();
+        private Dictionary<Player, CharacterProfile> _characters = new();
+
+        public Dictionary<Player, CharacterProfile> Characters => _characters;
+        // public ReadOnlyDictionary<Player, CharacterProfile> Characters => new ReadOnlyDictionary<Player, CharacterProfile>(_characters);
 
         public override void OnStartServer()
         {
@@ -39,7 +43,7 @@ namespace SS3D.Systems.Characters
         [Server]
         public void SetPlayerCharacter(Entity entity)
         {
-            _characters.TryGetValue(entity.Ckey, out CharacterProfile character);
+            _characters.TryGetValue(entity.Mind.player, out CharacterProfile character);
             
             // returns a blank character profile if character is null
             character = new CharacterProfile(character);
@@ -58,7 +62,7 @@ namespace SS3D.Systems.Characters
         private void HandleUserLeftServer(ref EventContext context, in OnlinePlayersChanged e)
         {
             if (e.ChangeType != ChangeType.Removal) return;
-            _characters.Remove(e.ChangedCkey);
+            _characters.Remove(e.ChangedPlayer);
         }
 
         /// <summary>
@@ -69,9 +73,12 @@ namespace SS3D.Systems.Characters
         private void HandleClientSentCharacter(NetworkConnection connection, ClientSendCharacterMessage message)
         {
             Log.Information(this, message.Ckey + " assigned character: " + message.Character.Name);
-            if (!_characters.TryAdd(message.Ckey, message.Character))
+            
+            PlayerSubSystem _playerSystem = SubSystems.Get<PlayerSubSystem>();
+            Player player = _playerSystem.GetPlayer(message.Ckey);
+            if (!_characters.TryAdd(player, message.Character))
             {
-                _characters[message.Ckey] = message.Character;
+                _characters[player] = message.Character;
             }
         }
 

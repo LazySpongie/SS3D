@@ -85,7 +85,7 @@ namespace SS3D.Systems.Characters.UI.View
 
                 departmentHeader.transform.localScale = Vector3.one;
 
-                departmentHeader.GetComponentInChildren<TMP_Text>().text = department.Department.Name;
+                departmentHeader.GetComponentInChildren<TMP_Text>().text = department.Data.Name;
 
 
                 foreach (RolesData availableRole in department.Roles)

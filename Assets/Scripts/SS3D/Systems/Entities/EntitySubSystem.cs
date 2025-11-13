@@ -275,7 +275,7 @@ namespace SS3D.Systems.Entities
         private void HandleSpawnReadyPlayers(ref EventContext context, in SpawnReadyPlayersEvent e)
         {
             List<Player> playersToSpawn = e.ReadyPlayers;
-
+            
             SpawnReadyPlayers(playersToSpawn);
         }
 

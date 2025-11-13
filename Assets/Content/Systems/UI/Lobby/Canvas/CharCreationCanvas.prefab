@@ -1821,9 +1821,9 @@ MonoBehaviour:
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 483.5, y: 272, z: 0}
+    Position: {x: 461.5, y: 259.5, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 0.9414735, y: 0.9414735, z: 0.9414735}
+    LocalScale: {x: 0.8982632, y: 0.8982632, z: 0.8982632}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -12255,6 +12255,10 @@ PrefabInstance:
     - target: {fileID: 4156479675964290433, guid: c369f3bc80f86224494fef848c9edbfe, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746436155791526069, guid: c369f3bc80f86224494fef848c9edbfe, type: 3}
+      propertyPath: FallbackJob
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4939107174783414974, guid: c369f3bc80f86224494fef848c9edbfe, type: 3}
       propertyPath: m_AnchorMax.y

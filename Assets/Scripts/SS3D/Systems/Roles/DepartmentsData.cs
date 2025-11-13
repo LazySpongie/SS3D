@@ -9,7 +9,7 @@ namespace SS3D.Systems.Roles
     [Serializable]
     public class DepartmentsData
     {
-        public DepartmentData Department;
+        public DepartmentData Data;
         public List<RolesData> Roles;
     }
 }

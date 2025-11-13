@@ -51,9 +51,8 @@ namespace SS3D.Systems.Rounds
             RoundState = RoundState.Preparing;
             // CharacterSubSystem should have all the characters now
 
-            RoleSubSystem roleSystem = SubSystems.Get<RoleSubSystem>();
-            
-            // RoleSubSystem assign roles here
+            // RoleSubSystem roleSystem = SubSystems.Get<RoleSubSystem>();
+            // roleSystem.AssignRolesToPlayers();
 
             TimeSpan second = TimeSpan.FromMilliseconds(500);
             await UniTask.Delay(second);
