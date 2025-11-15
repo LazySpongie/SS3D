@@ -1,3 +1,4 @@
+using SS3D.Systems.Characters;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace SS3D.Systems.Roles
     public class RoleData : ScriptableObject
     {
         [SerializeField] private string _roleName;
+        [SerializeField] private CharacterNameType _nameType;
         [SerializeField] private bool _departmentHead;
         [SerializeField] private GameObject _pdaPrefab;
         [SerializeField] private GameObject _idCardPrefab;
@@ -19,6 +21,7 @@ namespace SS3D.Systems.Roles
         [SerializeField] private RoleLoadout _loadout;
 
         public string Name => _roleName;
+        public CharacterNameType NameType => _nameType;
         public GameObject IDCardPrefab => _idCardPrefab;
         public GameObject PDAPrefab => _pdaPrefab;
         public List<IDPermission> Permissions => _permissions;

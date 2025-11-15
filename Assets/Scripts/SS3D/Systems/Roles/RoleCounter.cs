@@ -3,6 +3,9 @@ using SS3D.Systems.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using Random = UnityEngine.Random;
+using SS3D.Systems.Characters.Preferences;
+using SS3D.Systems.Characters;
+using UnityEngine;
 
 namespace SS3D.Systems.Roles
 {
@@ -14,7 +17,7 @@ namespace SS3D.Systems.Roles
         public RoleData Role;
         public int CurrentRoles;
         public int AvailableRoles;
-        public List<Player> Players = new();
+        public List<InGameCharacter> Characters = new();
 
         // players with these as their job priority
         public List<Player> Low = new();
@@ -22,52 +25,21 @@ namespace SS3D.Systems.Roles
         public List<Player> High = new();
 
         public Dictionary<Player, RoleData> rolePlayers;
-        public List<Player> playersToAssign;
 
-        public delegate void OnPlayerAssigned(Player player, RoleData role); 
-
-        /// <summary>
-        /// Assign a player to this role
-        /// </summary>
-        public void AddPlayer(Player player)
-        {
-            if (CurrentRoles < AvailableRoles || AvailableRoles == 0)
-            {
-                Log.Information(this, player.Ckey + " assigned role: " + Role.name);
-
-                Players.Add(player);
-
-                rolePlayers.Add(player, Role);
-                playersToAssign.Remove(player);
-
-                CurrentRoles++;
-            }
-        }
-
-        /// <summary>
-        /// Remove a player from this role
-        /// </summary>
-        public void RemovePlayer(Player player)
-        {
-            Players.Remove(player);
-            CurrentRoles--;
-        }
+        public RoleSubSystem roleSubSystem;
 
 
         /// <summary>
-        /// Pick random players to assign this role based on their preferences 
+        /// Pick random players for this role from any priority preference (High to Low)
         /// </summary>
-        public bool AssignPlayers()
+        public bool AssignAnyPlayers()
         {
             // TODO: check if they are an antagonist first
-            if (playersToAssign.Count == 0) return false;
             
             bool hasAssignedAllRoles = 
-                AssignRandomPlayers(High) ||
-                AssignRandomPlayers(Medium) ||
-                AssignRandomPlayers(Low);
-
-            // _rolePlayers = null;
+                AddRandomPlayers(High) ||
+                AddRandomPlayers(Medium) ||
+                AddRandomPlayers(Low);
 
             CleanupLists();
 
@@ -75,9 +47,35 @@ namespace SS3D.Systems.Roles
         }
 
         /// <summary>
-        /// Assign the role to random players from the high, medium, or low priority pools
+        /// Pick random players for this role from a specific priority level 
         /// </summary>
-        private bool AssignRandomPlayers(List<Player> list)
+        public void AssignPlayersByPriority(RolePriority priority)
+        {
+            // TODO: check if they are an antagonist first
+
+            List<Player> list = new();
+
+            switch (priority)
+            {
+                case RolePriority.High:
+                    list = High;
+                    break;
+                case RolePriority.Medium:
+                    list = Medium;
+                    break;
+                case RolePriority.Low:
+                    list = Low;
+                    break;
+            }
+
+            AddRandomPlayers(list);
+            list.Clear();
+        }
+
+        /// <summary>
+        /// Assign the role to random players from a priority pool
+        /// </summary>
+        private bool AddRandomPlayers(List<Player> list)
         {
             if (list.Count == 0) return false;
             if (AvailableRoles == 0) return false;
@@ -85,17 +83,19 @@ namespace SS3D.Systems.Roles
             while (CurrentRoles < AvailableRoles)
             {
                 int i = Random.Range(0, list.Count - 1);
-                
-                if (rolePlayers.ContainsKey(list[i]))
+                Player player = list[i];
+                if (rolePlayers.ContainsKey(player))
                 {
-                    // player already has role
+                    // player already has a role
                     list.RemoveAt(i);
                     continue;
                 }
-                AddPlayer(list[i]);
+
                 list.RemoveAt(i);
+                roleSubSystem.AddPlayerToRole(player, this);
                 return true;
             }
+            
             return false;
         }
 

@@ -21,9 +21,20 @@ namespace SS3D.Systems.Characters.UI.View
     public sealed class IdentityTabView : Actor
     {
         [Header("Selections")]
-        [SerializeField][NotNull] private TMP_InputField _characterNameSelection;
+        [SerializeField][NotNull] private List<CharacterNameSlot> _nameSlots;
+        
+        [SerializeField][NotNull] private TMP_InputField _flavorTextField;
+
+        private ClientPreferencesSubSystem _preferences;
 
         #region Setup
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+            _preferences = SubSystems.Get<ClientPreferencesSubSystem>();
+        }
+
 
         protected override void OnAwake()
         {
@@ -31,14 +42,15 @@ namespace SS3D.Systems.Characters.UI.View
 
             AddHandle(LocalLobbyCharacterChanged.AddListener(HandleCharacterChanged));
             
-            _characterNameSelection.onValueChanged.AddListener(HandleNameFieldChanged);
+            _nameSlots.ForEach(slot => slot.OnValueChanged += HandleNameChanged);
+            _flavorTextField.onEndEdit.AddListener(HandleFlavorTextChanged);
         }
 
         protected override void OnDestroyed()
         {
             base.OnDestroyed();
 
-            _characterNameSelection.onValueChanged.RemoveListener(HandleNameFieldChanged);
+            _nameSlots.ForEach(slot => slot.OnValueChanged -= HandleNameChanged);
         }
 
         #endregion
@@ -53,9 +65,9 @@ namespace SS3D.Systems.Characters.UI.View
             switch (e.ChangeType)
             {
                 case CharacterChangeType.Load:
-                    SetNameTextField(e.Character.Name);
+                    SetNameSlots(e.Character.Names);
                     break;
-                case CharacterChangeType.Name:
+                case CharacterChangeType.Names:
                     // SetNameTextField(e.Character.Name);
                     break;
             }
@@ -64,9 +76,11 @@ namespace SS3D.Systems.Characters.UI.View
         /// <summary>
         /// Update the characters name in the ui.
         /// </summary>
-        private void SetNameTextField(string name)
+        private void SetNameSlots(Dictionary<CharacterNameType, string> names)
         {
-            _characterNameSelection.SetTextWithoutNotify(name);
+            _nameSlots.ForEach(slot => {
+                slot.SetValue(names[slot.Type]);
+            });
         }
 
         #endregion
@@ -76,10 +90,19 @@ namespace SS3D.Systems.Characters.UI.View
         /// <summary>
         /// Callback when the character name text field is changed.
         /// </summary>
-        private void HandleNameFieldChanged(string name)
+        private void HandleNameChanged(CharacterNameType type, string name)
         {
-            SubSystems.Get<ClientPreferencesSubSystem>().SetCharacterName(name);
+            _preferences.SetName(type, name);
         }
+
+        /// <summary>
+        /// Callback when the flavor text field is changed.
+        /// </summary>
+        private void HandleFlavorTextChanged(string text)
+        {
+            _preferences.SetFlavorText(text);
+        }
+
 
         #endregion
         

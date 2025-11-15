@@ -207,8 +207,7 @@ namespace SS3D.Systems.Entities
             createdMind.SetPlayer(player);
             entity.SetMind(createdMind);
 
-            SubSystems.Get<CharacterSubSystem>().SetPlayerCharacter(entity);
-            SubSystems.Get<RoleSubSystem>().GiveRoleLoadoutToPlayer(entity);
+            SubSystems.Get<RoundSetupSubSystem>().SetupSpawnedPlayer(entity);
 
             _spawnedPlayers.Add(entity);
 

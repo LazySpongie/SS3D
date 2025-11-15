@@ -7,9 +7,9 @@ namespace SS3D.Systems.Characters.Preferences
     public enum CharacterChangeType
     {
         Load,
-        Name,
+        Names,
         Appearance,
-        Jobs,
+        Roles,
         Antags,
         Loadout,
         Background,

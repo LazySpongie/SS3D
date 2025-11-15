@@ -27,7 +27,7 @@ namespace SS3D.Systems.Characters.UI.View
 
         [Header("Save/Load Buttons")]
         [SerializeField] [NotNull] private Button _saveButton;
-        [SerializeField] [NotNull] private Button _ResetButton;
+        [SerializeField] [NotNull] private Button _resetButton;
 
         private ClientPreferencesSubSystem _preferences;
 
@@ -48,7 +48,7 @@ namespace SS3D.Systems.Characters.UI.View
             AddHandle(LocalLobbyCharacterChanged.AddListener(HandleCharacterChanged));
             
             _saveButton.onClick.AddListener(HandleSaveButtonPressed);
-            _ResetButton.onClick.AddListener(HandleResetButtonPressed);
+            _resetButton.onClick.AddListener(HandleResetButtonPressed);
         }
 
         protected override void OnDestroyed()
@@ -56,7 +56,7 @@ namespace SS3D.Systems.Characters.UI.View
             base.OnDestroyed();
 
             _saveButton.onClick.RemoveListener(HandleSaveButtonPressed);
-            _ResetButton.onClick.RemoveListener(HandleResetButtonPressed);
+            _resetButton.onClick.RemoveListener(HandleResetButtonPressed);
         }
 
         #endregion
@@ -85,17 +85,33 @@ namespace SS3D.Systems.Characters.UI.View
         /// </summary>
         private void HandleCharacterChanged(ref EventContext context, in LocalLobbyCharacterChanged e)
         {
+            SetSaveAndResetButtonsActive(true);
             switch (e.ChangeType)
             {
                 case CharacterChangeType.Load:
                     HandleCharacterNameChanged(e.Character);
                     HandleAppearanceChanged(e.Character);
+                    SetSaveAndResetButtonsActive(false);
                     break;
-                case CharacterChangeType.Name:
+                case CharacterChangeType.Names:
                     HandleCharacterNameChanged(e.Character);
+                    SetSaveAndResetButtonsActive(true);
                     break;
                 case CharacterChangeType.Appearance:
                     HandleAppearanceChanged(e.Character);
+                    SetSaveAndResetButtonsActive(true);
+                    break;
+                case CharacterChangeType.Roles:
+                    SetSaveAndResetButtonsActive(true);
+                    
+                    // set clothing here
+
+                    // TODO: setup asset db for roledata and then use it here to get the name type of the fav job 
+                    break;
+                case CharacterChangeType.Antags:
+                case CharacterChangeType.Loadout:
+                case CharacterChangeType.Background:
+                    SetSaveAndResetButtonsActive(true);
                     break;
             }
         }
@@ -136,6 +152,12 @@ namespace SS3D.Systems.Characters.UI.View
                 _previewCharacter.SetBody(type, float.Parse(character.GetBody(type)));
                 
             }
+        }
+
+        private void SetSaveAndResetButtonsActive(bool active)
+        {
+            _saveButton.interactable = active;
+            _resetButton.interactable = active;
         }
 
         #endregion

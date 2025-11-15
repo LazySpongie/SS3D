@@ -10,11 +10,26 @@ namespace SS3D.Systems.Characters.Preferences
     [Serializable]
     public class CharacterProfile : ISerializationCallbackReceiver
     {
-        public string Name = "New Character";
+        public Dictionary<CharacterNameType, string> Names = new Dictionary<CharacterNameType, string>
+            {
+                { CharacterNameType.Normal,         "New Character" },
+                { CharacterNameType.Clown,          string.Empty },
+                { CharacterNameType.Mime,           string.Empty },
+                { CharacterNameType.Cyborg,         string.Empty },
+                { CharacterNameType.AI,             string.Empty },
+            };
+
+        public string Name => Names[CharacterNameType.Normal];
+
         public string FlavorText = string.Empty;
+
         public int Age = 18;
+
         public Sex Sex = Sex.Male;
+
         public Gender Gender = Gender.Male;
+
+        public float SkinTone = 0.9f;
 
         public Dictionary<StyleType, string> Styles = new Dictionary<StyleType, string>
             {
@@ -70,11 +85,12 @@ namespace SS3D.Systems.Characters.Preferences
         public CharacterProfile(CharacterProfile character)
         {
             if (character == null) character = new CharacterProfile();
-            Name = character.Name;
+            Names = new Dictionary<CharacterNameType, string>(character.Names);
             FlavorText = character.FlavorText;
             Age = character.Age;
             Sex = character.Sex;
             Gender = character.Gender;
+            SkinTone = character.SkinTone;
             Styles = new Dictionary<StyleType, string>(character.Styles);
             Colors = new Dictionary<ColorType, string>(character.Colors);
             Body = new Dictionary<BodyType, string>(character.Body);
@@ -140,6 +156,7 @@ namespace SS3D.Systems.Characters.Preferences
 
         #region Serialization
 
+        [SerializeField] private SerializableDictionary<CharacterNameType, string> _names;
         [SerializeField] private SerializableDictionary<StyleType, string> _styles;
         [SerializeField] private SerializableDictionary<ColorType, string> _Colors;
         [SerializeField] private SerializableDictionary<BodyType, string> _Body;
@@ -148,6 +165,7 @@ namespace SS3D.Systems.Characters.Preferences
 
         public void OnAfterDeserialize()
         {
+            Names = new Dictionary<CharacterNameType, string>(_names);
             Styles = new Dictionary<StyleType, string>(_styles);
             Colors = new Dictionary<ColorType, string>(_Colors);
             Body = new Dictionary<BodyType, string>(_Body);
@@ -159,6 +177,7 @@ namespace SS3D.Systems.Characters.Preferences
 
         public void OnBeforeSerialize()
         {
+            _names = new SerializableDictionary<CharacterNameType, string>(Names);
             _styles = new SerializableDictionary<StyleType, string>(Styles);
             _Colors = new SerializableDictionary<ColorType, string>(Colors);
             _Body = new SerializableDictionary<BodyType, string>(Body);
@@ -168,6 +187,7 @@ namespace SS3D.Systems.Characters.Preferences
 
         public void AfterSerialize()
         {
+            _names.Clear();
             _styles.Clear();
             _Colors.Clear();
             _Body.Clear();

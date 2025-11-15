@@ -3,10 +3,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using SS3D.Core.Behaviours;
-using System;
-using SS3D.Systems.Characters.Preferences;
+using SS3D.Systems.Characters;
+using UnityEngine.EventSystems;
 
-public class ColorPickerControl : Actor
+public class ColorPickerControl : Actor, IPointerClickHandler
 {
     public delegate void ColorPickerValueChanged(ColorType type,Color color);
 
@@ -39,7 +39,7 @@ public class ColorPickerControl : Actor
     protected override void OnAwake()
     {
         base.OnAwake();
-
+        EventSystem.current.SetSelectedGameObject(gameObject);
         _hue = 1f;
         _sat = 1f;
         _val = 1f;
@@ -47,10 +47,11 @@ public class ColorPickerControl : Actor
         CreateSVImage();
         SetOutputColor();
     }
-
+    
     public void HandleCloseButtonPressed()
     {
         OnClosed?.Invoke();
+        SetActive(false);
     }
 
     public void SetColorFromHex(string hex)
@@ -148,5 +149,23 @@ public class ColorPickerControl : Actor
             }
         }
         _svTex.Apply();
+    }
+
+    public void OnPointerClick(PointerEventData e)
+    {
+        // get position in local space to rect
+        Vector3 pos = RectTransform.InverseTransformPoint(e.position);
+
+        // the size of the rect
+        float deltaX = RectTransform.sizeDelta.x / 2;
+        float deltaY = RectTransform.sizeDelta.y / 2;
+
+        bool insideX = pos.x >= -deltaX && pos.x <= deltaX;
+        bool insideY = pos.y >= -deltaY && pos.y <= deltaY;
+
+        if (!insideX || !insideY)
+        {
+            SetActive(false);
+        }
     }
 }

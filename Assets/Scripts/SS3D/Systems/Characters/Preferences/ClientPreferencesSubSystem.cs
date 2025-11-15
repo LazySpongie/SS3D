@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using SS3D.Systems.Characters.Events;
 using SS3D.Systems.Entities;
+using UnityEngine;
 
 namespace SS3D.Systems.Characters.Preferences
 {
@@ -31,9 +32,6 @@ namespace SS3D.Systems.Characters.Preferences
         private int _selectedCharacterIndex = 0;
 
         private CharacterProfile _unsavedCharacter;
-
-
-        private bool _hasMadeChanges = false;
 
         public int SelectedCharacterIndex => _selectedCharacterIndex;
 
@@ -88,7 +86,7 @@ namespace SS3D.Systems.Characters.Preferences
             
             CharacterProfileManifest characterManifest = LocalStorage.LoadObject<CharacterProfileManifest>(CharacterManifestSavePath + "/CharacterManifest");
 
-            if (characterManifest != null || characterManifest.Characters != null)
+            if (characterManifest != null)
             {
                 _selectedCharacterIndex = characterManifest.LastSelected;
 
@@ -130,8 +128,6 @@ namespace SS3D.Systems.Characters.Preferences
         [Client]
         public void SaveCharacter()
         {
-            if (!_hasMadeChanges) return;
-
             // To prevent overwriting save files we have to make sure the name is unique
             if (CharacterNames.Contains(_unsavedCharacter.Name) & SelectedCharacter.Name != _unsavedCharacter.Name)
             {
@@ -140,7 +136,7 @@ namespace SS3D.Systems.Characters.Preferences
             }
 
             // if the character is being renamed we need to rename the save file
-            if (SelectedCharacter.Name != _unsavedCharacter.Name)
+            if (SelectedCharacter.Names[CharacterNameType.Normal] != _unsavedCharacter.Names[CharacterNameType.Normal])
             {
                 string oldfile = CharacterSavePath + "/" + SelectedCharacter.Name;
                 string newfile = CharacterSavePath + "/" + _unsavedCharacter.Name;
@@ -163,8 +159,7 @@ namespace SS3D.Systems.Characters.Preferences
         [Client]
         public void ResetCharacter()
         {
-            _hasMadeChanges = false;
-            _unsavedCharacter = new CharacterProfile(_characters[_selectedCharacterIndex]);
+            _unsavedCharacter = new CharacterProfile(SelectedCharacter);
 
             InvokeCharacterChanged(CharacterChangeType.Load);
         }
@@ -178,7 +173,7 @@ namespace SS3D.Systems.Characters.Preferences
             CharacterProfile newChar = new CharacterProfile();
 
             // need to avoid overwriting other characters
-            newChar.Name = GetNewCharacterFileName(newChar.Name);
+            newChar.Names[CharacterNameType.Normal] = GetNewCharacterFileName(newChar.Name);
 
             _characters.Add(newChar);
             _selectedCharacterIndex = _characters.Count - 1;
@@ -271,8 +266,19 @@ namespace SS3D.Systems.Characters.Preferences
         {
             if (option == string.Empty) return;
 
-            _hasMadeChanges = true;
             _unsavedCharacter.Styles[type] = option;
+
+            InvokeCharacterChanged(CharacterChangeType.Appearance);
+        }
+
+        /// <summary>
+        /// Set the characters skintone.
+        /// </summary>
+        [Client]
+        public void SetSkinTone(float tone, string color)
+        {
+            _unsavedCharacter.SkinTone = tone;
+            _unsavedCharacter.Colors[ColorType.SkinColor] = color;
 
             InvokeCharacterChanged(CharacterChangeType.Appearance);
         }
@@ -285,7 +291,6 @@ namespace SS3D.Systems.Characters.Preferences
         {
             if (option == string.Empty) return;
 
-            _hasMadeChanges = true;
             _unsavedCharacter.Colors[type] = option;
 
             InvokeCharacterChanged(CharacterChangeType.Appearance);
@@ -299,7 +304,6 @@ namespace SS3D.Systems.Characters.Preferences
         {
             if (option == string.Empty) return;
 
-            _hasMadeChanges = true;
             _unsavedCharacter.Body[type] = option;
 
             InvokeCharacterChanged(CharacterChangeType.Appearance);
@@ -309,40 +313,56 @@ namespace SS3D.Systems.Characters.Preferences
         /// Set the current characters name.
         /// </summary>
         [Client]
-        public void SetCharacterName(string name)
+        public void SetName(CharacterNameType type, string name)
         {
-            if (name == string.Empty || name == _unsavedCharacter.Name) return;
+            if (name == _unsavedCharacter.Names[type]) return;
+            if (name == string.Empty && type == CharacterNameType.Normal) return;
 
-            _hasMadeChanges = true;
-            _unsavedCharacter.Name = name;
+            _unsavedCharacter.Names[type] = name;
 
-            InvokeCharacterChanged(CharacterChangeType.Name);
+            InvokeCharacterChanged(CharacterChangeType.Names);
         }
 
         /// <summary>
         /// Set the current characters name.
         /// </summary>
         [Client]
-        public void SetJobPreference(string name, RolePriority priority)
+        public void SetFlavorText(string text)
         {
-            _hasMadeChanges = true;
+            _unsavedCharacter.FlavorText = text;
 
-            if (name == string.Empty)
+            InvokeCharacterChanged(CharacterChangeType.Background);
+        }
+
+        /// <summary>
+        /// Set the current characters name.
+        /// </summary>
+        [Client]
+        public void SetRolePreference(string role, RolePriority priority)
+        {
+            // overflow role selected
+            if (role == string.Empty)
             {
                 _unsavedCharacter.OverFlowRole = priority == RolePriority.High;
-                InvokeCharacterChanged(CharacterChangeType.Jobs);
+                InvokeCharacterChanged(CharacterChangeType.Roles);
                 return;
             }
-            
+
+            // if the high priority role is being changed we clear the fav role
+            if (_unsavedCharacter.FavoriteRole == role)
+            {
+                _unsavedCharacter.FavoriteRole = string.Empty;
+            }
+
             switch (priority)
             {
                 case RolePriority.Never:
-                    _unsavedCharacter.Roles.Remove(name);
+                    _unsavedCharacter.Roles.Remove(role);
                     break;
                 case RolePriority.Low:
                 case RolePriority.Medium:
 
-                    _unsavedCharacter.Roles[name] = priority;
+                    _unsavedCharacter.Roles[role] = priority;
                     break;
 
                 case RolePriority.High:
@@ -353,12 +373,12 @@ namespace SS3D.Systems.Characters.Preferences
                         _unsavedCharacter.Roles[oldFav] = RolePriority.Medium;
                     }
 
-                    _unsavedCharacter.FavoriteRole = name;
-                    _unsavedCharacter.Roles[name] = priority;
+                    _unsavedCharacter.FavoriteRole = role;
+                    _unsavedCharacter.Roles[role] = priority;
                     break;
             }
 
-            InvokeCharacterChanged(CharacterChangeType.Jobs);
+            InvokeCharacterChanged(CharacterChangeType.Roles);
         }
 
         #endregion

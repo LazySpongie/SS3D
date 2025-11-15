@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5587bb68730e04288d41000b70752e, type: 3}
+  m_Name: SkinColor
+  m_EditorClassIdentifier: 
+  Gradient:
+    serializedVersion: 2
+    key0: {r: 0.16037738, g: 0.038253695, b: 0.01437344, a: 1}
+    key1: {r: 0.24705882, g: 0.116716966, b: 0.08627452, a: 1}
+    key2: {r: 0.3679245, g: 0.13088156, b: 0.06421324, a: 0}
+    key3: {r: 0.5754717, g: 0.27907038, b: 0.12215203, a: 0}
+    key4: {r: 0.7529412, g: 0.52042216, b: 0.3372549, a: 0}
+    key5: {r: 0.8584906, g: 0.5990944, b: 0.46569067, a: 0}
+    key6: {r: 1, g: 0.8009909, b: 0.6745283, a: 0}
+    key7: {r: 1, g: 0.897622, b: 0.7311321, a: 0}
+    ctime0: 0
+    ctime1: 4952
+    ctime2: 12330
+    ctime3: 22622
+    ctime4: 32768
+    ctime5: 43253
+    ctime6: 58982
+    ctime7: 65535
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2

@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _colorPicker: {fileID: 0}
   _styleSelections: []
+  _skinToneGradient: {fileID: 11400000, guid: 6690536594693684eb621ae34850749c, type: 2}
+  _skintoneSlider: {fileID: 0}
   _colorSelections: []
   _sliders: []
 --- !u!1 &1014815575735222775
@@ -92,7 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de03189fea8a9841b858a1e4971d801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterNameSelection: {fileID: 0}
+  _nameSlots: []
+  _flavorTextField: {fileID: 0}
 --- !u!1 &1831619090655566832
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +226,7 @@ MonoBehaviour:
   _previewCamera: {fileID: 0}
   _previewNameTexts: []
   _saveButton: {fileID: 0}
-  _ResetButton: {fileID: 0}
+  _resetButton: {fileID: 0}
 --- !u!1 &3954933551817903782
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,7 +668,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cff9373293dd94aa04404b62bad2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rolesAvailable: {fileID: 11400000, guid: 1ac202e4643a5ee41b99ccfe7dcc0092, type: 2}
   _rolePrefRoot: {fileID: 0}
   _roleSlotPrefab: {fileID: 2119624395141950098, guid: c369f3bc80f86224494fef848c9edbfe, type: 3}
   _departmentPrefab: {fileID: 660201125029859658, guid: 0866e96cdc785dc40bdd29f8a4144bea, type: 3}

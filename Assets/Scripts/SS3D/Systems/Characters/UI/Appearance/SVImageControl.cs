@@ -12,15 +12,6 @@ public class SVImageControl : Actor, IDragHandler, IPointerClickHandler
 
     [SerializeField] private RectTransform _picker;
 
-    // private RectTransform _rectTransform;
-
-    // protected override void OnAwake()
-    // {
-    //     base.OnAwake();
-
-    //     _rectTransform = GetComponent<RectTransform>();
-    // }
-
     private void UpdatePicker(PointerEventData e)
     {
         // get position in local space to rect

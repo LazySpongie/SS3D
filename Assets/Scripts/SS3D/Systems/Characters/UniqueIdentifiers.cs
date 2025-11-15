@@ -20,6 +20,12 @@ namespace SS3D.Systems.Characters
     public class UniqueIdentifiers : NetworkActor
     {
         /// <summary>
+        /// The name of this character.
+        /// </summary>
+        [SyncVar(OnChange = nameof(SyncCharacterName))]
+        public string Name = string.Empty;
+
+        /// <summary>
         /// The name and appearance of this character.
         /// </summary>
         [SyncVar(OnChange = nameof(SyncCharacterProfile))]
@@ -31,20 +37,33 @@ namespace SS3D.Systems.Characters
         [SerializeField] [NotNull] private AppearanceDisplayer _appearanceDisplayer;
 
         /// <summary>
-        /// The name of this character.
+        /// Set the characters name
         /// </summary>
-        public string Name => _profile.Name;
+        [Server]
+        public void SetName(string name)
+        {
+            Name = name;
+        }
 
         /// <summary>
         /// Called when the entity is spawned
         /// </summary>
         [Server]
-        public void SetFromCharacterProfile(CharacterProfile character)
+        public void SetCharacterProfile(CharacterProfile character)
         {
             _profile = new CharacterProfile(character);
         }
 
         #region Syncing
+
+        /// <summary>
+        /// Callback when the characters name is changed
+        /// </summary>
+        [ServerOrClient]
+        private void SyncCharacterName(string oldName, string newName, bool asServer)
+        {
+            gameObject.name = newName;
+        }
 
         /// <summary>
         /// Callback when the characters profile is modified
@@ -53,7 +72,7 @@ namespace SS3D.Systems.Characters
         private void SyncCharacterProfile(CharacterProfile oldChar, CharacterProfile newChar, bool asServer)
         {
 
-            gameObject.name = newChar.Name;
+            // gameObject.name = newChar.Name;
 
             foreach (int i in Enum.GetValues(typeof(BodyType)))
             {

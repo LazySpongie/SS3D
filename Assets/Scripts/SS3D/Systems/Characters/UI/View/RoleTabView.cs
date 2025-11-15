@@ -65,7 +65,7 @@ namespace SS3D.Systems.Characters.UI.View
             switch (e.ChangeType)
             {
                 case CharacterChangeType.Load:
-                case CharacterChangeType.Jobs:
+                case CharacterChangeType.Roles:
                     SetRolePrefs(e.Character);
                     break;
             }
@@ -158,7 +158,7 @@ namespace SS3D.Systems.Characters.UI.View
 
             if (!slot.FallbackJob) jobName = role.name;
 
-            _preferences.SetJobPreference(jobName, type);
+            _preferences.SetRolePreference(jobName, type);
         }
 
         #endregion

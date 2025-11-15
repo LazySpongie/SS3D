@@ -25,9 +25,13 @@ namespace SS3D.Systems.Characters.UI.View
 
         [Header("Selections")]
         [SerializeField] [NotNull] private List<StyleGrid> _styleSelections = new();
+        
+        [Header("Color Choices")]
+        [SerializeField] [NotNull] private ColorGradientSO _skinToneGradient;
+        [SerializeField] [NotNull] private BodySlider _skintoneSlider;
         [SerializeField] [NotNull] private List<ColorSelection> _colorSelections;
 
-        [Header("Sliders")]
+        [Header("Body Sliders")]
         [SerializeField] [NotNull] private List<BodySlider> _sliders;
 
         private ClientPreferencesSubSystem _preferences;
@@ -67,8 +71,9 @@ namespace SS3D.Systems.Characters.UI.View
                 slider.OnStarted += HandleBodySliderStarted;
             });
 
+            _skintoneSlider.OnValueChanged += HandleSkinToneChanged;
+
             _colorPicker.OnValueChanged += HandleColorSelectionChanged;
-            _colorPicker.OnClosed += CloseColorPicker;
         }
 
         protected override void OnDestroyed()
@@ -92,8 +97,9 @@ namespace SS3D.Systems.Characters.UI.View
                 slider.OnStarted -= HandleBodySliderStarted;
             });
 
+            _skintoneSlider.OnValueChanged -= HandleSkinToneChanged;
+
             _colorPicker.OnValueChanged -= HandleColorSelectionChanged;
-            _colorPicker.OnClosed -= CloseColorPicker;
         }
 
         #endregion
@@ -127,13 +133,20 @@ namespace SS3D.Systems.Characters.UI.View
                     SetStyleSelections();
                     SetColorPickers();
                     SetBodySliders();
+                    SetSkintoneSlider();
                     break;
                 case CharacterChangeType.Appearance:
                     SetStyleSelections();
                     SetColorPickers();
                     SetBodySliders();
+                    SetSkintoneSlider();
                     break;
             }
+        }
+
+        private void SetSkintoneSlider()
+        {
+            _skintoneSlider.SetValue(_character.SkinTone);
         }
 
         private void SetBodySliders()
@@ -214,14 +227,6 @@ namespace SS3D.Systems.Characters.UI.View
             _colorPicker.SetColorFromHex(_character.GetColor(type));
         }
 
-        /// <summary>
-        /// Callback when a color button is pressed.
-        /// </summary>
-        private void CloseColorPicker()
-        {
-            _colorPicker.SetActive(false);
-        }
-        
         #endregion
 
         #region Set Character
@@ -241,6 +246,15 @@ namespace SS3D.Systems.Characters.UI.View
         private void HandleColorSelectionChanged(ColorType type, Color color)
         {
             _preferences.SetColor(type, ColorUtility.ToHtmlStringRGB(color));
+        }
+
+        /// <summary>
+        /// Callback when a color is chosen.
+        /// </summary>
+        private void HandleSkinToneChanged(BodyType type, float value)
+        {
+            Color color = _skinToneGradient.Gradient.Evaluate(value);
+            _preferences.SetSkinTone(value, ColorUtility.ToHtmlStringRGB(color));
         }
 
         /// <summary>
