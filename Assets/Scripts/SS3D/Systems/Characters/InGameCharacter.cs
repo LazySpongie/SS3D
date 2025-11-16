@@ -21,13 +21,10 @@ namespace SS3D.Systems.Characters
 
         public Entity Entity;
 
-        public CharacterProfile Profile;
-
-        public InGameCharacter(Player player, string name, CharacterProfile profile)
+        public InGameCharacter(Player player, string name)
         {
             Player = player;
             Name = name;
-            Profile = profile;
         }
     }
 }

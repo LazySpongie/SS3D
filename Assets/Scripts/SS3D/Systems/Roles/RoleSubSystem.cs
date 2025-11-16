@@ -104,11 +104,8 @@ namespace SS3D.Systems.Roles
                                 priority == RolePriority.Low;
                 if (!allowed) continue;
 
-                Debug.Log(priority);
-
                 foreach (RoleCounter roleCounter in list)
                 {
-                    Debug.Log(roleCounter.Role.name);
                     if (_playersToAssign.Count == 0) return;
                     roleCounter.AssignPlayersByPriority(priority);
                 }
@@ -175,18 +172,19 @@ namespace SS3D.Systems.Roles
                 foreach (KeyValuePair<string, RolePriority> job in jobPrefs)
                 {
                     if (!_crewManifest.TryGetValue(job.Key, out RoleCounter roleCounter)) continue;
-                    
-                    Debug.Log(job.Key);
-                    Debug.Log(job.Value);
+
+                    bool overflow = job.Key == _rolesAvailable.OverFlowRole.name;
                     switch (job.Value)
                     {
                         case RolePriority.High:
                             roleCounter.High.Add(player);
                             break;
                         case RolePriority.Medium:
+                            if (overflow) break;
                             roleCounter.Medium.Add(player);
                             break;
                         case RolePriority.Low:
+                            if (overflow) break;
                             roleCounter.Low.Add(player);
                             break;
                     }
@@ -232,9 +230,6 @@ namespace SS3D.Systems.Roles
         [Server]
         public void AddPlayerToRole(Player player, RoleCounter rc)
         {
-            Debug.Log("AddPlayerToRole");
-            Debug.Log(player.Ckey);
-
             if (_playersToAssign.Count == 0) return;
             if (_rolePlayers.ContainsKey(player)) return;
 

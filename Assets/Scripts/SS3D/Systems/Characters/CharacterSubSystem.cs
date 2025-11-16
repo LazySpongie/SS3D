@@ -8,8 +8,6 @@ using SS3D.Systems.Characters.Messages;
 using FishNet.Connection;
 using SS3D.Systems.PlayerControl;
 using SS3D.Logging;
-using SS3D.Systems.Roles;
-using Codice.CM.Common;
 using System.Collections.ObjectModel;
 
 namespace SS3D.Systems.Characters
@@ -50,7 +48,7 @@ namespace SS3D.Systems.Characters
         public InGameCharacter CreateInitialCharacter(Player player, CharacterNameType nameType = CharacterNameType.Normal)
         {
             CharacterProfile profile = _initialCharacterProfiles[player];
-            _initialCharacterProfiles.Remove(player);
+            // _initialCharacterProfiles.Remove(player);
 
             return CreateCharacter(player, profile, nameType);
         }
@@ -75,7 +73,7 @@ namespace SS3D.Systems.Characters
                 name = "missing name";
             }
 
-            InGameCharacter character = new(player, name, profile);
+            InGameCharacter character = new(player, name);
             _ingameCharacters.Add(character);
             return character;
         }
@@ -84,7 +82,7 @@ namespace SS3D.Systems.Characters
         /// When a player is spawned set their name and appearance from their InGameCharacter
         /// </summary>
         [Server]
-        public void SetPlayerCharacter(Entity entity, InGameCharacter character)
+        public void SetPlayerCharacter(Entity entity, InGameCharacter character, CharacterProfile profile)
         {
             Player player = entity.Mind.player;
 
@@ -101,10 +99,10 @@ namespace SS3D.Systems.Characters
             UniqueIdentifiers uid = entity.GetComponent<UniqueIdentifiers>();
             if (uid == null) return;
 
-            uid.SetCharacterProfile(character.Profile);
+            uid.SetAppearanceFromProfile(profile);
             uid.SetName(character.Name);
 
-            Log.Information(this, "Added character " + uid.Name + " to player " + entity.Ckey);
+            Log.Information(this, "Added character " + character.Name + " to player " + entity.Ckey);
 
         }
 

@@ -351,11 +351,11 @@ namespace SS3D.Systems.Characters.Preferences
         public void SetRolePreference(string role, RolePriority priority)
         {
             // if the high priority role is being changed we clear the fav role
-            if (_unsavedCharacter.FavoriteRole == role)
+            if (_unsavedCharacter.FavoriteRole == role && priority != RolePriority.High)
             {
                 _unsavedCharacter.FavoriteRole = string.Empty;
             }
-            
+
             switch (priority)
             {
                 case RolePriority.Never:

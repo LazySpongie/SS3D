@@ -59,6 +59,8 @@ namespace SS3D.Systems.Roles
 
             List<Player> list = new();
 
+            Debug.Log("AssignPlayersByPriority " + Role.name + " " + priority);
+
             switch (priority)
             {
                 case RolePriority.High:
@@ -94,14 +96,18 @@ namespace SS3D.Systems.Roles
             if (AvailableRoles == 0) return false;
 
             bool hasAssignedPlayers = false;
-            int rolls = AvailableRoles - CurrentRoles;
+            int rolls = AvailableRoles;
 
-            for (int i = 1; i < rolls; i++)
+            Debug.Log("rolls " + rolls);
+            for (int i = 0; i < rolls; i++)
             {
+                Debug.Log(i);
                 if (list.Count == 0) break;
                 int rand = Random.Range(0, list.Count - 1);
                 Player player = list[rand];
-                
+
+                Debug.Log(player.Ckey);
+
                 list.RemoveAt(rand);
                 roleSubSystem.AddPlayerToRole(player, this);
             }

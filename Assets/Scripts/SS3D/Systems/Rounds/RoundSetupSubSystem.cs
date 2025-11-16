@@ -12,6 +12,7 @@ using SS3D.Systems.Entities;
 using SS3D.Systems.Entities.Events;
 using SS3D.Systems.Roles;
 using System.Collections.Generic;
+using System.Security;
 using RoundStateUpdated = SS3D.Systems.Rounds.Events.RoundStateUpdated;
 
 namespace SS3D.Systems.Rounds
@@ -84,8 +85,6 @@ namespace SS3D.Systems.Rounds
                     _roleSubSystem.AddCharacterToCrewManifest(character, pair.Value);
                 }
             }
-
-            _characterSubSystem.ClearInitialCharacterProfiles();
             _roleSubSystem.ClearRolePlayers();
         }
 
@@ -101,6 +100,8 @@ namespace SS3D.Systems.Rounds
             {
                 SpawnPlayer(character);
             }
+
+            _characterSubSystem.ClearInitialCharacterProfiles();
         }
 
         /// <summary>
@@ -136,6 +137,7 @@ namespace SS3D.Systems.Rounds
             chatSystem.SendServerMessage(chatChannels.stationAlertsChannel, $"{character.Name}, assistant, has joined the ship");
 
             Log.Information(this, player.Ckey + " has joined the ship as " + character.Name);
+
             SpawnPlayer(character);
         }
 
@@ -145,8 +147,11 @@ namespace SS3D.Systems.Rounds
         [Server]
         private Entity SpawnPlayer(InGameCharacter character)
         {
+            CharacterProfile profile = _characterSubSystem.InitialCharacterProfiles[character.Player];
+            _characterSubSystem.InitialCharacterProfiles.Remove(character.Player);
+
             Entity entity = _entitySubSystem.SpawnPlayer(character.Player);
-            SetupSpawnedPlayer(entity, character);
+            SetupSpawnedPlayer(entity, character, profile);
             return entity;
         }
 
@@ -154,9 +159,9 @@ namespace SS3D.Systems.Rounds
         /// Sets up a spawned player entity
         /// </summary>
         [Server]
-        private void SetupSpawnedPlayer(Entity entity, InGameCharacter character)
+        private void SetupSpawnedPlayer(Entity entity, InGameCharacter character, CharacterProfile profile)
         {
-            _characterSubSystem.SetPlayerCharacter(entity, character);
+            _characterSubSystem.SetPlayerCharacter(entity, character, profile);
 
             // TODO: needs to account for if the player is not a member of the crew
 
@@ -171,7 +176,7 @@ namespace SS3D.Systems.Rounds
             _roleSubSystem.GiveRoleLoadoutToPlayer(entity, role);
 
             // add the players loadout
-            if (character.Profile.Loadout.Count != 0)
+            if (profile.Loadout.Count != 0)
             {
                 
             }

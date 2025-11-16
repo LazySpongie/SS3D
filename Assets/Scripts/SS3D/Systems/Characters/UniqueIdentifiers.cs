@@ -6,7 +6,7 @@ using SS3D.Data;
 using SS3D.Attributes;
 using SS3D.Systems.Characters.Preferences;
 using System;
-using SS3D.Logging;
+using System.Collections.Generic;
 
 namespace SS3D.Systems.Characters
 {
@@ -23,18 +23,31 @@ namespace SS3D.Systems.Characters
         /// The name of this character.
         /// </summary>
         [SyncVar(OnChange = nameof(SyncCharacterName))]
-        public string Name = string.Empty;
+        private string _name = string.Empty;
 
-        /// <summary>
-        /// The name and appearance of this character.
-        /// </summary>
-        [SyncVar(OnChange = nameof(SyncCharacterProfile))]
-        private CharacterProfile _profile;
+        [SyncVar(OnChange = nameof(SyncFlavorText))]
+        private string _flavorText = string.Empty;
+
+        [SyncVar(OnChange = nameof(SyncStyles))]
+        private Dictionary<StyleType, string> _styles = new();
+
+        [SyncVar(OnChange = nameof(SyncColors))]
+        private Dictionary<ColorType, string> _colors = new();
+
+        [SyncVar(OnChange = nameof(SyncBody))]
+        private Dictionary<BodyType, string> _body = new();
+
+        // [SyncVar(OnChange = nameof(SyncTraits))]
+        private List<string> _traits = new();
 
         /// <summary>
         /// Renderer that will display the characters appearance.
         /// </summary>
         [SerializeField] [NotNull] private AppearanceDisplayer _appearanceDisplayer;
+
+        public string Name => _name;
+
+        public string FlavorText => _flavorText;
 
         /// <summary>
         /// Set the characters name
@@ -42,16 +55,20 @@ namespace SS3D.Systems.Characters
         [Server]
         public void SetName(string name)
         {
-            Name = name;
+            _name = name;
         }
 
         /// <summary>
         /// Called when the entity is spawned
         /// </summary>
         [Server]
-        public void SetCharacterProfile(CharacterProfile character)
+        public void SetAppearanceFromProfile(CharacterProfile profile)
         {
-            _profile = new CharacterProfile(character);
+            _flavorText = profile.FlavorText;
+            _styles = profile.Styles;
+            _colors = profile.Colors;
+            _body = profile.Body;
+            _traits = profile.Traits;
         }
 
         #region Syncing
@@ -65,35 +82,41 @@ namespace SS3D.Systems.Characters
             gameObject.name = newName;
         }
 
-        /// <summary>
-        /// Callback when the characters profile is modified
-        /// </summary>
-        [ServerOrClient]
-        private void SyncCharacterProfile(CharacterProfile oldChar, CharacterProfile newChar, bool asServer)
+        [Client]
+        private void SyncFlavorText(string oldChar, string newChar, bool asServer)
         {
+            // throw new NotImplementedException();
+        }
 
-            // gameObject.name = newChar.Name;
-
-            foreach (int i in Enum.GetValues(typeof(BodyType)))
-            {
-                BodyType type = (BodyType)i;
-                _appearanceDisplayer.SetBody(type, float.Parse(newChar.GetBody(type)));
-            }
-
-            if (asServer) return;
-
+        [Client]
+        private void SyncStyles(Dictionary<StyleType, string> oldChar, Dictionary<StyleType, string> newChar, bool asServer)
+        {
             foreach (int i in Enum.GetValues(typeof(StyleType)))
             {
                 StyleType type = (StyleType)i;
 
                 SetVisualStyle(type);
             }
+        }
 
+        [Client]
+        private void SyncColors(Dictionary<ColorType, string> oldChar, Dictionary<ColorType, string> newChar, bool asServer)
+        {
             foreach (int i in Enum.GetValues(typeof(ColorType)))
             {
                 ColorType type = (ColorType)i;
 
                 SetVisualColor(type);
+            }
+        }
+
+        [ServerOrClient]
+        private void SyncBody(Dictionary<BodyType, string> oldChar, Dictionary<BodyType, string> newChar, bool asServer)
+        {
+            foreach (int i in Enum.GetValues(typeof(BodyType)))
+            {
+                BodyType type = (BodyType)i;
+                _appearanceDisplayer.SetBody(type, float.Parse(_body[type]));
             }
 
         }
@@ -105,7 +128,7 @@ namespace SS3D.Systems.Characters
         [Client]
         private void SetVisualStyle(StyleType type)
         {
-            CustomizationSO option = Assets.Get<CustomizationSO>("Customization", _profile.GetStyle(type));
+            CustomizationSO option = Assets.Get<CustomizationSO>("Customization", _styles[type]);
             if (option == null) return;
 
             _appearanceDisplayer.SetStyle(type, option);
@@ -114,7 +137,7 @@ namespace SS3D.Systems.Characters
         [Client]
         private void SetVisualColor(ColorType type)
         {
-            if (!ColorUtility.TryParseHtmlString("#" + _profile.GetColor(type), out Color color)) return;
+            if (!ColorUtility.TryParseHtmlString("#" + _colors[type], out Color color)) return;
 
             _appearanceDisplayer.SetColor(type, color);
         }
