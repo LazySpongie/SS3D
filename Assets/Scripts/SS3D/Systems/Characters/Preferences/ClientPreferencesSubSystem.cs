@@ -59,7 +59,7 @@ namespace SS3D.Systems.Characters.Preferences
         {
             base.OnAwake();
             if (IsServer) return;
-            AddHandle(RoundStateUpdated.AddListener(HandleRoundStateUpdated));
+            AddHandle(RoundStateUpdated.AddListener(SendCharacterIfReady));
         }
 
         public override void OnStartClient()
@@ -389,19 +389,20 @@ namespace SS3D.Systems.Characters.Preferences
         /// When pressing the embark button
         /// </summary>
         [Client]
-        public void EmbarkCharacter()
+        public Player EmbarkCharacter()
         {
             PlayerSubSystem playerSystem = SubSystems.Get<PlayerSubSystem>();
             Player player = playerSystem.GetPlayer(LocalConnection);
 
             SendCharacter(player.Ckey);
+            return player;
         }
         
         /// <summary>
         /// When the round is preparing and the player is ready send their character to server.
         /// </summary>
         [Client]
-        private void HandleRoundStateUpdated(ref EventContext context, in RoundStateUpdated e)
+        private void SendCharacterIfReady(ref EventContext context, in RoundStateUpdated e)
         {
             if (e.RoundState != RoundState.Preparing) return;
 

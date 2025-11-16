@@ -122,10 +122,10 @@ namespace SS3D.Tests
         public static void SpawnLatePlayer(string Ckey)
         {
             PlayerSubSystem playerSystem = SubSystems.Get<PlayerSubSystem>();
-            EntitySubSystem entitySystem = SubSystems.Get<EntitySubSystem>();
+            RoundSetupSubSystem roundSetupSubSystem = SubSystems.Get<RoundSetupSubSystem>();
 
             Player player = playerSystem.GetPlayer(Ckey);
-            entitySystem.CmdSpawnLatePlayer(player);
+            roundSetupSubSystem.CmdSpawnLatePlayer(player);
         }
 
 

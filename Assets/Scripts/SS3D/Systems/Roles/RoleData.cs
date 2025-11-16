@@ -15,6 +15,7 @@ namespace SS3D.Systems.Roles
         [SerializeField] private string _roleName;
         [SerializeField] private CharacterNameType _nameType;
         [SerializeField] private bool _departmentHead;
+        [SerializeField] private bool _isStationCrew = true;
         [SerializeField] private GameObject _pdaPrefab;
         [SerializeField] private GameObject _idCardPrefab;
         [SerializeField] private List<IDPermission> _permissions = new List<IDPermission>();
@@ -22,6 +23,7 @@ namespace SS3D.Systems.Roles
 
         public string Name => _roleName;
         public CharacterNameType NameType => _nameType;
+        public bool IsStationCrew => _isStationCrew;
         public GameObject IDCardPrefab => _idCardPrefab;
         public GameObject PDAPrefab => _pdaPrefab;
         public List<IDPermission> Permissions => _permissions;

@@ -23,7 +23,6 @@ namespace SS3D.Systems.Lobby.UI
             base.OnAwake();
 
             _readyButton.OnPressedDown += HandleReadyButtonPressed;
-            _embarkButton.OnPressedDown += HandleEmbarkButtonPressed;
 
             AddHandle(RoundStateUpdated.AddListener(HandleRoundStateUpdated));
             AddHandle(SpawnedPlayersUpdated.AddListener(HandleSpawnedPlayersUpdated));
@@ -34,7 +33,6 @@ namespace SS3D.Systems.Lobby.UI
             base.OnDestroyed();
 
             _readyButton.OnPressedDown -= HandleReadyButtonPressed;
-            _embarkButton.OnPressedDown -= HandleEmbarkButtonPressed;
         }
 
         private void HandleSpawnedPlayersUpdated(ref EventContext context, in SpawnedPlayersUpdated e)
@@ -120,19 +118,6 @@ namespace SS3D.Systems.Lobby.UI
             _embarkButton.SetActive(false);
         }
         
-        private void HandleEmbarkButtonPressed(bool pressed)
-        {
-            PlayerSubSystem playerSystem = SubSystems.Get<PlayerSubSystem>();
-            EntitySubSystem entitySystem = SubSystems.Get<EntitySubSystem>();
-            ClientPreferencesSubSystem preferencesSystem = SubSystems.Get<ClientPreferencesSubSystem>();
-
-            preferencesSystem.EmbarkCharacter();
-
-            Player player = playerSystem.GetPlayer(LocalConnection);
-            
-            entitySystem.CmdSpawnLatePlayer(player);
-        }
-
         private void HandleReadyButtonPressed(bool pressed)
         {
             PlayerSubSystem playerSystem = SubSystems.Get<PlayerSubSystem>();

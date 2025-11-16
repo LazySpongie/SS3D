@@ -51,20 +51,19 @@ namespace SS3D.Systems.Entities
         [SyncObject]
         private readonly SyncList<Entity> _spawnedPlayers = new();
 
-        /// <summary>
-        /// If the system already spawned all the players that were ready when the round started
-        /// </summary>
-        [SyncVar(OnChange = nameof(SyncHasSpawnedInitialPlayers))]
-        private bool _hasSpawnedInitialPlayers;
-
         public Entity GetSpawnedEntity(Player player)
         {
-            var entity = _spawnedPlayers.Find(entity => entity.Mind.player == player);
+            Entity entity = _spawnedPlayers.Find(entity => entity.Mind.player == player);
             if (IsPlayerSpawned(player))
             {
                 return entity;
             }
             return null;
+        }
+
+        public Entity GetSpawnedEntityByCharacter(InGameCharacter character)
+        {
+            return _spawnedPlayers.Find(entity => entity.Character == character);
         }
 
         public bool TryGetSpawnedEntity(NetworkConnection conn, out Entity entity)
@@ -144,20 +143,19 @@ namespace SS3D.Systems.Entities
 
         private void ServerAddEventListeners()
         {
-            AddHandle(SpawnReadyPlayersEvent.AddListener(HandleSpawnReadyPlayers));
             AddHandle(RoundStateUpdated.AddListener(HandleRoundStateUpdated));
         }
 
-        /// <summary>
-        /// Asks the server to spawn a player.
-        /// </summary>
-        /// <param name="player</param>
-        /// <param name="networkConnection"></param>
-        [ServerRpc(RequireOwnership = false)]
-        public void CmdSpawnLatePlayer(Player player, NetworkConnection networkConnection = null)
-        {
-            SpawnLatePlayer(player);
-        }
+        // /// <summary>
+        // /// Asks the server to spawn a player.
+        // /// </summary>
+        // /// <param name="player</param>
+        // /// <param name="networkConnection"></param>
+        // [ServerRpc(RequireOwnership = false)]
+        // public void CmdSpawnLatePlayer(Player player, NetworkConnection networkConnection = null)
+        // {
+        //     SpawnLatePlayer(player);
+        // }
 
         public bool TryGetOwnedEntity(NetworkConnection conn, out Entity entity)
         {
@@ -173,30 +171,30 @@ namespace SS3D.Systems.Entities
             return false;
         }
 
-        /// <summary>
-        /// Spawns a player after the round has started
-        /// </summary>
-        /// <param name="playerThe player's ckey</param>
-        [Server]
-        private void SpawnLatePlayer(Player player)
-        {
-            if (!IsPlayerSpawned(player) && _hasSpawnedInitialPlayers)
-            {
-                Entity entity = SpawnPlayer(player);
-                ChatSubSystem chatSystem = SubSystems.Get<ChatSubSystem>();
-                ChatChannels chatChannels = ScriptableSettings.GetOrFind<ChatChannels>();
+        // /// <summary>
+        // /// Spawns a player after the round has started
+        // /// </summary>
+        // /// <param name="playerThe player's ckey</param>
+        // [Server]
+        // private void SpawnLatePlayer(Player player)
+        // {
+        //     if (!IsPlayerSpawned(player))
+        //     {
+        //         Entity entity = SpawnPlayer(player);
+        //         ChatSubSystem chatSystem = SubSystems.Get<ChatSubSystem>();
+        //         ChatChannels chatChannels = ScriptableSettings.GetOrFind<ChatChannels>();
                 
-                // TODO: replace with role
-                chatSystem.SendServerMessage(chatChannels.stationAlertsChannel, $"{entity.GetComponent<UniqueIdentifiers>().Name}, assistant, has joined the ship");
-            }
-        }
+        //         // TODO: move to crew manifest?
+        //         chatSystem.SendServerMessage(chatChannels.stationAlertsChannel, $"{entity.GetComponent<UniqueIdentifiers>().Name}, assistant, has joined the ship");
+        //     }
+        // }
 
         /// <summary>
         /// Spawns a player with a Ckey
         /// </summary>
         /// <param name="playerUnique user object</param>
         [Server]
-        private Entity SpawnPlayer(Player player)
+        public Entity SpawnPlayer(Player player)
         {
             MindSubSystem mindSystem = SubSystems.Get<MindSubSystem>();
             mindSystem.TryCreateMind(player, out Mind createdMind);
@@ -207,8 +205,6 @@ namespace SS3D.Systems.Entities
             createdMind.SetPlayer(player);
             entity.SetMind(createdMind);
 
-            SubSystems.Get<RoundSetupSubSystem>().SetupSpawnedPlayer(entity);
-
             _spawnedPlayers.Add(entity);
 
             RpcInvokeClientSpawned(entity.Owner);
@@ -217,29 +213,31 @@ namespace SS3D.Systems.Entities
             return entity;
         }
 
-        /// <summary>
-        /// Spawns all the players that are ready when the round starts
-        /// </summary>
-        /// <param name="players"></param>
-        [Server]
-        private void SpawnReadyPlayers(List<Player> players)
-        {
-            if (_hasSpawnedInitialPlayers) return;
+        // /// <summary>
+        // /// Spawns all the players that are ready when the round starts
+        // /// </summary>
+        // /// <param name="players"></param>
+        // [Server]
+        // private void SpawnReadyPlayers(List<Player> players)
+        // {
+        //     // should maybe be moved to RoundSetupSubSystem?
+            
+        //     if (_hasSpawnedInitialPlayers) return;
 
-            if (players.Count == 0)
-            {
-                Log.Information(this, "No players to spawn", Logs.ServerOnly);
-            }
+        //     if (players.Count == 0)
+        //     {
+        //         Log.Information(this, "No players to spawn", Logs.ServerOnly);
+        //     }
 
-            foreach (Player ckey in players)
-            {
-                SpawnPlayer(ckey);
-            }
+        //     foreach (Player ckey in players)
+        //     {
+        //         SpawnPlayer(ckey);
+        //     }
 
-            _hasSpawnedInitialPlayers = true;
+        //     _hasSpawnedInitialPlayers = true;
 
-            new InitialPlayersSpawned(SpawnedPlayers).Invoke(this);
-        }
+        //     new InitialPlayersSpawned(SpawnedPlayers).Invoke(this);
+        // }
 
         /// <summary>
         /// Destroys all spawned players
@@ -252,8 +250,6 @@ namespace SS3D.Systems.Entities
                 ServerManager.Despawn(player.NetworkObject);
                 player.GameObject.Dispose(true);
             }
-
-            _hasSpawnedInitialPlayers = false;
             _spawnedPlayers.Clear();
         }
 
@@ -268,14 +264,6 @@ namespace SS3D.Systems.Entities
             }
 
             DestroySpawnedPlayers();
-        }
-
-        [Server]
-        private void HandleSpawnReadyPlayers(ref EventContext context, in SpawnReadyPlayersEvent e)
-        {
-            List<Player> playersToSpawn = e.ReadyPlayers;
-            
-            SpawnReadyPlayers(playersToSpawn);
         }
 
         private void HandleSpawnedPlayersChanged(SyncListOperation op, int index, Entity old, Entity @new, bool asServer)
@@ -309,13 +297,6 @@ namespace SS3D.Systems.Entities
             spawnedPlayersUpdated.Invoke(this);
         }
 
-        private void SyncHasSpawnedInitialPlayers(bool oldValue, bool newValue, bool asServer)
-        {
-            if (!asServer && IsHost)
-            {
-                return;
-            }
-        }
 
 		public bool TryTransferEntity(Entity oldEntity, Entity newEntity)
 		{

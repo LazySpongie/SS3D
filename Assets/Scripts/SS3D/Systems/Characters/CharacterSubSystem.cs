@@ -10,6 +10,7 @@ using SS3D.Systems.PlayerControl;
 using SS3D.Logging;
 using SS3D.Systems.Roles;
 using Codice.CM.Common;
+using System.Collections.ObjectModel;
 
 namespace SS3D.Systems.Characters
 {
@@ -18,12 +19,13 @@ namespace SS3D.Systems.Characters
     /// </summary>
     public class CharacterSubSystem : NetworkSubSystem
     {
-        private Dictionary<Player, CharacterProfile> _initialCharacters = new();
+        private Dictionary<Player, CharacterProfile> _initialCharacterProfiles = new();
 
         private List<InGameCharacter> _ingameCharacters = new();
 
-        public Dictionary<Player, CharacterProfile> InitialCharacters => _initialCharacters;
-        // public ReadOnlyDictionary<Player, CharacterProfile> Characters => new ReadOnlyDictionary<Player, CharacterProfile>(_characters);
+        public ReadOnlyCollection<InGameCharacter> IngameCharacters => _ingameCharacters.AsReadOnly();
+
+        public Dictionary<Player, CharacterProfile> InitialCharacterProfiles => _initialCharacterProfiles;
 
         public override void OnStartServer()
         {
@@ -36,22 +38,9 @@ namespace SS3D.Systems.Characters
         /// Clear the list of initial characters
         /// </summary>
         [Server]
-        public void ClearInitialCharacters()
+        public void ClearInitialCharacterProfiles()
         {
-            _initialCharacters.Clear();
-        }
-
-        /// <summary>
-        /// Create characters from the list of players with assigned jobs and add them to the crew manifest
-        /// </summary>
-        [Server]
-        public void CreateCharactersFromCrew(RoleSubSystem roleSubSystem)
-        {
-            foreach (KeyValuePair<Player, RoleData> pair in roleSubSystem.RolePlayers)
-            {
-                InGameCharacter character = CreateInitialCharacter(pair.Key, pair.Value.NameType);
-                roleSubSystem.AddCharacterToCrewManifest(character, pair.Value);
-            }
+            _initialCharacterProfiles.Clear();
         }
 
         /// <summary>
@@ -60,8 +49,8 @@ namespace SS3D.Systems.Characters
         [Server]
         public InGameCharacter CreateInitialCharacter(Player player, CharacterNameType nameType = CharacterNameType.Normal)
         {
-            CharacterProfile profile = _initialCharacters[player];
-            _initialCharacters.Remove(player);
+            CharacterProfile profile = _initialCharacterProfiles[player];
+            _initialCharacterProfiles.Remove(player);
 
             return CreateCharacter(player, profile, nameType);
         }
@@ -95,11 +84,9 @@ namespace SS3D.Systems.Characters
         /// When a player is spawned set their name and appearance from their InGameCharacter
         /// </summary>
         [Server]
-        public InGameCharacter SetPlayerCharacter(Entity entity)
+        public void SetPlayerCharacter(Entity entity, InGameCharacter character)
         {
             Player player = entity.Mind.player;
-
-            InGameCharacter character = _ingameCharacters.Find(ig => ig.Player == player && ig.Entity == null);
 
             if (character == null)
             {
@@ -108,20 +95,17 @@ namespace SS3D.Systems.Characters
                 character = CreateCharacter(player, new CharacterProfile(), CharacterNameType.Normal);
             }
 
-            // save this entity to the character
+            entity.Character = character;
             character.Entity = entity;
-            string name = character.Name;
-            CharacterProfile profile = character.Profile;
 
             UniqueIdentifiers uid = entity.GetComponent<UniqueIdentifiers>();
-            if (uid == null) return character;
+            if (uid == null) return;
 
-            uid.SetCharacterProfile(profile);
-            uid.SetName(name);
+            uid.SetCharacterProfile(character.Profile);
+            uid.SetName(character.Name);
 
             Log.Information(this, "Added character " + uid.Name + " to player " + entity.Ckey);
 
-            return character;
         }
 
         /// <summary>
@@ -135,9 +119,9 @@ namespace SS3D.Systems.Characters
             
             PlayerSubSystem _playerSystem = SubSystems.Get<PlayerSubSystem>();
             Player player = _playerSystem.GetPlayer(message.Ckey);
-            if (!_initialCharacters.TryAdd(player, message.Character))
+            if (!_initialCharacterProfiles.TryAdd(player, message.Character))
             {
-                _initialCharacters[player] = message.Character;
+                _initialCharacterProfiles[player] = message.Character;
             }
         }
 

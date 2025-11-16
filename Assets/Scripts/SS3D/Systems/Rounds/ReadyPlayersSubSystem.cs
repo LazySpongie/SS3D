@@ -34,7 +34,6 @@ namespace SS3D.Systems.Rounds
             ServerManager.RegisterBroadcast<ChangePlayerReadyMessage>(HandleChangePlayerReady);
 
             AddHandle(OnlinePlayersChanged.AddListener(HandleUserLeftServer));
-            AddHandle(RoundStateUpdated.AddListener(HandleRoundStateUpdated));
         }
 
         public override void OnStartClient()
@@ -43,19 +42,6 @@ namespace SS3D.Systems.Rounds
 
             _readyPlayers.OnChange += HandleReadyPlayersChanged;
             SyncReadyPlayers();
-        }
-
-        private void InvokeSpawnReadyPlayers(RoundState roundState)
-        {
-            if (roundState != RoundState.Ongoing)
-            {
-                return;
-            }
-
-            SpawnReadyPlayersEvent spawnReadyPlayersEvent = new(_readyPlayers.ToList());
-            spawnReadyPlayersEvent.Invoke(this);
-
-            _readyPlayers.Clear();
         }
 
         [Server]
@@ -109,12 +95,6 @@ namespace SS3D.Systems.Rounds
         }
 
         [Server]
-        private void HandleRoundStateUpdated(ref EventContext context, in RoundStateUpdated e)
-        {
-            InvokeSpawnReadyPlayers(e.RoundState);
-        }
-
-        [Server]
         private void HandleUserLeftServer(ref EventContext context, in OnlinePlayersChanged e)
         {
             if (e.ChangeType != ChangeType.Removal) return;
@@ -128,6 +108,12 @@ namespace SS3D.Systems.Rounds
         {
             ReadyPlayersChanged readyPlayersChanged = new(_readyPlayers.ToList());
             readyPlayersChanged.Invoke(this);
+        }
+
+        [Server]
+        public void ClearReadyPlayers()
+        {
+            _readyPlayers.Clear();
         }
 
         public int Count => _readyPlayers.Count;

@@ -3,6 +3,7 @@ using Coimbra;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using SS3D.Core.Behaviours;
+using SS3D.Systems.Characters;
 using SS3D.Systems.Entities.Events;
 using SS3D.Systems.Entities.Humanoid;
 using SS3D.Systems.Health;
@@ -27,6 +28,14 @@ namespace SS3D.Systems.Entities
         [SerializeField]
         [SyncVar(OnChange = nameof(SyncMind))]
         private Mind _mind = Mind.Empty;
+        
+        private InGameCharacter _character;
+
+        public InGameCharacter Character
+        {
+            get => _character;
+            set => _character = value;
+        }
 
         public Mind Mind
         {

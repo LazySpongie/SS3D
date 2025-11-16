@@ -14,6 +14,7 @@ namespace SS3D.Systems.Characters
     /// </summary>
     public class InGameCharacter
     {
+
         public Player Player;
 
         public string Name;
@@ -27,7 +28,6 @@ namespace SS3D.Systems.Characters
             Player = player;
             Name = name;
             Profile = profile;
-            // Entity = entity;
         }
     }
 }

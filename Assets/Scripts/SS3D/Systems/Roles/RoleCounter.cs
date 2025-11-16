@@ -24,10 +24,14 @@ namespace SS3D.Systems.Roles
         public List<Player> Medium = new();
         public List<Player> High = new();
 
-        public Dictionary<Player, RoleData> rolePlayers;
-
         public RoleSubSystem roleSubSystem;
 
+        public void AddCharacter(InGameCharacter character)
+        {
+            // if (!(CurrentRoles < AvailableRoles || AvailableRoles == 0)) return;
+            CurrentRoles++; 
+            Characters.Add(character);
+        }
 
         /// <summary>
         /// Pick random players for this role from any priority preference (High to Low)
@@ -68,7 +72,16 @@ namespace SS3D.Systems.Roles
                     break;
             }
 
-            AddRandomPlayers(list);
+            // for assistant
+            if (AvailableRoles == 0)
+            {
+                AddAllPlayers(list);
+            }
+            else
+            {
+                AddRandomPlayers(list);
+            }
+
             list.Clear();
         }
 
@@ -80,23 +93,33 @@ namespace SS3D.Systems.Roles
             if (list.Count == 0) return false;
             if (AvailableRoles == 0) return false;
 
-            while (CurrentRoles < AvailableRoles)
-            {
-                int i = Random.Range(0, list.Count - 1);
-                Player player = list[i];
-                if (rolePlayers.ContainsKey(player))
-                {
-                    // player already has a role
-                    list.RemoveAt(i);
-                    continue;
-                }
+            bool hasAssignedPlayers = false;
+            int rolls = AvailableRoles - CurrentRoles;
 
-                list.RemoveAt(i);
+            for (int i = 1; i < rolls; i++)
+            {
+                if (list.Count == 0) break;
+                int rand = Random.Range(0, list.Count - 1);
+                Player player = list[rand];
+                
+                list.RemoveAt(rand);
                 roleSubSystem.AddPlayerToRole(player, this);
-                return true;
             }
-            
-            return false;
+
+            return hasAssignedPlayers;
+        }
+
+        /// <summary>
+        /// Assign the role to random players from a priority pool
+        /// </summary>
+        private void AddAllPlayers(List<Player> list)
+        {
+            if (list.Count == 0) return;
+
+            foreach (Player player in list)
+            {
+                roleSubSystem.AddPlayerToRole(player, this);
+            }
         }
 
         /// <summary>

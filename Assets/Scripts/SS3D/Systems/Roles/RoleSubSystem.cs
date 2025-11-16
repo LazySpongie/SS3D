@@ -51,7 +51,7 @@ namespace SS3D.Systems.Roles
         /// Assign roles to every ready player
         /// </summary>
         [Server]
-        public void AssignRolesToReadyPlayers()
+        public void AssignRolesToInitialPlayers()
         {
             // assign major antagonists here
             CreateCrewManifest();
@@ -79,10 +79,7 @@ namespace SS3D.Systems.Roles
                 {
                     Log.Information(this, "Assigning overflow role: " + _rolesAvailable.OverFlowRole.name);
                     AddPlayerToRole(player, _crewManifest[_rolesAvailable.OverFlowRole.name]);
-                    return;
                 }
-
-                readyPlayers.RemoveReadyPlayer(player);
             }
 
             _overflowPlayers.Clear();
@@ -98,28 +95,39 @@ namespace SS3D.Systems.Roles
 
             List<RoleCounter> list = _crewManifest.Values.ToList();
 
-            // randomise the job list
-            list.OrderBy(Rx => Random.value);
+            // list.OrderBy(Rx => Random.value);
+            list = RandomiseRoleList(list);
 
-            // loop through every job descending from high priority players to low priority players
-
+            // loop through every job descending from high priority to low priority players
             foreach (RolePriority priority in Enum.GetValues(typeof(RolePriority)))
             {
-                Debug.Log(priority);
                 bool allowed =  priority == RolePriority.High || 
                                 priority == RolePriority.Medium ||
                                 priority == RolePriority.Low;
                 if (!allowed) continue;
 
+                Debug.Log(priority);
+
                 foreach (RoleCounter roleCounter in list)
                 {
                     Debug.Log(roleCounter.Role.name);
                     if (_playersToAssign.Count == 0) return;
-                    if (roleCounter.AvailableRoles == 0) continue;
                     roleCounter.AssignPlayersByPriority(priority);
                 }
             }
-            
+        }
+
+        private List<RoleCounter> RandomiseRoleList(List<RoleCounter> list)
+        {
+            List<RoleCounter> listCopy = new List<RoleCounter>(list);
+            List<RoleCounter> result = new();
+            while (listCopy.Count != 0)
+            {
+                int rand = Random.Range(0, listCopy.Count);
+                result.Add(listCopy[rand]);
+                listCopy.RemoveAt(rand);
+            }
+            return result;
         }
 
         /// <summary>
@@ -156,7 +164,7 @@ namespace SS3D.Systems.Roles
         [Server]
         private void GetPlayerRolePreferences()
         {
-            foreach (KeyValuePair<Player, CharacterProfile> pair in SubSystems.Get<CharacterSubSystem>().InitialCharacters)
+            foreach (KeyValuePair<Player, CharacterProfile> pair in SubSystems.Get<CharacterSubSystem>().InitialCharacterProfiles)
             {
                 Player player = pair.Key;
                 
@@ -170,6 +178,8 @@ namespace SS3D.Systems.Roles
                 {
                     if (!_crewManifest.TryGetValue(job.Key, out RoleCounter roleCounter)) continue;
                     
+                    Debug.Log(job.Key);
+                    Debug.Log(job.Value);
                     switch (job.Value)
                     {
                         case RolePriority.High:
@@ -210,7 +220,6 @@ namespace SS3D.Systems.Roles
 
                     roleCounter.Role = role.Data;
                     roleCounter.AvailableRoles = role.AvailableRoles;
-                    roleCounter.rolePlayers = _rolePlayers;
                     roleCounter.roleSubSystem = this;
 
                     // _crewManifest.Add(role.Data.name, roleCounter);
@@ -225,8 +234,11 @@ namespace SS3D.Systems.Roles
         [Server]
         public void AddPlayerToRole(Player player, RoleCounter rc)
         {
-            if (!(rc.CurrentRoles < rc.AvailableRoles || rc.AvailableRoles == 0)) return;
-            rc.CurrentRoles++; 
+            Debug.Log("AddPlayerToRole");
+            Debug.Log(player.Ckey);
+
+            if (_playersToAssign.Count == 0) return;
+            if (_rolePlayers.ContainsKey(player)) return;
 
             // the ingamecharacter will be added to the manifest later so we just add them to roleplayers
 
@@ -240,7 +252,7 @@ namespace SS3D.Systems.Roles
         [Server]
         public void AddCharacterToCrewManifest(InGameCharacter character, RoleData role)
         {
-            _crewManifest[role.name].Characters.Add(character);
+            _crewManifest[role.name].AddCharacter(character);
         }
 
         [Server]

@@ -2,11 +2,11 @@
 {
     public enum RolePriority
     {
+        High,
+        Medium,
+        Low,
+        Never,
         Locked,
         Banned,
-        Never,
-        Low,
-        Medium,
-        High,
     }
 }
