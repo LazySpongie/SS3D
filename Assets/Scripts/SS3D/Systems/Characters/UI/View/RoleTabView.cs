@@ -9,6 +9,8 @@ using Coimbra;
 using Actor = SS3D.Core.Behaviours.Actor;
 using SS3D.Core;
 using TMPro;
+using SS3D.UI.Buttons;
+using System;
 
 namespace SS3D.Systems.Characters.UI.View
 {
@@ -20,8 +22,9 @@ namespace SS3D.Systems.Characters.UI.View
         [Header("Jobs")]
         [SerializeField] [NotNull] private Transform _rolePrefRoot;
         [SerializeField] [NotNull] private GameObject _roleSlotPrefab;
+        [SerializeField] [NotNull] private GameObject _overflowRoleSlotPrefab;
         [SerializeField] [NotNull] private GameObject _departmentPrefab;
-        [SerializeField] [NotNull] private RolePrefSlot _fallbackRoleSlot;
+        [SerializeField] [NotNull] private ToggleLabelButton _overflowButton;
 
         [Header("Antags")]
         [SerializeField] [NotNull] private Transform _antagPrefRoot;
@@ -39,18 +42,23 @@ namespace SS3D.Systems.Characters.UI.View
 
             _preferences = SubSystems.Get<ClientPreferencesSubSystem>();
 
-            _fallbackRoleSlot.OnPrefChanged += HandleJobPrefChanged;
+            _overflowButton.OnPressedDown += HandleFallbackChanged;
 
             AddHandle(LocalLobbyCharacterChanged.AddListener(HandleCharacterChanged));
             
             LoadRoles();
         }
 
+        private void HandleFallbackChanged(bool pressed)
+        {
+            _preferences.SetFallbackRole(pressed);
+        }
+
         protected override void OnDestroyed()
         {
             base.OnDestroyed();
 
-            _fallbackRoleSlot.OnPrefChanged -= HandleJobPrefChanged;
+            _overflowButton.OnPressedDown -= HandleFallbackChanged;
         }
 
         #endregion
@@ -67,6 +75,7 @@ namespace SS3D.Systems.Characters.UI.View
                 case CharacterChangeType.Load:
                 case CharacterChangeType.Roles:
                     SetRolePrefs(e.Character);
+                    _overflowButton.Pressed = e.Character.OverflowRole;
                     break;
             }
         }
@@ -77,8 +86,6 @@ namespace SS3D.Systems.Characters.UI.View
 
             RolesAvailable rolesAvailable = SubSystems.Get<RoleSubSystem>().RolesAvailable;
 
-            _fallbackRoleSlot.SetRole(rolesAvailable.OverFlowRole, RolePriority.Never);
-
             foreach (DepartmentsData department in rolesAvailable.Departments)
             {
                 GameObject departmentHeader = Instantiate(_departmentPrefab, _rolePrefRoot, true);
@@ -87,17 +94,20 @@ namespace SS3D.Systems.Characters.UI.View
 
                 departmentHeader.GetComponentInChildren<TMP_Text>().text = department.Data.Name;
 
-
                 foreach (RolesData availableRole in department.Roles)
                 {
-                    RoleData Data = availableRole.Data;
+                    RoleData roleData = availableRole.Data;
 
-                    RolePrefSlot slot = Instantiate(_roleSlotPrefab, _rolePrefRoot, true).GetComponent<RolePrefSlot>();
+                    GameObject prefab = _roleSlotPrefab;
+
+                    if (roleData == rolesAvailable.OverFlowRole) prefab = _overflowRoleSlotPrefab;
+
+                    RolePrefSlot slot = Instantiate(prefab, _rolePrefRoot, true).GetComponent<RolePrefSlot>();
                     slot.transform.localScale = Vector3.one;
 
                     _roleSlots.Add(slot);
 
-                    slot.SetRole(Data, RolePriority.Never);
+                    slot.SetRole(roleData, RolePriority.Never);
 
                     slot.OnPrefChanged += HandleJobPrefChanged;
                 }
@@ -119,8 +129,6 @@ namespace SS3D.Systems.Characters.UI.View
         {
             if (_roleSlots.Count == 0) return;
 
-            _fallbackRoleSlot.SetPref(RolePriority.Never);
-
             foreach (RolePrefSlot slot in _roleSlots)
             {
                 slot.SetPref(RolePriority.Never);
@@ -133,15 +141,21 @@ namespace SS3D.Systems.Characters.UI.View
 
             ClearRolePrefs();
             
-            if (character.OverFlowRole) _fallbackRoleSlot.SetPref(RolePriority.High);
-            
             foreach (KeyValuePair<string, RolePriority> pair in character.Roles)
             {
                 RolePrefSlot slot = _roleSlots.Find(slot => slot.RoleName == pair.Key);
 
                 if (slot == null) continue;
+                
+                RolePriority priority = pair.Value;
 
-                slot.SetPref(pair.Value);
+                // assistant role priority will always be high or never so we need to clamp it
+                if (slot.OverflowRole && (priority == RolePriority.Low || priority == RolePriority.Medium))
+                {
+                    priority = RolePriority.Never;
+                }
+
+                slot.SetPref(priority);
             }
         }
 
@@ -154,11 +168,7 @@ namespace SS3D.Systems.Characters.UI.View
         /// </summary>
         private void HandleJobPrefChanged(RolePrefSlot slot, RoleData role, RolePriority type)
         {
-            string jobName = string.Empty;
-
-            if (!slot.FallbackJob) jobName = role.name;
-
-            _preferences.SetRolePreference(jobName, type);
+            _preferences.SetRolePreference(role.name, type);
         }
 
         #endregion

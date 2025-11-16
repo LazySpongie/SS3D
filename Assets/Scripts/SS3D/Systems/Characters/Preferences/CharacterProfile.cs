@@ -58,7 +58,7 @@ namespace SS3D.Systems.Characters.Preferences
                 { BodyType.LowerBody,     "1" },
             };
 
-        public bool OverFlowRole = true;
+        public bool OverflowRole = true;
         
         public string FavoriteRole = string.Empty;
 
@@ -94,7 +94,8 @@ namespace SS3D.Systems.Characters.Preferences
             Styles = new Dictionary<StyleType, string>(character.Styles);
             Colors = new Dictionary<ColorType, string>(character.Colors);
             Body = new Dictionary<BodyType, string>(character.Body);
-            OverFlowRole = character.OverFlowRole;
+            OverflowRole = character.OverflowRole;
+            FavoriteRole = character.FavoriteRole;
             Roles = new Dictionary<string, RolePriority>(character.Roles);
             Loadout = new Dictionary<ContainerType, string>(character.Loadout);
             Antags = new List<string>(character.Antags);

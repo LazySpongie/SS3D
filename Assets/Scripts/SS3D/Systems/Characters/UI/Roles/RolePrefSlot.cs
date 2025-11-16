@@ -20,7 +20,7 @@ namespace SS3D.Systems.Characters.UI
         [SerializeField] private Button _medium;
         [SerializeField] private Button _high;
         
-        [SerializeField] public bool FallbackJob;
+        [SerializeField] public bool OverflowRole = false;
 
         private RoleData _role;
 

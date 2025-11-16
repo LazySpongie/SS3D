@@ -719,7 +719,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rolePrefRoot: {fileID: 0}
   _roleSlotPrefab: {fileID: 2119624395141950098, guid: c369f3bc80f86224494fef848c9edbfe, type: 3}
+  _overflowRoleSlotPrefab: {fileID: 7737693624411680753, guid: 129a27a720c0bff428fb36428fba4332, type: 3}
   _departmentPrefab: {fileID: 660201125029859658, guid: 0866e96cdc785dc40bdd29f8a4144bea, type: 3}
-  _fallbackRoleSlot: {fileID: 0}
+  _fallbackButton: {fileID: 0}
   _antagPrefRoot: {fileID: 0}
   _antagSlotPrefab: {fileID: 0}

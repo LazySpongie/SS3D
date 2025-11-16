@@ -70,9 +70,7 @@ namespace SS3D.Systems.Roles
         private void AssignOverflow()
         {
             if (_playersToAssign.Count == 0) return;
-
-            ReadyPlayersSubSystem readyPlayers = SubSystems.Get<ReadyPlayersSubSystem>();
-
+            
             foreach (Player player in _playersToAssign)
             {
                 if (_overflowPlayers.Contains(player))
@@ -170,7 +168,7 @@ namespace SS3D.Systems.Roles
                 
                 _playersToAssign.Add(player);
 
-                if (pair.Value.OverFlowRole) _overflowPlayers.Add(player);
+                if (pair.Value.OverflowRole) _overflowPlayers.Add(player);
 
                 Dictionary<string, RolePriority> jobPrefs = pair.Value.Roles;
                 

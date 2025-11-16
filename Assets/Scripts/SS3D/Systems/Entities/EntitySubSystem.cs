@@ -146,17 +146,6 @@ namespace SS3D.Systems.Entities
             AddHandle(RoundStateUpdated.AddListener(HandleRoundStateUpdated));
         }
 
-        // /// <summary>
-        // /// Asks the server to spawn a player.
-        // /// </summary>
-        // /// <param name="player</param>
-        // /// <param name="networkConnection"></param>
-        // [ServerRpc(RequireOwnership = false)]
-        // public void CmdSpawnLatePlayer(Player player, NetworkConnection networkConnection = null)
-        // {
-        //     SpawnLatePlayer(player);
-        // }
-
         public bool TryGetOwnedEntity(NetworkConnection conn, out Entity entity)
         {
             foreach(Entity e in SpawnedPlayers)
@@ -170,24 +159,6 @@ namespace SS3D.Systems.Entities
             entity = null;
             return false;
         }
-
-        // /// <summary>
-        // /// Spawns a player after the round has started
-        // /// </summary>
-        // /// <param name="playerThe player's ckey</param>
-        // [Server]
-        // private void SpawnLatePlayer(Player player)
-        // {
-        //     if (!IsPlayerSpawned(player))
-        //     {
-        //         Entity entity = SpawnPlayer(player);
-        //         ChatSubSystem chatSystem = SubSystems.Get<ChatSubSystem>();
-        //         ChatChannels chatChannels = ScriptableSettings.GetOrFind<ChatChannels>();
-                
-        //         // TODO: move to crew manifest?
-        //         chatSystem.SendServerMessage(chatChannels.stationAlertsChannel, $"{entity.GetComponent<UniqueIdentifiers>().Name}, assistant, has joined the ship");
-        //     }
-        // }
 
         /// <summary>
         /// Spawns a player with a Ckey

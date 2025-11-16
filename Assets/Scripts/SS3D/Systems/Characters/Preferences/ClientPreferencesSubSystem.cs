@@ -14,6 +14,7 @@ using System.Linq;
 using SS3D.Systems.Characters.Events;
 using SS3D.Systems.Entities;
 using UnityEngine;
+using System;
 
 namespace SS3D.Systems.Characters.Preferences
 {
@@ -335,25 +336,26 @@ namespace SS3D.Systems.Characters.Preferences
         }
 
         /// <summary>
+        /// Set what happens when none of their jobs are available.
+        /// </summary>
+        public void SetFallbackRole(bool enabled)
+        {
+            _unsavedCharacter.OverflowRole = enabled;
+            InvokeCharacterChanged(CharacterChangeType.Roles);
+        }
+
+        /// <summary>
         /// Set the current characters name.
         /// </summary>
         [Client]
         public void SetRolePreference(string role, RolePriority priority)
         {
-            // overflow role selected
-            if (role == string.Empty)
-            {
-                _unsavedCharacter.OverFlowRole = priority == RolePriority.High;
-                InvokeCharacterChanged(CharacterChangeType.Roles);
-                return;
-            }
-
             // if the high priority role is being changed we clear the fav role
             if (_unsavedCharacter.FavoriteRole == role)
             {
                 _unsavedCharacter.FavoriteRole = string.Empty;
             }
-
+            
             switch (priority)
             {
                 case RolePriority.Never:
@@ -441,7 +443,7 @@ namespace SS3D.Systems.Characters.Preferences
         {
             new LocalLobbyCharacterListChanged(_characters, CharacterNames.ToList()).Invoke(this);
         }
-        
+
         #endregion
     }
 }
