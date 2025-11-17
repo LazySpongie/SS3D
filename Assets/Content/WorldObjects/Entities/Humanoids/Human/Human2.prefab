@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 1
+  _clothingSlotType: 32
   _useAltClothingModel: 1
 --- !u!114 &1307890438566475903
 MonoBehaviour:
@@ -1392,7 +1392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 7
+  _clothingSlotType: 2048
   _useAltClothingModel: 0
 --- !u!114 &256759987634280709
 MonoBehaviour:
@@ -2581,7 +2581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 0
+  _clothingSlotType: 16
   _useAltClothingModel: 0
 --- !u!114 &6354606499194694456
 MonoBehaviour:
@@ -3512,7 +3512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 4
+  _clothingSlotType: 256
   _useAltClothingModel: 0
 --- !u!114 &3471208131746232932
 MonoBehaviour:
@@ -3885,7 +3885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 14
+  _clothingSlotType: 131072
   _useAltClothingModel: 0
 --- !u!114 &2120256999112998926
 MonoBehaviour:
@@ -4302,7 +4302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 10
+  _clothingSlotType: 4096
   _useAltClothingModel: 1
 --- !u!114 &3187168792515439870
 MonoBehaviour:
@@ -4511,7 +4511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 8
+  _clothingSlotType: 4096
   _useAltClothingModel: 1
 --- !u!114 &3079118316268328214
 MonoBehaviour:
@@ -4687,7 +4687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 6
+  _clothingSlotType: 1024
   _useAltClothingModel: 0
 --- !u!114 &2178090619968338876
 MonoBehaviour:
@@ -5337,7 +5337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 9
+  _clothingSlotType: 8192
   _useAltClothingModel: 0
 --- !u!114 &6449789094564828292
 MonoBehaviour:
@@ -6304,7 +6304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 2
+  _clothingSlotType: 64
   _useAltClothingModel: 0
 --- !u!114 &4030361665466803426
 MonoBehaviour:
@@ -7570,7 +7570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 5
+  _clothingSlotType: 512
   _useAltClothingModel: 0
 --- !u!114 &5310895735083248803
 MonoBehaviour:
@@ -8233,23 +8233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a156dec7da2f53419befce71ba9bcff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingVisualSlots:
-  - {fileID: 6053071042394239261}
-  - {fileID: 113844057537055301}
-  - {fileID: 6299264923820670093}
-  - {fileID: 4251283191739647136}
-  - {fileID: 5708275212759495835}
-  - {fileID: 5174669343730670165}
-  - {fileID: 1621818506458342007}
-  - {fileID: 8149984355783769363}
-  - {fileID: 1421316668394371100}
-  - {fileID: 3532639061135859339}
-  - {fileID: 706420925057494135}
-  - {fileID: 1524200455027456264}
-  - {fileID: 9148700445888972669}
-  - {fileID: 2924261052060544735}
-  - {fileID: 3624997268938451057}
-  - {fileID: 5024789913272631676}
+  _clothingSlotsRoot: {fileID: 1870850359086752095}
   _bodyPartRoot: {fileID: 498654123859477456}
   _appearanceDisplayer: {fileID: 2900610772125535890}
 --- !u!114 &3771845344306968317
@@ -8487,50 +8471,8 @@ MonoBehaviour:
   _componentIndexCache: 19
   _addedNetworkObject: {fileID: 2930813178971533500}
   _networkObjectCache: {fileID: 2930813178971533500}
-  _profile:
-    Name: New Character
-    FlavorText: 
-    Age: 18
-    Sex: 0
-    Gender: 0
-    Antags: []
-    Traits: []
-    _styles:
-      _list:
-      - _key: 0
-        _value: Bald
-      - _key: 1
-        _value: Bald
-      - _key: 2
-        _value: Default
-      _new: 0
-    _Colors:
-      _list:
-      - _key: 1
-        _value: 804831
-      - _key: 2
-        _value: 000000
-      - _key: 0
-        _value: FFBD99
-      _new: 0
-    _Body:
-      _list:
-      - _key: 0
-        _value: 0
-      - _key: 2
-        _value: 0
-      - _key: 1
-        _value: 0
-      - _key: 4
-        _value: 0
-      - _key: 5
-        _value: 0
-      - _key: 6
-        _value: 0
-      _new: 0
-    _jobs:
-      _list: []
-      _new: {fileID: 0}
+  _name: 
+  _flavorText: 
   _appearanceDisplayer: {fileID: 2900610772125535890}
 --- !u!1 &6472674363010172163
 GameObject:
@@ -8938,7 +8880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 13
+  _clothingSlotType: 65536
   _useAltClothingModel: 0
 --- !u!114 &1585319669273576327
 MonoBehaviour:
@@ -9190,7 +9132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 3
+  _clothingSlotType: 128
   _useAltClothingModel: 0
 --- !u!114 &7161685922191210169
 MonoBehaviour:
@@ -9657,7 +9599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 6
+  _clothingSlotType: 1048576
   _useAltClothingModel: 0
 --- !u!114 &6839487562334845200
 MonoBehaviour:
@@ -9833,7 +9775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 12
+  _clothingSlotType: 32768
   _useAltClothingModel: 0
 --- !u!114 &241610678597352478
 MonoBehaviour:
@@ -10123,7 +10065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 15
+  _clothingSlotType: 262144
   _useAltClothingModel: 0
 --- !u!114 &5778292191727010180
 MonoBehaviour:
@@ -10614,7 +10556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec1254401471447af0ba6a605e6715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clothingSlotType: 11
+  _clothingSlotType: 4
   _useAltClothingModel: 0
 --- !u!114 &7154455270787154811
 MonoBehaviour:

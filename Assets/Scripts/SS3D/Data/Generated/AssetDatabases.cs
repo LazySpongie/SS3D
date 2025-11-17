@@ -12,6 +12,7 @@ namespace SS3D.Data.Generated
         public static DatabaseAsset ItemVisuals = new DatabaseAsset("ItemVisuals", "AssetDatabases");
         public static DatabaseAsset Materials = new DatabaseAsset("Materials", "AssetDatabases");
         public static DatabaseAsset ParticlesEffects = new DatabaseAsset("ParticlesEffects", "AssetDatabases");
+        public static DatabaseAsset Roles = new DatabaseAsset("Roles", "AssetDatabases");
         public static DatabaseAsset Sounds = new DatabaseAsset("Sounds", "AssetDatabases");
         public static DatabaseAsset WorldSpaceUI = new DatabaseAsset("WorldSpaceUI", "AssetDatabases");
     }

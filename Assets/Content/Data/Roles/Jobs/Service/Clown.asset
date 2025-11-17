@@ -15,8 +15,9 @@ MonoBehaviour:
   _roleName: Clown
   _nameType: 1
   _departmentHead: 0
+  _isStationCrew: 1
   _pdaPrefab: {fileID: 5261116577612792016, guid: 79260483ae5d3e04fa272e092b49abac, type: 3}
   _idCardPrefab: {fileID: 5261116577612792016, guid: d8b0c8d1ddcdeb24d9763054c103c9fe, type: 3}
   _permissions:
   - {fileID: 11400000, guid: 921240e0c27686d4eaf2ff761944c5eb, type: 2}
-  _loadout: {fileID: 11400000, guid: 3c687757519b2424d8a6f384c1c63db8, type: 2}
+  _loadout: {fileID: 11400000, guid: e103731767c4c654f9af55dd5b368a92, type: 2}

@@ -9,6 +9,7 @@ using System.Diagnostics;
 using UnityEngine;
 using System.Linq;
 using Tests.Play_Mode.Framework.Helpers;
+using SS3D.Systems.Roles;
 
 namespace SS3D.Tests
 {
@@ -125,7 +126,8 @@ namespace SS3D.Tests
             RoundSetupSubSystem roundSetupSubSystem = SubSystems.Get<RoundSetupSubSystem>();
 
             Player player = playerSystem.GetPlayer(Ckey);
-            roundSetupSubSystem.CmdSpawnLatePlayer(player);
+            string role = SubSystems.Get<RoleSubSystem>().GetOverflowRole().name;
+            roundSetupSubSystem.CmdSpawnLatePlayer(player, role);
         }
 
 

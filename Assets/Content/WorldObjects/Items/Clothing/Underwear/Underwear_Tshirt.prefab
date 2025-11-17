@@ -215,7 +215,6 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: -3359041045153695440}
   - {fileID: -1938953542191470901}
-  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -227,7 +226,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 3
+  <PrefabId>k__BackingField: 165
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -253,7 +252,7 @@ MonoBehaviour:
   _startingTraits:
   - {fileID: 11400000, guid: 5162c84502115894abb92f9242f16663, type: 2}
   _rigidbody: {fileID: 950155378762729286}
-  _startingItemVisualData: {fileID: 11400000, guid: c2a000bd3183cc144838295bd75db8fc, type: 2}
+  StartingItemVisualData: {fileID: 11400000, guid: c2a000bd3183cc144838295bd75db8fc, type: 2}
   _meshFilter: {fileID: 4961538390409228241}
   _renderer: {fileID: 4767056444458723069}
   _meshCollider: {fileID: 4049302817993054162}

@@ -1,4 +1,5 @@
 ﻿
+using SS3D.Systems.Inventory.Containers;
 using SS3D.Systems.Inventory.Items;
 using System;
 using UnityEngine;
@@ -12,10 +13,10 @@ namespace SS3D.Systems.Inventory.Clothing
     /// </summary>
     public readonly struct DisplayedClothing
     {
-        public readonly ClothingSlotType ClothingSlotType;
+        public readonly ContainerType ClothingSlotType;
         public readonly string ItemVisualData;
 
-        public DisplayedClothing(ClothingSlotType clothingSlotType, string itemToDisplay)
+        public DisplayedClothing(ContainerType clothingSlotType, string itemToDisplay)
         {
             ClothingSlotType = clothingSlotType;
             ItemVisualData = itemToDisplay;

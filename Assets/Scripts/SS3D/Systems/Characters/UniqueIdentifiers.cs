@@ -12,7 +12,7 @@ namespace SS3D.Systems.Characters
 {
 
     /// <summary>
-    /// Script on an entity that stores the current appearance and sends it to AppearanceDisplayer when changed
+    /// Stores the name and appearance of a humanoid entity
     /// 
     /// TODO: Need to create setters at some point
     /// 
@@ -49,6 +49,8 @@ namespace SS3D.Systems.Characters
 
         public string FlavorText => _flavorText;
 
+        #region Setters
+
         /// <summary>
         /// Set the characters name
         /// </summary>
@@ -70,6 +72,8 @@ namespace SS3D.Systems.Characters
             _body = profile.Body;
             _traits = profile.Traits;
         }
+
+        #endregion
 
         #region Syncing
 
@@ -123,7 +127,7 @@ namespace SS3D.Systems.Characters
 
         #endregion
 
-        #region Set Visuals
+        #region Set Appearance
 
         [Client]
         private void SetVisualStyle(StyleType type)

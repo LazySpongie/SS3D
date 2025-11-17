@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Roles
+  m_EditorClassIdentifier: 
+  m_GroupName: Roles
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f5c4db70b0d410c48804416006749d11
+  m_SerializeEntries:
+  - m_GUID: 2e87d640c74fc4f4087458037ba6478b
+    m_Address: Assets/Content/Data/Roles/Jobs/Service/Bartender.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d2f523b59f6a6654a91516a0b74a9a8b
+    m_Address: Assets/Content/Data/Roles/Jobs/Service/Clown.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b88455ab0b5c6f742993353a292f4758
+    m_Address: Assets/Content/Data/Roles/Jobs/Service/Botanist.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 238ec640ecdc5e141a9d848cfa8ee74e
+    m_Address: Assets/Content/Data/Roles/Jobs/Engineering/Engineer.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c9b74653f43c3d84890c6d216e25d521
+    m_Address: Assets/Content/Data/Roles/Jobs/Engineering/Chief Engineer.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7485a795dffb1c94385d7b05561d2d78
+    m_Address: Assets/Content/Data/Roles/Jobs/Security/Security Officer.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 51cc0fbe928f8c645bd3f2aa06b7c634
+    m_Address: Assets/Content/Data/Roles/Jobs/Security/Warden.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 575f0900e0dfe0a418bb42a372694dce
+    m_Address: Assets/Content/Data/Roles/Jobs/Command/Captain.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3577296625ff10547872463b3a2410cb
+    m_Address: Assets/Content/Data/Roles/Jobs/Security/Head of Security.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1928692fbc0905b4195e6a72d04f474d
+    m_Address: Assets/Content/Data/Roles/Jobs/Assistant.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 611480ed019369c4ab8fc2d672497453
+    m_Address: Assets/Content/Data/Roles/Jobs/Service/Janitor.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ddc57d0f5f9fb874e8a26db0c5b215e0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 60f350f9663ace9488d542cd7527f5ec, type: 2}
+    - {fileID: 11400000, guid: b9b472fd77c3c2743a7c9a4d22ce2a73, type: 2}

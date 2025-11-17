@@ -16,6 +16,24 @@ MonoBehaviour:
   AssetGroup: {fileID: 11400000, guid: d050086d78327294d991594a1e6cfd51, type: 2}
   Assets:
     _list:
+    - _key: Mask_GasMask
+      _value: {fileID: 11400000, guid: cc185c49902e3e94e9db2f5f0e52d1fb, type: 2}
+    - _key: Shoe_Jackboots
+      _value: {fileID: 11400000, guid: fc706ab53de36bd4e8c512704f0d8c73, type: 2}
+    - _key: Bag_Backpack
+      _value: {fileID: 11400000, guid: 752dbb8220e78274d974d96669ec7926, type: 2}
+    - _key: Jumpsuit_Grey
+      _value: {fileID: 11400000, guid: 742392461d817f64bb0ac5dd86738817, type: 2}
+    - _key: Jumpsuit_Botany
+      _value: {fileID: 11400000, guid: ed400f000eadfb84da273e3abb42d3cc, type: 2}
+    - _key: Exosuit_BodyArmor
+      _value: {fileID: 11400000, guid: 0173860110628b54b935382c4f3f45dd, type: 2}
+    - _key: Gloves_Fingerless
+      _value: {fileID: 11400000, guid: 81680f258adcb964190475b18e207c9c, type: 2}
+    - _key: Underwear_Tshirt
+      _value: {fileID: 11400000, guid: c2a000bd3183cc144838295bd75db8fc, type: 2}
+    - _key: Underwear_Tanktop
+      _value: {fileID: 11400000, guid: ee0fc6f5f3469f74c9589d0a2991997b, type: 2}
     - _key: Headset
       _value: {fileID: 11400000, guid: 91a451617245cab4b8d88777b15100e4, type: 2}
     - _key: Shoe_Hitops
@@ -30,28 +48,18 @@ MonoBehaviour:
       _value: {fileID: 11400000, guid: 86d0bd65e24de82469166068d22a5594, type: 2}
     - _key: Hat_Trucker
       _value: {fileID: 11400000, guid: a7a151cf5c9f3bb46ad46760f89efe22, type: 2}
-    - _key: Glasses
+    - _key: Sunglasses
       _value: {fileID: 11400000, guid: b49ef4cc6249282489bfe3355cf0ffd1, type: 2}
     - _key: Underwear_Briefs
       _value: {fileID: 11400000, guid: f3bb5f3f63d41ae49b76c228da8a5f7a, type: 2}
     - _key: Underwear_Boxers
       _value: {fileID: 11400000, guid: 4b523846f9acf9a458a4feef86c84944, type: 2}
-    - _key: Underwear_Tanktop
-      _value: {fileID: 11400000, guid: ee0fc6f5f3469f74c9589d0a2991997b, type: 2}
-    - _key: Underwear_Tshirt
-      _value: {fileID: 11400000, guid: c2a000bd3183cc144838295bd75db8fc, type: 2}
-    - _key: Glove_Insulated
-      _value: {fileID: 11400000, guid: 81680f258adcb964190475b18e207c9c, type: 2}
-    - _key: Exosuit_BodyArmor
-      _value: {fileID: 11400000, guid: 0173860110628b54b935382c4f3f45dd, type: 2}
-    - _key: Jumpsuit_Botany
-      _value: {fileID: 11400000, guid: ed400f000eadfb84da273e3abb42d3cc, type: 2}
-    - _key: Jumpsuit_Grey
-      _value: {fileID: 11400000, guid: 742392461d817f64bb0ac5dd86738817, type: 2}
-    - _key: Bag_Backpack
-      _value: {fileID: 11400000, guid: 752dbb8220e78274d974d96669ec7926, type: 2}
-    - _key: Shoe_Jackboots
-      _value: {fileID: 11400000, guid: fc706ab53de36bd4e8c512704f0d8c73, type: 2}
-    - _key: Mask_GasMask
-      _value: {fileID: 11400000, guid: cc185c49902e3e94e9db2f5f0e52d1fb, type: 2}
+    - _key: Gloves_Insulated
+      _value: {fileID: 11400000, guid: 2283a0ea4093fa649876311fb09dcc4c, type: 2}
+    - _key: Jumpsuit_Cargo
+      _value: {fileID: 11400000, guid: 92ce940c7590feb468f9d494a398f1f7, type: 2}
+    - _key: Jumpsuit_Janitor
+      _value: {fileID: 11400000, guid: 4cc8fbf5757b3aa4184695d2b2bee3cc, type: 2}
+    - _key: Mask_Clown
+      _value: {fileID: 11400000, guid: 522c00b4dbc97ec488fe86ca651e5aaf, type: 2}
     _new: 

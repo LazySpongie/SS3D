@@ -102,6 +102,9 @@ namespace SS3D.Data.Generated
         public static DatabaseAsset JumpsuitSecurity = new DatabaseAsset("JumpsuitSecurity", "Items");
         public static DatabaseAsset JumpsuitGrey = new DatabaseAsset("JumpsuitGrey", "Items");
         public static DatabaseAsset Backpack = new DatabaseAsset("Backpack", "Items");
+        public static DatabaseAsset JumpsuitJanitor = new DatabaseAsset("JumpsuitJanitor", "Items");
+        public static DatabaseAsset JumpsuitCargo = new DatabaseAsset("JumpsuitCargo", "Items");
+        public static DatabaseAsset GlovesFingerless = new DatabaseAsset("GlovesFingerless", "Items");
     }
 }
 

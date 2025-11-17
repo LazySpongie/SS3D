@@ -9,6 +9,7 @@ using FishNet.Connection;
 using SS3D.Systems.PlayerControl;
 using SS3D.Logging;
 using System.Collections.ObjectModel;
+using Random = UnityEngine.Random;
 
 namespace SS3D.Systems.Characters
 {
@@ -19,9 +20,9 @@ namespace SS3D.Systems.Characters
     {
         private Dictionary<Player, CharacterProfile> _initialCharacterProfiles = new();
 
-        private List<InGameCharacter> _ingameCharacters = new();
+        private Dictionary<string, InGameCharacter> _ingameCharacters = new();
 
-        public ReadOnlyCollection<InGameCharacter> IngameCharacters => _ingameCharacters.AsReadOnly();
+        public ReadOnlyDictionary<string, InGameCharacter> IngameCharacters => new ReadOnlyDictionary<string, InGameCharacter>(_ingameCharacters);
 
         public Dictionary<Player, CharacterProfile> InitialCharacterProfiles => _initialCharacterProfiles;
 
@@ -65,16 +66,24 @@ namespace SS3D.Systems.Characters
                 profile = new CharacterProfile();
             }
 
+            // set character name
             string name = profile.Names[nameType];
-            
             if (name == string.Empty)
             {
                 // need to set a random name here 
                 name = "missing name";
             }
 
-            InGameCharacter character = new(player, name);
-            _ingameCharacters.Add(character);
+            // create unique id
+            string id;
+            while (true)
+            {
+                id = name + "(" + Random.Range(0, 999) + ")";
+                if (!_ingameCharacters.ContainsKey(id)) break;
+            }
+
+            InGameCharacter character = new(id, player, name);
+            _ingameCharacters.Add(id, character);
             return character;
         }
 

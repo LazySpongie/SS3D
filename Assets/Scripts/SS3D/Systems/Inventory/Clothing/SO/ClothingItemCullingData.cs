@@ -1,5 +1,6 @@
 using SS3D.Systems.Characters;
 using SS3D.Systems.Health;
+using SS3D.Systems.Inventory.Containers;
 using UnityEngine;
 
 namespace SS3D.Systems.Inventory.Clothing
@@ -13,7 +14,7 @@ namespace SS3D.Systems.Inventory.Clothing
         /// <summary>
         /// The clothing slots that will be hidden
         /// </summary>
-        public ClothingSlotType[] CulledClothingSlots;
+        public ContainerType[] CulledClothingSlots;
 
         /// <summary>
         /// The body parts that will be hidden

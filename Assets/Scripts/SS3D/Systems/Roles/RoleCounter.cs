@@ -15,6 +15,7 @@ namespace SS3D.Systems.Roles
     public class RoleCounter
     {
         public RoleData Role;
+        public DepartmentData Department;
         public int CurrentRoles;
         public int AvailableRoles;
         public List<InGameCharacter> Characters = new();
@@ -28,10 +29,16 @@ namespace SS3D.Systems.Roles
 
         public void AddCharacter(InGameCharacter character)
         {
-            // if (!(CurrentRoles < AvailableRoles || AvailableRoles == 0)) return;
             CurrentRoles++; 
             Characters.Add(character);
         }
+
+        public void RemoveCharacter(InGameCharacter character)
+        {
+            CurrentRoles--; 
+            Characters.Remove(character);
+        }
+
 
         /// <summary>
         /// Pick random players for this role from any priority preference (High to Low)

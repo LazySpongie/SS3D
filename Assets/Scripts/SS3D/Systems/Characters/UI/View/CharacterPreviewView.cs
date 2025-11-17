@@ -12,6 +12,11 @@ using SS3D.Systems.Screens.Events;
 using SS3D.Systems.Screens;
 using SS3D.Systems.Characters.Events;
 using Coimbra.Services.Events;
+using SS3D.Systems.Roles;
+using SS3D.Systems.Inventory.Clothing;
+using SS3D.Systems.Inventory.Containers;
+using SS3D.Systems.Inventory.Items;
+using SS3D.UI.Buttons;
 
 namespace SS3D.Systems.Characters.UI.View
 {
@@ -21,15 +26,22 @@ namespace SS3D.Systems.Characters.UI.View
     public sealed class CharacterPreviewView : Actor
     {
         [Header("Preview")]
-        [SerializeField] [NotNull] private AppearanceDisplayer _previewCharacter;
+        [SerializeField] [NotNull] private AppearanceDisplayer _previewAppearance;
+        [SerializeField] [NotNull] private ClothingVisualDisplayer _previewClothing;
         [SerializeField] [NotNull] private PreviewCamera _previewCamera;
         [SerializeField] [NotNull] private List<TMP_Text> _previewNameTexts;
+        [SerializeField] [NotNull] private ToggleLabelButton _showClothingButton;
+
 
         [Header("Save/Load Buttons")]
         [SerializeField] [NotNull] private Button _saveButton;
         [SerializeField] [NotNull] private Button _resetButton;
 
         private ClientPreferencesSubSystem _preferences;
+
+        private RoleData _currentRole;
+        private Dictionary<ContainerType, ItemVisualData> _currentClothing = new();
+        private bool _showClothing = true;
 
         #region Setup
 
@@ -49,6 +61,7 @@ namespace SS3D.Systems.Characters.UI.View
             
             _saveButton.onClick.AddListener(HandleSaveButtonPressed);
             _resetButton.onClick.AddListener(HandleResetButtonPressed);
+            _showClothingButton.OnPressedDown += HandleClothingButtonPressed;
         }
 
         protected override void OnDestroyed()
@@ -57,6 +70,7 @@ namespace SS3D.Systems.Characters.UI.View
 
             _saveButton.onClick.RemoveListener(HandleSaveButtonPressed);
             _resetButton.onClick.RemoveListener(HandleResetButtonPressed);
+            _showClothingButton.OnPressedDown -= HandleClothingButtonPressed;
         }
 
         #endregion
@@ -76,6 +90,7 @@ namespace SS3D.Systems.Characters.UI.View
                     if (e.LastScreen != ScreenType.CharacterCreation) break;
                     _previewCamera.ResetCamera();
                     _preferences.ResetCharacter();
+                    if (!_showClothing) _showClothingButton.Press();
                     break;
             }
         }
@@ -92,6 +107,7 @@ namespace SS3D.Systems.Characters.UI.View
                     HandleCharacterNameChanged(e.Character);
                     HandleAppearanceChanged(e.Character);
                     SetSaveAndResetButtonsActive(false);
+                    HandleRolesChanged(e.Character);
                     break;
                 case CharacterChangeType.Names:
                     HandleCharacterNameChanged(e.Character);
@@ -104,9 +120,7 @@ namespace SS3D.Systems.Characters.UI.View
                 case CharacterChangeType.Roles:
                     SetSaveAndResetButtonsActive(true);
                     
-                    // set clothing here
-
-                    // TODO: setup asset db for roledata and then use it here to get the name type of the fav job 
+                    HandleRolesChanged(e.Character);
                     break;
                 case CharacterChangeType.Antags:
                 case CharacterChangeType.Loadout:
@@ -114,6 +128,51 @@ namespace SS3D.Systems.Characters.UI.View
                     SetSaveAndResetButtonsActive(true);
                     break;
             }
+        }
+
+        private void HandleRolesChanged(CharacterProfile character)
+        {
+            if (!Assets.TryGet("Roles", character.FavoriteRole, out RoleData role)) return;
+            if (_currentRole == role) return;
+            _currentRole = role;
+
+            ClearClothing();
+            if (!_showClothing) return;
+            EquipRoleLoadout();
+        }
+
+        private void HandleClothingButtonPressed(bool pressed)
+        {
+            _showClothing = pressed;
+            if (_showClothing)
+            {
+                EquipRoleLoadout();
+                return;
+            }
+            ClearClothing();
+        }
+
+        private void EquipRoleLoadout()
+        {
+            RoleLoadout loadout = _currentRole.Loadout;
+
+            foreach (KeyValuePair<ContainerType, GameObject> pair in loadout.Equipment)
+            {
+                ItemVisualData data = pair.Value.GetComponent<Item>().StartingItemVisualData;
+                if (data == null) continue;
+                _previewClothing.AddItem(pair.Key, data);
+                _currentClothing.Add(pair.Key, data);
+            }
+        }
+
+        private void ClearClothing()
+        {
+            if (_currentClothing.Count == 0) return;
+            foreach (KeyValuePair<ContainerType, ItemVisualData> pair in _currentClothing)
+            {
+                _previewClothing.RemoveItem(pair.Key);
+            }
+            _currentClothing.Clear();
         }
 
         /// <summary>
@@ -136,20 +195,20 @@ namespace SS3D.Systems.Characters.UI.View
             {
                 StyleType type = (StyleType)i;
                 CustomizationSO option = Assets.Get<CustomizationSO>("Customization", character.GetStyle(type));
-                _previewCharacter.SetStyle(type, option);
+                _previewAppearance.SetStyle(type, option);
             }
 
             foreach (int i in Enum.GetValues(typeof(ColorType)))
             {
                 ColorType type = (ColorType)i;
                 if (!ColorUtility.TryParseHtmlString("#" + character.GetColor(type), out Color color)) break;
-                _previewCharacter.SetColor(type, color); 
+                _previewAppearance.SetColor(type, color); 
             }
 
             foreach (int i in Enum.GetValues(typeof(BodyType)))
             {
                 BodyType type = (BodyType)i;
-                _previewCharacter.SetBody(type, float.Parse(character.GetBody(type)));
+                _previewAppearance.SetBody(type, float.Parse(character.GetBody(type)));
                 
             }
         }

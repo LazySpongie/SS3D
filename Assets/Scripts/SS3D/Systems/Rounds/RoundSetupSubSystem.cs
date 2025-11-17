@@ -82,7 +82,7 @@ namespace SS3D.Systems.Rounds
                 InGameCharacter character = _characterSubSystem.CreateInitialCharacter(pair.Key, pair.Value.NameType);
                 if (pair.Value.IsStationCrew)
                 {
-                    _roleSubSystem.AddCharacterToCrewManifest(character, pair.Value);
+                    _roleSubSystem.AddCharacterToCrewManifest(character, pair.Value.name);
                 }
             }
             _roleSubSystem.ClearRolePlayers();
@@ -96,9 +96,9 @@ namespace SS3D.Systems.Rounds
         {
             if (_characterSubSystem.IngameCharacters.Count == 0) return;
 
-            foreach (InGameCharacter character in _characterSubSystem.IngameCharacters)
+            foreach (KeyValuePair<string, InGameCharacter> pair in _characterSubSystem.IngameCharacters)
             {
-                SpawnPlayer(character);
+                SpawnPlayer(pair.Value);
             }
 
             _characterSubSystem.ClearInitialCharacterProfiles();
@@ -108,16 +108,16 @@ namespace SS3D.Systems.Rounds
         /// Asks the server to spawn a player.
         /// </summary>
         [ServerRpc(RequireOwnership = false)]
-        public void CmdSpawnLatePlayer(Player player, NetworkConnection networkConnection = null)
+        public void CmdSpawnLatePlayer(Player player, string role)
         {
-            SpawnLatePlayer(player);
+            SpawnLatePlayer(player, role);
         }
         
         /// <summary>
         /// Spawns a player after the round has started
         /// </summary>
         [Server]
-        private void SpawnLatePlayer(Player player)
+        private void SpawnLatePlayer(Player player, string role)
         {
             InGameCharacter character = _characterSubSystem.CreateInitialCharacter(player, CharacterNameType.Normal);
 
@@ -129,7 +129,8 @@ namespace SS3D.Systems.Rounds
                 return;
             }
 
-            RoleData role = _roleSubSystem.GetOverflowRole();
+            if (role == string.Empty) role = _roleSubSystem.GetOverflowRole().name;
+            
             _roleSubSystem.AddCharacterToCrewManifest(character, role);
 
             ChatSubSystem chatSystem = SubSystems.Get<ChatSubSystem>();

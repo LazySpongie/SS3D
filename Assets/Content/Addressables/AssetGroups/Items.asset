@@ -405,6 +405,18 @@ MonoBehaviour:
     m_Address: Assets/Content/WorldObjects/Items/Clothing/Backpack.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 5dfaf008ca14cf340b1974a6d4fe13f9
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/Jumpsuit/JumpsuitJanitor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 75559ddd5a99ad94daa261a9785ba7cc
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/Jumpsuit/JumpsuitCargo.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d552aad153b037141b1712e286207d6d
+    m_Address: Assets/Content/WorldObjects/Items/Clothing/Gloves/GlovesFingerless.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ddc57d0f5f9fb874e8a26db0c5b215e0, type: 2}
   m_SchemaSet:

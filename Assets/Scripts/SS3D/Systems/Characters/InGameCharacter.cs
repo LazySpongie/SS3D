@@ -14,15 +14,17 @@ namespace SS3D.Systems.Characters
     /// </summary>
     public class InGameCharacter
     {
-
+        public string ID;
+        
         public Player Player;
 
         public string Name;
 
         public Entity Entity;
 
-        public InGameCharacter(Player player, string name)
+        public InGameCharacter(string id, Player player, string name)
         {
+            ID = id;
             Player = player;
             Name = name;
         }

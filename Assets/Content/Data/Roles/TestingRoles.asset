@@ -39,5 +39,7 @@ MonoBehaviour:
       AvailableRoles: 3
     - Data: {fileID: 11400000, guid: d2f523b59f6a6654a91516a0b74a9a8b, type: 2}
       AvailableRoles: 1
+    - Data: {fileID: 11400000, guid: 611480ed019369c4ab8fc2d672497453, type: 2}
+      AvailableRoles: 1
     - Data: {fileID: 11400000, guid: 1928692fbc0905b4195e6a72d04f474d, type: 2}
       AvailableRoles: 0

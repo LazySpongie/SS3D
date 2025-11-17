@@ -210,4 +210,10 @@ MonoBehaviour:
       _value: {fileID: 624365323667193292, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
     - _key: Backpack
       _value: {fileID: 802333698458937824, guid: ddaa28fac1956b2428aff1dac1d89707, type: 3}
+    - _key: JumpsuitJanitor
+      _value: {fileID: 8022727473289153460, guid: 5dfaf008ca14cf340b1974a6d4fe13f9, type: 3}
+    - _key: JumpsuitCargo
+      _value: {fileID: 9207457088133111348, guid: 75559ddd5a99ad94daa261a9785ba7cc, type: 3}
+    - _key: GlovesFingerless
+      _value: {fileID: 739222591386748088, guid: d552aad153b037141b1712e286207d6d, type: 3}
     _new: 

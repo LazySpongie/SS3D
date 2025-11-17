@@ -8,6 +8,7 @@ using SS3D.Data;
 using UnityEngine;
 using FishNet.Object;
 using SS3D.Systems.Characters;
+using SS3D.Systems.Inventory.Containers;
 
 namespace SS3D.Systems.Inventory.Clothing
 {
@@ -18,9 +19,11 @@ namespace SS3D.Systems.Inventory.Clothing
     public class ClothingVisualDisplayer : Actor
     {
         /// <summary>
-        /// The clothing slots an item can be displayed on.
+        /// The root containing all the clothing slots.
         /// </summary>
         [SerializeField]
+        private Transform _clothingSlotsRoot;
+
         private ClothingVisualSlot[] _clothingVisualSlots;
 
         /// <summary>
@@ -35,11 +38,34 @@ namespace SS3D.Systems.Inventory.Clothing
         [SerializeField]
         private AppearanceDisplayer _appearanceDisplayer;
 
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+            _clothingVisualSlots = _clothingSlotsRoot.GetComponentsInChildren<ClothingVisualSlot>();
+        }
+
 		/// <summary>
         /// Add an item to be displayed.
         /// </summary>
         [Client]
-        public void AddItem(ClothingSlotType clothingSlotType, string itemVisualDataName)
+        public void AddItem(ContainerType clothingSlotType, ItemVisualData itemVisualData)
+        {
+            ClothingVisualSlot newSlot = _clothingVisualSlots.
+                Where(x => x.ClothingSlotType == clothingSlotType).First();
+
+            if (newSlot.HasItem) return;
+
+            newSlot.SetItem(itemVisualData);
+
+            ClothingItemCullingData newCullingData = newSlot.CullingData;
+            AddCulling(newSlot);
+        }
+
+		/// <summary>
+        /// Add an item to be displayed.
+        /// </summary>
+        [Client]
+        public void AddItem(ContainerType clothingSlotType, string itemVisualDataName)
         {
             ClothingVisualSlot newSlot = _clothingVisualSlots.
                 Where(x => x.ClothingSlotType == clothingSlotType).First();
@@ -56,7 +82,7 @@ namespace SS3D.Systems.Inventory.Clothing
 		/// <summary>
         /// Remove an item from being displayed.
         /// </summary>
-        public void RemoveItem(ClothingSlotType clothingSlotType)
+        public void RemoveItem(ContainerType clothingSlotType)
         {
             ClothingVisualSlot oldSlot = _clothingVisualSlots.
                 Where(x => x.ClothingSlotType == clothingSlotType).First();
@@ -125,16 +151,16 @@ namespace SS3D.Systems.Inventory.Clothing
         /// </summary>
         private void SetCullingOnBodyParts(ClothingVisualSlot slot, ClothingItemCullingData cullingData, bool addCulling)
         {
-            foreach (BodyPart bodyPart in _bodyPartRoot.GetComponentsInChildren<BodyPart>())
+            foreach (BodyPartRenderer bodyPart in _bodyPartRoot.GetComponentsInChildren<BodyPartRenderer>())
             {
-                if (!cullingData.CulledBodyParts.Contains(bodyPart.BodyPartType)) continue;
+                if (!cullingData.CulledBodyParts.Contains(bodyPart.Type)) continue;
                 if (addCulling)
                 {
-                    bodyPart.GetComponent<RendererController>()?.AddCuller(slot.gameObject);
+                    bodyPart.AddCuller(slot.gameObject);
                 }
                 else
                 {
-                    bodyPart.GetComponent<RendererController>()?.RemoveCuller(slot.gameObject);
+                    bodyPart.RemoveCuller(slot.gameObject);
                 }
             }
         }

@@ -58,7 +58,7 @@ namespace SS3D.Systems.Inventory.Items
         [Header("Item visual settings")]
 
         [Tooltip("Only assign these values if this is a clothing item or needs to have its visuals changed during runtime")]
-        [SerializeField] private ItemVisualData _startingItemVisualData;
+        [SerializeField] public ItemVisualData StartingItemVisualData;
         [SerializeField] private MeshFilter _meshFilter;
         [SerializeField] private Renderer _renderer;
         [SerializeField] private MeshCollider _meshCollider;
@@ -187,7 +187,7 @@ namespace SS3D.Systems.Inventory.Items
             base.OnStart();
 
             // Set the correct visual data for the item when it is first spawned
-            SetItemVisualData(_startingItemVisualData);
+            SetItemVisualData(StartingItemVisualData);
 
             foreach (Animator animator in GetComponents<Animator>())
             {

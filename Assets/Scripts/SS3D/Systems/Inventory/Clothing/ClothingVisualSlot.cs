@@ -3,6 +3,7 @@ using SS3D.Logging;
 using SS3D.Systems.Inventory.Items;
 using FishNet.Object;
 using VisualSlot = SS3D.Systems.Characters.VisualSlot;
+using SS3D.Systems.Inventory.Containers;
 
 namespace SS3D.Systems.Inventory.Clothing
 {
@@ -14,7 +15,7 @@ namespace SS3D.Systems.Inventory.Clothing
     {
         [Tooltip("Set which clothing container in the inventory is using this slot.")]
         [SerializeField]
-        private ClothingSlotType _clothingSlotType;
+        private ContainerType _clothingSlotType;
 
         [Tooltip("If this is a right-sided slot like right glove, right shoe.")]
         [SerializeField]
@@ -48,7 +49,7 @@ namespace SS3D.Systems.Inventory.Clothing
         /// <summary>
         /// Used to connect a clothing container in the inventory to this slot
         /// </summary>
-        public ClothingSlotType ClothingSlotType => _clothingSlotType;
+        public ContainerType ClothingSlotType => _clothingSlotType;
 
         /// <summary>
         /// If this is a right-sided slot like right glove, right shoe
@@ -107,7 +108,6 @@ namespace SS3D.Systems.Inventory.Clothing
         [Client]
         private void SetClothingMesh()
         {
-            // Set mesh
             // In the future this needs to be changed to support species
             Mesh newMesh = _visualData.Human.ClothingModel;
             if (_useAltClothingModel & (_visualData.Human.AltClothingModel != null))

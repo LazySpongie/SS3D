@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3621374608712618875
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -9111137678263042396, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: key
+      value: 
+      objectReference: {fileID: 11400000, guid: 63e9dc3276fdd8443856d3b836e08882, type: 2}
+    - target: {fileID: 103447455755535710, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -8054032741553519661, guid: fd64b3952106bf846991ecfa645d5bcb, type: 3}
+    - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624365323667193137, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624365323667193292, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_Name
+      value: JumpsuitEngineer
+      objectReference: {fileID: 0}
+    - target: {fileID: 971768655071245797, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -8054032741553519661, guid: fd64b3952106bf846991ecfa645d5bcb, type: 3}
+    - target: {fileID: 1256076610048116208, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: _name
+      value: Jumpsuit Engineer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256076610048116208, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: _asset
+      value: 
+      objectReference: {fileID: 11400000, guid: c3e196c40ac645e4d840edb82a27baf9, type: 2}
+    - target: {fileID: 1256076610048116208, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: StartingItemVisualData
+      value: 
+      objectReference: {fileID: 11400000, guid: e4fcc5ce15bfd184fba4bcf22495bb8d, type: 2}
+    - target: {fileID: 1256076610048116208, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: _startingItemVisualData
+      value: 
+      objectReference: {fileID: 11400000, guid: e4fcc5ce15bfd184fba4bcf22495bb8d, type: 2}
+    - target: {fileID: 2146244375638019884, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 7310264250969126733, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+    - target: {fileID: 2527334834019670621, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 157
+      objectReference: {fileID: 0}
+    - target: {fileID: 2527334834019670621, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: <AssetPathHash>k__BackingField
+      value: 3515934936733735270
+      objectReference: {fileID: 0}
+    - target: {fileID: 2784111818396593026, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -8054032741553519661, guid: fd64b3952106bf846991ecfa645d5bcb, type: 3}
+    - target: {fileID: 7201402233169256053, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: wornMesh
+      value: 
+      objectReference: {fileID: 7310264250969126733, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+    - target: {fileID: 7201402233169256053, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: _wornMesh
+      value: 
+      objectReference: {fileID: 7310264250969126733, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+    - target: {fileID: 7201402233169256053, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}
+      propertyPath: _ClothingModel
+      value: 
+      objectReference: {fileID: 7310264250969126733, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 236b51ddc6f9aa94ca92579082370c06, type: 3}

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9b6c8ad6324c838c1743c2a2e2abc4, type: 3}
+  m_Name: Roles
+  m_EditorClassIdentifier: 
+  DatabaseName: Roles
+  AssetGroup: {fileID: 11400000, guid: 889aa88f3f7f7b342b1a9d12acf72a56, type: 2}
+  Assets:
+    _list:
+    - _key: Bartender
+      _value: {fileID: 11400000, guid: 2e87d640c74fc4f4087458037ba6478b, type: 2}
+    - _key: Clown
+      _value: {fileID: 11400000, guid: d2f523b59f6a6654a91516a0b74a9a8b, type: 2}
+    - _key: Botanist
+      _value: {fileID: 11400000, guid: b88455ab0b5c6f742993353a292f4758, type: 2}
+    - _key: Engineer
+      _value: {fileID: 11400000, guid: 238ec640ecdc5e141a9d848cfa8ee74e, type: 2}
+    - _key: ChiefEngineer
+      _value: {fileID: 11400000, guid: c9b74653f43c3d84890c6d216e25d521, type: 2}
+    - _key: SecurityOfficer
+      _value: {fileID: 11400000, guid: 7485a795dffb1c94385d7b05561d2d78, type: 2}
+    - _key: Warden
+      _value: {fileID: 11400000, guid: 51cc0fbe928f8c645bd3f2aa06b7c634, type: 2}
+    - _key: Captain
+      _value: {fileID: 11400000, guid: 575f0900e0dfe0a418bb42a372694dce, type: 2}
+    - _key: HeadOfSecurity
+      _value: {fileID: 11400000, guid: 3577296625ff10547872463b3a2410cb, type: 2}
+    - _key: Assistant
+      _value: {fileID: 11400000, guid: 1928692fbc0905b4195e6a72d04f474d, type: 2}
+    - _key: Janitor
+      _value: {fileID: 11400000, guid: 611480ed019369c4ab8fc2d672497453, type: 2}
+    _new: 

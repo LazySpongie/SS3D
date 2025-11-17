@@ -215,6 +215,7 @@ namespace SS3D.Systems.Roles
                     RoleCounter roleCounter = new RoleCounter();
 
                     roleCounter.Role = role.Data;
+                    roleCounter.Department = department.Data;
                     roleCounter.AvailableRoles = role.AvailableRoles;
                     roleCounter.roleSubSystem = this;
 
@@ -225,7 +226,7 @@ namespace SS3D.Systems.Roles
         }
 
         /// <summary>
-        /// Called by a RoleCounter, sets a player as having been assigned a role
+        /// Called by a RoleCounter during role assignment, sets a player as having been assigned a role
         /// </summary>
         [Server]
         public void AddPlayerToRole(Player player, RoleCounter rc)
@@ -238,16 +239,26 @@ namespace SS3D.Systems.Roles
             _rolePlayers.Add(player, rc.Role);
             _playersToAssign.Remove(player);
         }
-        
+
         /// <summary>
         /// Adds a character into the crew manifest
         /// </summary>
         [Server]
-        public void AddCharacterToCrewManifest(InGameCharacter character, RoleData role)
+        public void AddCharacterToCrewManifest(InGameCharacter character, string role)
         {
-            _crewManifest[role.name].AddCharacter(character);
+            _crewManifest[role].AddCharacter(character);
         }
 
+        /// <summary>
+        /// Remove a character from the crew manifest
+        /// </summary>
+        [Server]
+        public void RemoveCharacterFromCrewManifest(InGameCharacter character, RoleData role)
+        {
+            _crewManifest[role.name].RemoveCharacter(character);
+
+        }
+        
         [Server]
         public void ClearRolePlayers()
         {

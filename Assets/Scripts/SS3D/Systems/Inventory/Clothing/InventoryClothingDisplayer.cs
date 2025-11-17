@@ -53,9 +53,6 @@ namespace SS3D.Systems.Inventory.Clothing
         private void ClothingVisualSlotsOnChange(SyncListOperation op, int index, DisplayedClothing oldData, DisplayedClothing newData, bool asServer)
         {
             // if (asServer) return;
-
-            // Log.Debug(this, $"ClothingVisualSlotsOnChange");
-
             switch (op)
             {
                 // Show the new cloth on the player
@@ -79,16 +76,14 @@ namespace SS3D.Systems.Inventory.Clothing
             ClothingContainer clothingContainer = container.GetComponent<ClothingContainer>();
             if (clothingContainer == null) return;
 
-            // Log.Debug(this, $"HandleContainerContentChanged {newItem}");
-
             switch (type)
             {
                 case ContainerChangeType.Add:
-					AddClothingItem(clothingContainer.ClothingSlotType, newItem);
+					AddClothingItem(container.ContainerType, newItem);
                     break;
                     
                 case ContainerChangeType.Remove:
-					RemoveClothingItem(clothingContainer.ClothingSlotType, oldItem);
+					RemoveClothingItem(container.ContainerType, oldItem);
                     break;
             }
         }
@@ -97,7 +92,7 @@ namespace SS3D.Systems.Inventory.Clothing
         /// Adds an item to be displayed.
         /// </summary>
         [Server]
-        private void AddClothingItem(ClothingSlotType clothingSlotType, Item item)
+        private void AddClothingItem(ContainerType clothingSlotType, Item item)
         {
             if (item == null || item.ItemVisualData == null) return;
 
@@ -111,7 +106,7 @@ namespace SS3D.Systems.Inventory.Clothing
         /// Removes an item from being displayed.
         /// </summary>
         [Server]
-        private void RemoveClothingItem(ClothingSlotType clothingSlotType, Item item)
+        private void RemoveClothingItem(ContainerType clothingSlotType, Item item)
         {
             if (item == null) return;
 
