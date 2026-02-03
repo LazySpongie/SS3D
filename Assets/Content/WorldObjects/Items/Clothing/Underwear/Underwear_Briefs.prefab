@@ -80,6 +80,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: f3bb5f3f63d41ae49b76c228da8a5f7a, type: 2}
     - target: {fileID: 5213610327451442621, guid: ecf20fce33ec6c044a07ff731e6dca4c, type: 3}
+      propertyPath: _startingClothingVisual
+      value: 
+      objectReference: {fileID: 11400000, guid: f3bb5f3f63d41ae49b76c228da8a5f7a, type: 2}
+    - target: {fileID: 5213610327451442621, guid: ecf20fce33ec6c044a07ff731e6dca4c, type: 3}
       propertyPath: _startingItemVisualData
       value: 
       objectReference: {fileID: 11400000, guid: f3bb5f3f63d41ae49b76c228da8a5f7a, type: 2}

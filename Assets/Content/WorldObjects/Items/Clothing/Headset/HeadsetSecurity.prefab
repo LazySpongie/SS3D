@@ -120,6 +120,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: e41245574cb7ec5448dea813a8e9684f, type: 2}
     - target: {fileID: 8996871635369454886, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
+      propertyPath: _startingClothingVisual
+      value: 
+      objectReference: {fileID: 11400000, guid: e41245574cb7ec5448dea813a8e9684f, type: 2}
+    - target: {fileID: 8996871635369454886, guid: f549f4153ef612c4586c46ea280e0e94, type: 3}
       propertyPath: _startingTraits.Array.size
       value: 3
       objectReference: {fileID: 0}

@@ -332,7 +332,7 @@ namespace SS3D.Systems.Roles
             IDCard idCard = (IDCard)idCardItem;
 
             // Set up ID Card data
-            idCard.OwnerName = entity.GetComponent<UniqueIdentifiers>().Name;
+            idCard.OwnerName = entity.GetComponent<CharacterIdentity>().Name;
 
             idCard.RoleName = role.Name;
 

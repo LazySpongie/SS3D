@@ -6,7 +6,7 @@ using SS3D.Core.Behaviours;
 using SS3D.Systems.Characters;
 using UnityEngine.EventSystems;
 
-public class ColorPickerControl : Actor, IPointerClickHandler
+public class ColorPickerControl : Actor
 {
     public delegate void ColorPickerValueChanged(ColorType type,Color color);
 
@@ -149,23 +149,5 @@ public class ColorPickerControl : Actor, IPointerClickHandler
             }
         }
         _svTex.Apply();
-    }
-
-    public void OnPointerClick(PointerEventData e)
-    {
-        // get position in local space to rect
-        Vector3 pos = RectTransform.InverseTransformPoint(e.position);
-
-        // the size of the rect
-        float deltaX = RectTransform.sizeDelta.x / 2;
-        float deltaY = RectTransform.sizeDelta.y / 2;
-
-        bool insideX = pos.x >= -deltaX && pos.x <= deltaX;
-        bool insideY = pos.y >= -deltaY && pos.y <= deltaY;
-
-        if (!insideX || !insideY)
-        {
-            SetActive(false);
-        }
     }
 }

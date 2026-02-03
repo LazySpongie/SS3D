@@ -165,7 +165,7 @@ namespace SS3D.Systems.Entities
         /// </summary>
         /// <param name="playerUnique user object</param>
         [Server]
-        public Entity SpawnPlayer(Player player)
+        public Entity SpawnPlayer(Player player, InGameCharacter character)
         {
             MindSubSystem mindSystem = SubSystems.Get<MindSubSystem>();
             mindSystem.TryCreateMind(player, out Mind createdMind);
@@ -175,6 +175,8 @@ namespace SS3D.Systems.Entities
 
             createdMind.SetPlayer(player);
             entity.SetMind(createdMind);
+            
+            entity.SetCharacter(character);
 
             _spawnedPlayers.Add(entity);
 

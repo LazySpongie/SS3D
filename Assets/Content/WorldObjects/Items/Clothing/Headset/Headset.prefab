@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 6270372984438359393}
   - component: {fileID: 8996871635369454886}
   - component: {fileID: 8013759367116360982}
-  - component: {fileID: 2090621500076283417}
   - component: {fileID: 8441192822712758048}
   - component: {fileID: -4941665925011774811}
   m_Layer: 10
@@ -206,8 +205,8 @@ MonoBehaviour:
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -227,7 +226,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7723921361698481624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf76e303c1b57ae4ebbf08dab5bbddc2, type: 3}
+  m_Script: {fileID: 11500000, guid: 70ca2cd3fbc380847bf7756c3d82f451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 1
@@ -241,7 +240,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5f051f2619c7c6a41938d7c2ac95c921, type: 2}
   - {fileID: 11400000, guid: 921240e0c27686d4eaf2ff761944c5eb, type: 2}
   _rigidbody: {fileID: 6277089716624455366}
-  StartingItemVisualData: {fileID: 11400000, guid: 91a451617245cab4b8d88777b15100e4, type: 2}
+  _startingItemVisual: {fileID: 0}
   _meshFilter: {fileID: 4761919558556035364}
   _renderer: {fileID: 5663491536549661024}
   _meshCollider: {fileID: 8013759367116360982}
@@ -250,6 +249,9 @@ MonoBehaviour:
   _currentItemVisualState: 0
   _currentItemVisualName: 
   _container: {fileID: 0}
+  _startingClothingVisual: {fileID: 11400000, guid: 91a451617245cab4b8d88777b15100e4, type: 2}
+  _hidesIdentity: 0
+  _currentClothingVisualName: 
 --- !u!64 &8013759367116360982
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -264,18 +266,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7538617259321099598, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
---- !u!114 &2090621500076283417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7723921361698481624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac42f7f6bb00ec44dbe827d0faf7fd62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8441192822712758048
 MonoBehaviour:
   m_ObjectHideFlags: 0

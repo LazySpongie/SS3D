@@ -10,6 +10,7 @@ using SS3D.Systems.Health;
 using SS3D.Systems.Interactions;
 using SS3D.Systems.Inventory.Containers;
 using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 namespace SS3D.Systems.Entities
 {
@@ -31,12 +32,6 @@ namespace SS3D.Systems.Entities
         
         private InGameCharacter _character;
 
-        public InGameCharacter Character
-        {
-            get => _character;
-            set => _character = value;
-        }
-
         public Mind Mind
         {
             get => _mind;
@@ -44,6 +39,16 @@ namespace SS3D.Systems.Entities
         }
 
         public string Ckey => _mind.player.Ckey;
+
+        public InGameCharacter Character
+        {
+            get => _character;
+            set => _character = value;
+        }
+
+        public int CharacterID => _character.ID;
+
+        public string CharacterName => _character.Name;
 
         protected override void OnStart()
         {
@@ -110,6 +115,16 @@ namespace SS3D.Systems.Entities
             GiveOwnership(mind.Owner);
         }
 
+        /// <summary>
+        /// Updates the character assigned to this entity.
+        /// </summary>
+        /// <param name="mind">The new character.</param>
+        [Server]
+        public void SetCharacter(InGameCharacter character)
+        {
+            _character = character;
+        }
+
 		public virtual void Kill()
 		{
 			throw new NotImplementedException();
@@ -119,5 +134,6 @@ namespace SS3D.Systems.Entities
         {
             throw new NotImplementedException();
         }
+
     }
 }

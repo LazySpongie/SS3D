@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 8042177759870946059}
   - component: {fileID: 2527334834019670621}
   - component: {fileID: 1256076610048116208}
-  - component: {fileID: 7201402233169256053}
   - component: {fileID: 173897779263585381}
   - component: {fileID: -9111137678263042396}
   - component: {fileID: -2432117758743867913}
@@ -194,8 +193,8 @@ MonoBehaviour:
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -215,7 +214,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 624365323667193292}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf76e303c1b57ae4ebbf08dab5bbddc2, type: 3}
+  m_Script: {fileID: 11500000, guid: 70ca2cd3fbc380847bf7756c3d82f451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 1
@@ -227,7 +226,7 @@ MonoBehaviour:
   _startingTraits:
   - {fileID: 11400000, guid: 9fce2bd65c51b5b40ad2346bedb63121, type: 2}
   _rigidbody: {fileID: 6375350292960470613}
-  StartingItemVisualData: {fileID: 11400000, guid: 742392461d817f64bb0ac5dd86738817, type: 2}
+  _startingItemVisual: {fileID: 0}
   _meshFilter: {fileID: 103447455755535710}
   _renderer: {fileID: 3198500825794263964}
   _meshCollider: {fileID: 2784111818396593026}
@@ -236,18 +235,9 @@ MonoBehaviour:
   _currentItemVisualState: 0
   _currentItemVisualName: 
   _container: {fileID: 0}
---- !u!114 &7201402233169256053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624365323667193292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac42f7f6bb00ec44dbe827d0faf7fd62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _startingClothingVisual: {fileID: 11400000, guid: 742392461d817f64bb0ac5dd86738817, type: 2}
+  _hidesIdentity: 0
+  _currentClothingVisualName: 
 --- !u!114 &173897779263585381
 MonoBehaviour:
   m_ObjectHideFlags: 0

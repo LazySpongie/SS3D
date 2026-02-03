@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: -3359041045153695440}
   - component: {fileID: -1921154974467191097}
   - component: {fileID: -1938953542191470901}
-  - component: {fileID: 1629795439574854430}
   - component: {fileID: 5067584742411346480}
   m_Layer: 10
   m_Name: Underwear_Tshirt
@@ -219,8 +218,8 @@ MonoBehaviour:
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -240,7 +239,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2601952054522247362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf76e303c1b57ae4ebbf08dab5bbddc2, type: 3}
+  m_Script: {fileID: 11500000, guid: 70ca2cd3fbc380847bf7756c3d82f451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 1
@@ -252,7 +251,7 @@ MonoBehaviour:
   _startingTraits:
   - {fileID: 11400000, guid: 5162c84502115894abb92f9242f16663, type: 2}
   _rigidbody: {fileID: 950155378762729286}
-  StartingItemVisualData: {fileID: 11400000, guid: c2a000bd3183cc144838295bd75db8fc, type: 2}
+  _startingItemVisual: {fileID: 0}
   _meshFilter: {fileID: 4961538390409228241}
   _renderer: {fileID: 4767056444458723069}
   _meshCollider: {fileID: 4049302817993054162}
@@ -261,18 +260,9 @@ MonoBehaviour:
   _currentItemVisualState: 0
   _currentItemVisualName: 
   _container: {fileID: 0}
---- !u!114 &1629795439574854430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2601952054522247362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac42f7f6bb00ec44dbe827d0faf7fd62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _startingClothingVisual: {fileID: 11400000, guid: c2a000bd3183cc144838295bd75db8fc, type: 2}
+  _hidesIdentity: 0
+  _currentClothingVisualName: 
 --- !u!114 &5067584742411346480
 MonoBehaviour:
   m_ObjectHideFlags: 0

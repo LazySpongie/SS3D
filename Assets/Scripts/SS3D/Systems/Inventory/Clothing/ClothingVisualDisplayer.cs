@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using SS3D.Core.Behaviours;
 using SS3D.Logging;
-using SS3D.Systems.Inventory.Items;
 using SS3D.Systems.Health;
 using SS3D.Data;
 using UnityEngine;
@@ -38,6 +36,7 @@ namespace SS3D.Systems.Inventory.Clothing
         [SerializeField]
         private AppearanceDisplayer _appearanceDisplayer;
 
+        [Client]
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -48,59 +47,67 @@ namespace SS3D.Systems.Inventory.Clothing
         /// Add an item to be displayed.
         /// </summary>
         [Client]
-        public void AddItem(ContainerType clothingSlotType, ItemVisualData itemVisualData)
+        public void AddItem(ContainerType clothingSlotType, ClothingVisualData clothingVisual)
         {
-            ClothingVisualSlot newSlot = _clothingVisualSlots.
-                Where(x => x.ClothingSlotType == clothingSlotType).First();
+            ClothingVisualSlot slot = GetSlotFromContainerType(clothingSlotType);
 
-            if (newSlot.HasItem) return;
-
-            newSlot.SetItem(itemVisualData);
-
-            ClothingItemCullingData newCullingData = newSlot.CullingData;
-            AddCulling(newSlot);
+            AddVisualToSlot(slot, clothingVisual);
         }
 
 		/// <summary>
         /// Add an item to be displayed.
         /// </summary>
         [Client]
-        public void AddItem(ContainerType clothingSlotType, string itemVisualDataName)
+        public void AddItem(ContainerType clothingSlotType, string visualName)
         {
-            ClothingVisualSlot newSlot = _clothingVisualSlots.
-                Where(x => x.ClothingSlotType == clothingSlotType).First();
+            ClothingVisualSlot slot = GetSlotFromContainerType(clothingSlotType);
 
-            if (newSlot.HasItem) return;
+            ClothingVisualData clothingVisual = Assets.Get<ClothingVisualData>("Clothing", visualName);
 
-            ItemVisualData ItemVisualData = Assets.Get<ItemVisualData>("ItemVisuals", itemVisualDataName);
-            newSlot.SetItem(ItemVisualData);
+            if (clothingVisual == null) 
+            {
+                Log.Error(this, $"Clothing Visual Asset {visualName} is not found in the database.");
+                return;
+            }
 
-            ClothingItemCullingData newCullingData = newSlot.CullingData;
-            AddCulling(newSlot);
+            AddVisualToSlot(slot, clothingVisual);
         }
 
 		/// <summary>
         /// Remove an item from being displayed.
         /// </summary>
+        [Client]
         public void RemoveItem(ContainerType clothingSlotType)
         {
             ClothingVisualSlot oldSlot = _clothingVisualSlots.
-                Where(x => x.ClothingSlotType == clothingSlotType).First();
+                First(x => x.ClothingSlotType == clothingSlotType);
 
             if (!oldSlot.HasItem) return;
 
-            ClothingItemCullingData oldCullingData = oldSlot.CullingData;
+            ClothingCullingData oldCullingData = oldSlot.CullingData;
             RemoveCulling(oldSlot);
 
             oldSlot.RemoveItem();
         }
 
+		/// <summary>
+        /// Displays a clothing visual in a slot.
+        /// </summary>
+        [Client]
+        private void AddVisualToSlot(ClothingVisualSlot slot, ClothingVisualData clothingVisual)
+        {
+            if (slot.HasItem) return;
+            slot.SetItem(clothingVisual);
+            AddCulling(slot);
+        }
+
         /// <summary>
         /// Use culling data provided by the item to set certain clothing slots invisible when equipped
         /// </summary>
+        [Client]
         private void AddCulling(ClothingVisualSlot slot)
         {
-            ClothingItemCullingData cullingData = slot.CullingData;
+            ClothingCullingData cullingData = slot.CullingData;
             if (cullingData == null) return;
 
             SetCullingOnClothingVisualSlots(slot, cullingData, true);
@@ -113,9 +120,10 @@ namespace SS3D.Systems.Inventory.Clothing
 		/// <summary>
         /// Use culling data provided by the item to set certain clothing slots visible when unequipped
         /// </summary>
+        [Client]
         private void RemoveCulling(ClothingVisualSlot slot)
         {
-            ClothingItemCullingData cullingData = slot.CullingData;
+            ClothingCullingData cullingData = slot.CullingData;
             if (cullingData == null) return;
 
             SetCullingOnClothingVisualSlots(slot, cullingData, false);
@@ -128,7 +136,8 @@ namespace SS3D.Systems.Inventory.Clothing
         /// <summary>
         /// Get a body part that is referenced in the given culling data
         /// </summary>
-        private void SetCullingOnClothingVisualSlots(ClothingVisualSlot slot, ClothingItemCullingData cullingData, bool addCulling)
+        [Client]
+        private void SetCullingOnClothingVisualSlots(ClothingVisualSlot slot, ClothingCullingData cullingData, bool addCulling)
         {
             foreach (ClothingVisualSlot clothingVisualSlot in _clothingVisualSlots)
             {
@@ -149,7 +158,8 @@ namespace SS3D.Systems.Inventory.Clothing
         /// <summary>
         /// Get a body part that is referenced in the given culling data
         /// </summary>
-        private void SetCullingOnBodyParts(ClothingVisualSlot slot, ClothingItemCullingData cullingData, bool addCulling)
+        [Client]
+        private void SetCullingOnBodyParts(ClothingVisualSlot slot, ClothingCullingData cullingData, bool addCulling)
         {
             foreach (BodyPartRenderer bodyPart in _bodyPartRoot.GetComponentsInChildren<BodyPartRenderer>())
             {
@@ -168,9 +178,20 @@ namespace SS3D.Systems.Inventory.Clothing
         /// <summary>
         /// Set culling on hairstyles
         /// </summary>
-        private void SetCullingOnAppearance(ClothingVisualSlot slot, ClothingItemCullingData cullingData, bool addCulling)
+        [Client]
+        private void SetCullingOnAppearance(ClothingVisualSlot slot, ClothingCullingData cullingData, bool addCulling)
         {
             _appearanceDisplayer?.SetCullingOnAppearance(slot.gameObject, cullingData, addCulling);
+        }
+
+		/// <summary>
+        /// Get a ClothingVisualSlot from a ContainerType.
+        /// </summary>
+        [Client]
+        private ClothingVisualSlot GetSlotFromContainerType(ContainerType clothingSlotType)
+        {
+            return _clothingVisualSlots.
+                First(x => x.ClothingSlotType == clothingSlotType);
         }
 
     }

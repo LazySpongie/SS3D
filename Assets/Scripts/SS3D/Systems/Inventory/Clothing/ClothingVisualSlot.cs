@@ -24,22 +24,22 @@ namespace SS3D.Systems.Inventory.Clothing
         /// <summary>
         /// ClothingItemVisualData used in this slot
         /// </summary>
-        private ClothingItemVisualData _visualData;
+        private ClothingVisualData _visualData;
 
         /// <summary>
         /// ClothingItemCullingData used by this item
         /// </summary>
-        private ClothingItemCullingData _cullingData;
+        private ClothingCullingData _cullingData;
 
         /// <summary>
         /// ClothingItemVisualData used in this slot
         /// </summary>
-        public ClothingItemVisualData VisualData => _visualData;
+        public ClothingVisualData VisualData => _visualData;
 
         /// <summary>
         /// ClothingItemCullingData used by this item
         /// </summary>
-        public ClothingItemCullingData CullingData => _cullingData;
+        public ClothingCullingData CullingData => _cullingData;
 
         /// <summary>
         /// If there is an item displayed in this slot
@@ -60,9 +60,9 @@ namespace SS3D.Systems.Inventory.Clothing
         /// Assign a clothing item to be displayed on this slot.
         /// </summary>
         [Client]
-        public void SetItem(ItemVisualData data)
+        public void SetItem(ClothingVisualData data)
         {
-            SetupVisualData(data);
+            _visualData = data;
             SetupItem();
         }
 
@@ -76,18 +76,6 @@ namespace SS3D.Systems.Inventory.Clothing
             _cullingData = null;
             RemoveClothingMesh();
             RendererController.SetHidden(true);
-        }
-
-        [Client]
-        private void SetupVisualData(ItemVisualData data)
-        {
-            if (data is not ClothingItemVisualData visualData)
-            {
-                Log.Warning(this, $" {data} is not ClothingItemVisualData, can't display cloth");
-                _visualData = null;
-                return;
-            }
-            _visualData = visualData;
         }
 
         /// <summary>
@@ -139,7 +127,7 @@ namespace SS3D.Systems.Inventory.Clothing
         private void SetClothingCullingData()
         {
             // Gloves need to hide the correct hand
-            ClothingItemCullingData cullingData = _visualData.CullingData;
+            ClothingCullingData cullingData = _visualData.CullingData;
             if (_useAltClothingModel & _visualData.AltCullingData != null)
             {
                 cullingData = _visualData.AltCullingData;

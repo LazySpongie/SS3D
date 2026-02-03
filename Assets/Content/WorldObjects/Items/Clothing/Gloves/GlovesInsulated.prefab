@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 6699414010407460003}
   - component: {fileID: 983871327887632920}
   - component: {fileID: 7046697311282802607}
-  - component: {fileID: 1800983282104358070}
   - component: {fileID: 3597852928683333302}
   - component: {fileID: -6223424678199867131}
   m_Layer: 10
@@ -196,7 +195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 739222591386748088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf76e303c1b57ae4ebbf08dab5bbddc2, type: 3}
+  m_Script: {fileID: 11500000, guid: 70ca2cd3fbc380847bf7756c3d82f451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 1
@@ -209,7 +208,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 901be8d20f1f0f24181cc992dfd362ae, type: 2}
   - {fileID: 11400000, guid: 6dc4b6b828749aa49aa1f52e147f2003, type: 2}
   _rigidbody: {fileID: 3769749030059213346}
-  StartingItemVisualData: {fileID: 11400000, guid: 2283a0ea4093fa649876311fb09dcc4c, type: 2}
+  _startingItemVisual: {fileID: 0}
   _meshFilter: {fileID: 739222591386748102}
   _renderer: {fileID: 739222591386748089}
   _meshCollider: {fileID: 7046697311282802607}
@@ -218,6 +217,9 @@ MonoBehaviour:
   _currentItemVisualState: 0
   _currentItemVisualName: 
   _container: {fileID: 0}
+  _startingClothingVisual: {fileID: 11400000, guid: 2283a0ea4093fa649876311fb09dcc4c, type: 2}
+  _hidesIdentity: 0
+  _currentClothingVisualName: 
 --- !u!64 &7046697311282802607
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -232,18 +234,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8786829411053318343, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
---- !u!114 &1800983282104358070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 739222591386748088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac42f7f6bb00ec44dbe827d0faf7fd62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3597852928683333302
 MonoBehaviour:
   m_ObjectHideFlags: 0

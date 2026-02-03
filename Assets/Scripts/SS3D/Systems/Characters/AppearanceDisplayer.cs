@@ -201,7 +201,7 @@ namespace SS3D.Systems.Characters
         /// Set culling on hair
         /// </summary>
         [Client]
-        public void SetCullingOnAppearance(GameObject culler, ClothingItemCullingData cullingData, bool addCulling)
+        public void SetCullingOnAppearance(GameObject culler, ClothingCullingData cullingData, bool addCulling)
         {
 
             BlendShape[] blends = { };

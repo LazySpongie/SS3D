@@ -20,9 +20,11 @@ namespace SS3D.Systems.Characters
     {
         private Dictionary<Player, CharacterProfile> _initialCharacterProfiles = new();
 
-        private Dictionary<string, InGameCharacter> _ingameCharacters = new();
+        private Dictionary<int, InGameCharacter> _ingameCharacters = new();
 
-        public ReadOnlyDictionary<string, InGameCharacter> IngameCharacters => new ReadOnlyDictionary<string, InGameCharacter>(_ingameCharacters);
+        private int _nextCharacterID = 1;
+
+        public ReadOnlyDictionary<int, InGameCharacter> IngameCharacters => new(_ingameCharacters);
 
         public Dictionary<Player, CharacterProfile> InitialCharacterProfiles => _initialCharacterProfiles;
 
@@ -75,12 +77,8 @@ namespace SS3D.Systems.Characters
             }
 
             // create unique id
-            string id;
-            while (true)
-            {
-                id = name + "(" + Random.Range(0, 999) + ")";
-                if (!_ingameCharacters.ContainsKey(id)) break;
-            }
+            int id = _nextCharacterID;
+            _nextCharacterID++;
 
             InGameCharacter character = new(id, player, name);
             _ingameCharacters.Add(id, character);
@@ -104,12 +102,19 @@ namespace SS3D.Systems.Characters
 
             entity.Character = character;
             character.Entity = entity;
+            
+            CharacterIdentity identity = entity.GetComponent<CharacterIdentity>();
+            if (identity != null)
+            {
+                identity.SetName(character.Name);
+                identity.SetFlavorText(profile.FlavorText);
+            }
 
-            UniqueIdentifiers uid = entity.GetComponent<UniqueIdentifiers>();
-            if (uid == null) return;
-
-            uid.SetAppearanceFromProfile(profile);
-            uid.SetName(character.Name);
+            CharacterAppearance appearance = entity.GetComponent<CharacterAppearance>();
+            if (appearance != null)
+            {
+                appearance.SetAppearanceFromProfile(profile);
+            }
 
             Log.Information(this, "Added character " + character.Name + " to player " + entity.Ckey);
 

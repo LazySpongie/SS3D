@@ -18,6 +18,7 @@ using FishNet.Object.Synchronizing;
 using System.ComponentModel;
 using static UnityEngine.GraphicsBuffer;
 using SS3D.Systems.Interactions;
+using SS3D.Systems.Inventory.Items.Generic;
 
 namespace SS3D.Systems.Inventory.Containers
 {
@@ -73,8 +74,8 @@ namespace SS3D.Systems.Inventory.Containers
         /// <summary>
         /// Try to get a particular type of container in the inventory, and if there's multiple, try to get the one at the given position.
         /// </summary>
-        /// <param name="position">The position of the container for a given type, if there's two pocket containers, it'd be 0 and 1</param>
         /// <param name="type"> The container we want back.</param>
+        /// <param name="position">The position of the container for a given type, if there's two pocket containers, it'd be 0 and 1</param>
         /// <returns></returns>
         public bool TryGetTypeContainer(ContainerType type, int position, out AttachedContainer typeContainer) 
         {
@@ -385,15 +386,25 @@ namespace SS3D.Systems.Inventory.Containers
         }
 
 
-        public bool HasPermission(IDPermission permission)
+        public IDCard GetIDCard()
         {
             // This check only in the first identification containers, if there's multiple and the id is not in the first one it won't work.
-            if(!TryGetTypeContainer(ContainerType.Identification, 0, out AttachedContainer IDContainer))
+            if (!TryGetTypeContainer(ContainerType.Identification, 0, out AttachedContainer IDContainer))
             {
-                return false;
+                return null;
             }
 
-            IIdentification id = IDContainer.Items.FirstOrDefault() as IIdentification;
+            IDCard id = IDContainer.Items.FirstOrDefault() as IDCard;
+            if (id == null)
+            {
+                return null;
+            }
+            return id;
+        }
+
+        public bool HasPermission(IDPermission permission)
+        {
+            IIdentification id = GetIDCard();
             if (id == null)
             {
                 return false;

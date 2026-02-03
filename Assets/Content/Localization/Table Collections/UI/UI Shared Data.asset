@@ -72,7 +72,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 410727601836032
-    m_Key: text_character_name
+    m_Key: text_announce_character_name
     m_Metadata:
       m_Items: []
   - m_Id: 410784623398912
@@ -109,6 +109,214 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 741247078535168
     m_Key: Ended
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165346426571079680
+    m_Key: text_late_join
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165347496760328192
+    m_Key: text_roles_available
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165347982762721280
+    m_Key: text_current_roles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165362009383518208
+    m_Key: text_characters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165368956010774528
+    m_Key: button_back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369009249075200
+    m_Key: button_save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369045013905408
+    m_Key: button_reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369637459345408
+    m_Key: tab_clothing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369666496512000
+    m_Key: tab_loadout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369715427262464
+    m_Key: tab_character
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369728815480832
+    m_Key: tab_appearance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369748432240640
+    m_Key: tab_roles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369795978870784
+    m_Key: text_identity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369809304174592
+    m_Key: text_records
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369838601388032
+    m_Key: text_styles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369864673181696
+    m_Key: text_body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369883807596544
+    m_Key: text_colors
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370003714359296
+    m_Key: text_character_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370302604656640
+    m_Key: text_character_setup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370508343656448
+    m_Key: text_flavor_text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370658831089664
+    m_Key: text_special_names
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370915459579904
+    m_Key: text_height
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370940822536192
+    m_Key: text_belly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370953107652608
+    m_Key: text_upperbody
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370973592633344
+    m_Key: text_lowerbody
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371002935984128
+    m_Key: text_chest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371021852295168
+    m_Key: text_waist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371037048258560
+    m_Key: text_jaw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371049115271168
+    m_Key: text_skintone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371069453451264
+    m_Key: text_hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371079175847936
+    m_Key: text_eyes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371094640246784
+    m_Key: text_facial_hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371127871717376
+    m_Key: text_eyebrows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371206280036352
+    m_Key: text_search
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371230875435008
+    m_Key: text_random_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371336085356544
+    m_Key: text_jobs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371348659879936
+    m_Key: text_antags
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371362790490112
+    m_Key: text_job_unavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371608710922240
+    m_Key: text_stay_lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371649378893824
+    m_Key: text_spawn_assistant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372197125636096
+    m_Key: priority_never
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372248711380992
+    m_Key: priority_low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372250997276672
+    m_Key: priority_medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372251773222912
+    m_Key: priority_high
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372252393979904
+    m_Key: priority_always
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372536511938560
+    m_Key: button_close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372776312881152
+    m_Key: priority_banned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372815089221632
+    m_Key: priority_locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165391682603728896
+    m_Key: text_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165392513101086720
+    m_Key: text_flavor_text_placeholder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165396732117925888
+    m_Key: text_color_picker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165402355303858176
+    m_Key: button_edit_character
     m_Metadata:
       m_Items: []
   m_Metadata:

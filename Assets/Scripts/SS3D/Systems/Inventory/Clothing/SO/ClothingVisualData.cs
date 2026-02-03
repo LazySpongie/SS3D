@@ -8,9 +8,12 @@ namespace SS3D.Systems.Inventory.Clothing
     /// <summary>
     /// Data for clothing items to decide what models are shown on the player as well as what bodyparts will be hidden
     /// </summary>
-    [CreateAssetMenu(menuName = "Inventory/Items/ClothingItemVisualData", fileName = "ClothingItemVisualData")]
-    public class ClothingItemVisualData : ItemVisualData
+    [CreateAssetMenu(menuName = "Inventory/Items/ClothingVisualData", fileName = "ClothingVisualData")]
+    public class ClothingVisualData : ScriptableObject
     {
+        [Header("Materials")]
+        public Material[] Materials;
+
         [Header("Clothing Models")]
         public SpeciesClothingData Human;
 
@@ -18,10 +21,10 @@ namespace SS3D.Systems.Inventory.Clothing
 
         [Header("Culling")]
         [Tooltip("Clothing and bodyparts that should be hidden when this is worn.")]
-        public ClothingItemCullingData CullingData;
+        public ClothingCullingData CullingData;
         
         [Tooltip("Right handed culling data for shoes, headsets, gloves.")]
-        public ClothingItemCullingData AltCullingData;
+        public ClothingCullingData AltCullingData;
 
         /// <summary>
         /// Struct used to hold meshes for a particular species.

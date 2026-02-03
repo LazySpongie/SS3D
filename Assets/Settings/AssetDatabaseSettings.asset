@@ -15,6 +15,7 @@ MonoBehaviour:
   _preload: 1
   _type: 2
   IncludedAssetDatabases:
+  - {fileID: 11400000, guid: ab2aad229eb5e1748a192e0fe2fce071, type: 2}
   - {fileID: 11400000, guid: c8a3b9b514b2f7543a544259c3c97b81, type: 2}
   - {fileID: 11400000, guid: 9431812f545f40a44b804134163e597b, type: 2}
   - {fileID: 11400000, guid: cdf9511d9049fa14ab0433934f3537ec, type: 2}

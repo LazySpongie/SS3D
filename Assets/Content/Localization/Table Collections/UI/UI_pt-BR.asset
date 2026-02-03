@@ -47,7 +47,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 401583121534976
-    m_Localized: <sprite name="embark"> Embarcar
+    m_Localized: Embarcar
     m_Metadata:
       m_Items: []
   - m_Id: 401253960945664
@@ -75,7 +75,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 410727601836032
-    m_Localized: Nome do personagem
+    m_Localized: '{name}'
     m_Metadata:
       m_Items: []
   - m_Id: 410784623398912
@@ -112,6 +112,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 741247078535168
     m_Localized: Terminou
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370003714359296
+    m_Localized: '{name}'
     m_Metadata:
       m_Items: []
   references:

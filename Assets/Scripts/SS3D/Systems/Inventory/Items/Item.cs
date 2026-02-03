@@ -57,10 +57,16 @@ namespace SS3D.Systems.Inventory.Items
         
         [Header("Item visual settings")]
 
-        [Tooltip("Only assign these values if this is a clothing item or needs to have its visuals changed during runtime")]
-        [SerializeField] public ItemVisualData StartingItemVisualData;
+        [Tooltip("Only used if this item needs its appearance changed during runtime")]
+        [SerializeField] private ItemVisualData _startingItemVisual;
+
+        [Tooltip("Only used if this item needs its appearance changed during runtime")]
         [SerializeField] private MeshFilter _meshFilter;
+
+        [Tooltip("Only used if this item needs its appearance changed during runtime")]
         [SerializeField] private Renderer _renderer;
+
+        [Tooltip("Only used if this item needs its appearance changed during runtime")]
         [SerializeField] private MeshCollider _meshCollider;
 
         private Sprite _sprite;
@@ -84,7 +90,7 @@ namespace SS3D.Systems.Inventory.Items
         /// The visual data assigned to this item
         /// TODO: CHANGE THIS ITS NOT NETWORKED!!!!
         /// </summary>
-        private ItemVisualData _currentItemVisualData;
+        private ItemVisualData _currentItemVisual;
         
         /// <summary>
         /// Name of the current visual data so it can be networked
@@ -110,7 +116,7 @@ namespace SS3D.Systems.Inventory.Items
         /// <summary>
         /// The visual data assigned to this item
         /// </summary>
-        public ItemVisualData ItemVisualData => _currentItemVisualData;
+        public ItemVisualData ItemVisual => _currentItemVisual;
         
         public ReadOnlyCollection<Trait> Traits => ((List<Trait>)_traits.Collection).AsReadOnly();
 
@@ -187,7 +193,7 @@ namespace SS3D.Systems.Inventory.Items
             base.OnStart();
 
             // Set the correct visual data for the item when it is first spawned
-            SetItemVisualData(StartingItemVisualData);
+            SetItemVisualData(_startingItemVisual);
 
             foreach (Animator animator in GetComponents<Animator>())
             {
@@ -398,13 +404,13 @@ namespace SS3D.Systems.Inventory.Items
         /// </summary>
         private void UpdateItemModel(bool asServer)
         {
-            if (_currentItemVisualData == null || _currentItemVisualData.DefaultModel == null) return;
+            if (_currentItemVisual == null || _currentItemVisual.DefaultModel == null) return;
 
-            Mesh newMesh = _currentItemVisualData.DefaultModel;
+            Mesh newMesh = _currentItemVisual.DefaultModel;
             switch (_currentItemVisualState)
             {
                 case ItemVisualState.Hand:
-                    if (_currentItemVisualData.HandModel) newMesh = _currentItemVisualData.HandModel;
+                    if (_currentItemVisual.HandModel) newMesh = _currentItemVisual.HandModel;
                     break;
             }
 
@@ -415,7 +421,7 @@ namespace SS3D.Systems.Inventory.Items
             _meshFilter.sharedMesh = newMesh;
 
             // This will need to be changed to the instanced materials of the item later
-            _renderer.materials = _currentItemVisualData.Materials;
+            _renderer.materials = _currentItemVisual.Materials;
         }
 
         /// <summary>
@@ -437,27 +443,13 @@ namespace SS3D.Systems.Inventory.Items
         /// </summary>
         private void SyncItemVisualData(string oldName, string newName, bool asServer)
         {
-            ItemVisualData oldData = _currentItemVisualData;
+            ItemVisualData oldData = _currentItemVisual;
 
-            _currentItemVisualData = Assets.Get<ItemVisualData>("ItemVisuals", newName);
+            _currentItemVisual = Assets.Get<ItemVisualData>("ItemVisuals", newName);
 
             UpdateItemModel(asServer);
-
-            RefreshItemVisual();
         }
 
-        /// <summary>
-        /// Re-add the item to its container to refresh the visuals for worn clothing items.
-        /// </summary>
-        [Server]
-        private void RefreshItemVisual()
-        {
-            if (!_container) return; 
-
-            // This is jank as fuck but removing and readding the item to the container is the easiest way to refresh clothing
-            _container?.TransferItemToOther(this, _container.PositionOf(this), _container);
-        }
-        
         // Generate preview of the same object, but without stored items.
         [ServerOrClient]
         public Sprite GenerateIcon()

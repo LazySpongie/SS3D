@@ -96,7 +96,7 @@ namespace SS3D.Systems.Rounds
         {
             if (_characterSubSystem.IngameCharacters.Count == 0) return;
 
-            foreach (KeyValuePair<string, InGameCharacter> pair in _characterSubSystem.IngameCharacters)
+            foreach (KeyValuePair<int, InGameCharacter> pair in _characterSubSystem.IngameCharacters)
             {
                 SpawnPlayer(pair.Value);
             }
@@ -126,7 +126,6 @@ namespace SS3D.Systems.Rounds
                 Log.Warning(this, player.Ckey + " does not have an initial character profile. Using default character.");
 
                 character = _characterSubSystem.CreateCharacter(player, new CharacterProfile());
-                return;
             }
 
             if (role == string.Empty) role = _roleSubSystem.GetOverflowRole().name;
@@ -151,7 +150,7 @@ namespace SS3D.Systems.Rounds
             CharacterProfile profile = _characterSubSystem.InitialCharacterProfiles[character.Player];
             _characterSubSystem.InitialCharacterProfiles.Remove(character.Player);
 
-            Entity entity = _entitySubSystem.SpawnPlayer(character.Player);
+            Entity entity = _entitySubSystem.SpawnPlayer(character.Player, character);
             SetupSpawnedPlayer(entity, character, profile);
             return entity;
         }

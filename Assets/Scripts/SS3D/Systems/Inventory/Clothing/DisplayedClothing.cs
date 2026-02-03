@@ -14,12 +14,12 @@ namespace SS3D.Systems.Inventory.Clothing
     public readonly struct DisplayedClothing
     {
         public readonly ContainerType ClothingSlotType;
-        public readonly string ItemVisualData;
+        public readonly string ClothingVisualName;
 
         public DisplayedClothing(ContainerType clothingSlotType, string itemToDisplay)
         {
             ClothingSlotType = clothingSlotType;
-            ItemVisualData = itemToDisplay;
+            ClothingVisualName = itemToDisplay;
         }
     }
 }

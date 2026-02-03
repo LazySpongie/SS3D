@@ -17,6 +17,9 @@ using SS3D.Systems.Inventory.Clothing;
 using SS3D.Systems.Inventory.Containers;
 using SS3D.Systems.Inventory.Items;
 using SS3D.UI.Buttons;
+using UnityEngine.Localization.Components;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+using UnityEngine.Localization.SmartFormat.Utilities;
 
 namespace SS3D.Systems.Characters.UI.View
 {
@@ -29,7 +32,7 @@ namespace SS3D.Systems.Characters.UI.View
         [SerializeField] [NotNull] private AppearanceDisplayer _previewAppearance;
         [SerializeField] [NotNull] private ClothingVisualDisplayer _previewClothing;
         [SerializeField] [NotNull] private PreviewCamera _previewCamera;
-        [SerializeField] [NotNull] private List<TMP_Text> _previewNameTexts;
+        [SerializeField] [NotNull] private List<LocalizeStringEvent> _previewNameTexts;
         [SerializeField] [NotNull] private ToggleLabelButton _showClothingButton;
 
 
@@ -40,7 +43,7 @@ namespace SS3D.Systems.Characters.UI.View
         private ClientPreferencesSubSystem _preferences;
 
         private RoleData _currentRole;
-        private Dictionary<ContainerType, ItemVisualData> _currentClothing = new();
+        private Dictionary<ContainerType, ClothingVisualData> _currentClothing = new();
         private bool _showClothing = true;
 
         #region Setup
@@ -158,7 +161,11 @@ namespace SS3D.Systems.Characters.UI.View
 
             foreach (KeyValuePair<ContainerType, GameObject> pair in loadout.Equipment)
             {
-                ItemVisualData data = pair.Value.GetComponent<Item>().StartingItemVisualData;
+                Item item = pair.Value.GetComponent<Item>();
+                if (item is not ClothingItem) continue;
+                ClothingItem cloth = item as ClothingItem;
+
+                ClothingVisualData data = cloth.StartingClothingVisual;
                 if (data == null) continue;
                 _previewClothing.AddItem(pair.Key, data);
                 _currentClothing.Add(pair.Key, data);
@@ -168,7 +175,7 @@ namespace SS3D.Systems.Characters.UI.View
         private void ClearClothing()
         {
             if (_currentClothing.Count == 0) return;
-            foreach (KeyValuePair<ContainerType, ItemVisualData> pair in _currentClothing)
+            foreach (KeyValuePair<ContainerType, ClothingVisualData> pair in _currentClothing)
             {
                 _previewClothing.RemoveItem(pair.Key);
             }
@@ -180,9 +187,10 @@ namespace SS3D.Systems.Characters.UI.View
         /// </summary>
         private void HandleCharacterNameChanged(CharacterProfile character)
         {
-            foreach (TMP_Text text in _previewNameTexts)
+            foreach (LocalizeStringEvent text in _previewNameTexts)
             {
-                text.text = character.Name;
+                StringVariable name = text.StringReference["name"] as StringVariable;
+                name.Value = character.Name;
             }
         }
 

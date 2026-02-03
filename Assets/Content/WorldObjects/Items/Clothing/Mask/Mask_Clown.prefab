@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 6115335805774105745}
   - component: {fileID: 553178106381397730}
   - component: {fileID: 924037218051501039}
-  - component: {fileID: 643085470722933952}
   - component: {fileID: 234574913902294794}
   - component: {fileID: 6165322108927456680}
   m_Layer: 10
@@ -213,7 +212,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 62
+  <PrefabId>k__BackingField: 21
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -227,19 +226,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1687938131941834081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf76e303c1b57ae4ebbf08dab5bbddc2, type: 3}
+  m_Script: {fileID: 11500000, guid: 70ca2cd3fbc380847bf7756c3d82f451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 6115335805774105745}
   _networkObjectCache: {fileID: 6115335805774105745}
   _asset: {fileID: 11400000, guid: 4a50e327a934cd3438e1b88d2bb547cb, type: 2}
-  _name: Facewear gas mask
+  _name: Facewear Clown mask
   _weight: 1
   _startingTraits:
   - {fileID: 11400000, guid: 6169d80297e73ad44b394b52547ac805, type: 2}
   _rigidbody: {fileID: 6826443317434021945}
-  StartingItemVisualData: {fileID: 11400000, guid: 522c00b4dbc97ec488fe86ca651e5aaf, type: 2}
+  _startingItemVisual: {fileID: 0}
   _meshFilter: {fileID: 1687938131941834111}
   _renderer: {fileID: 1687938131941834080}
   _meshCollider: {fileID: 924037218051501039}
@@ -248,6 +247,9 @@ MonoBehaviour:
   _currentItemVisualState: 0
   _currentItemVisualName: 
   _container: {fileID: 0}
+  _startingClothingVisual: {fileID: 0}
+  _hidesIdentity: 0
+  _currentClothingVisualName: 
 --- !u!64 &924037218051501039
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -262,18 +264,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7529785328630957216, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
---- !u!114 &643085470722933952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687938131941834081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac42f7f6bb00ec44dbe827d0faf7fd62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &234574913902294794
 MonoBehaviour:
   m_ObjectHideFlags: 0

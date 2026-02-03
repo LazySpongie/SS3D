@@ -7,6 +7,7 @@ using SS3D.Systems.Inventory.Containers;
 using UnityEngine;
 using FishNet.Object.Synchronizing;
 using FishNet.Object;
+using SS3D.Systems.Characters;
 
 namespace SS3D.Systems.Inventory.Clothing
 {
@@ -27,6 +28,12 @@ namespace SS3D.Systems.Inventory.Clothing
         /// </summary>
         [SerializeField]
         private HumanInventory _inventory;
+
+        /// <summary>
+        /// Character Identity so their name can be hidden when wearing a mask.
+        /// </summary>
+        [SerializeField]
+        private CharacterIdentity _identity;
 
         /// <summary>
         /// Handles displaying the clothing.
@@ -57,7 +64,7 @@ namespace SS3D.Systems.Inventory.Clothing
             {
                 // Show the new cloth on the player
                 case SyncListOperation.Add:
-                    _clothingVisualDisplayer.AddItem(newData.ClothingSlotType, newData.ItemVisualData);
+                    _clothingVisualDisplayer.AddItem(newData.ClothingSlotType, newData.ClothingVisualName);
                     break;
 
                 // Stop displaying cloth on the player
@@ -76,6 +83,7 @@ namespace SS3D.Systems.Inventory.Clothing
             ClothingContainer clothingContainer = container.GetComponent<ClothingContainer>();
             if (clothingContainer == null) return;
 
+            // this runs twice and i dont know why
             switch (type)
             {
                 case ContainerChangeType.Add:
@@ -89,17 +97,38 @@ namespace SS3D.Systems.Inventory.Clothing
         }
 
         /// <summary>
+        /// Get the current visual of the item or its starting visual if the item has not been set up properly.
+        /// </summary>
+        [Server]
+        private ClothingVisualData GetClothingVisual(ClothingItem cloth)
+        {
+            ClothingVisualData visual = cloth.CurrentClothingVisual;
+            if (visual == null)
+            {
+                visual = cloth.StartingClothingVisual;
+            }
+            return visual;
+        }
+
+        /// <summary>
         /// Adds an item to be displayed.
         /// </summary>
         [Server]
         private void AddClothingItem(ContainerType clothingSlotType, Item item)
         {
-            if (item == null || item.ItemVisualData == null) return;
+            if (item == null || item is not ClothingItem) return;
+
+            ClothingItem cloth = item as ClothingItem;
+            if (cloth.HidesIdentity) _identity.SetIdentityHidden(true);
 
             // Need to convert item visual to its ID so it can be sent over network
-            string itemVisualDataName = item.ItemVisualData.name;
+            ClothingVisualData visual = GetClothingVisual(cloth);
+            if (visual == null) return;
+            
+            // Log.Debug(this, $"Adding clothing visual {visual.name} to displayed clothing list.");
 
-            _displayedClothingList.Add(new DisplayedClothing(clothingSlotType, itemVisualDataName));
+            _displayedClothingList.Add(new DisplayedClothing(clothingSlotType, visual.name));
+
         }
 
         /// <summary>
@@ -108,13 +137,16 @@ namespace SS3D.Systems.Inventory.Clothing
         [Server]
         private void RemoveClothingItem(ContainerType clothingSlotType, Item item)
         {
-            if (item == null) return;
+            if (item == null || item is not ClothingItem) return;
 
-            // ClothType itemClothType = cloth.Type;
+            ClothingItem cloth = item as ClothingItem;
+            if (cloth.HidesIdentity) _identity.SetIdentityHidden(false);
+
             DisplayedClothing clothData = _displayedClothingList.Find(
                 x => x.ClothingSlotType == clothingSlotType);
             
             _displayedClothingList.Remove(clothData);
+            
         }
     }
 }

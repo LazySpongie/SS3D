@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 3546473533537016869}
   - component: {fileID: -2012658674781697945}
   - component: {fileID: -8110830878206171978}
-  - component: {fileID: 5903053600117115308}
   - component: {fileID: 622373174144228207}
   - component: {fileID: -2199555817236745270}
   m_Layer: 10
@@ -207,8 +206,8 @@ MonoBehaviour:
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -228,7 +227,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2667451333340596270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf76e303c1b57ae4ebbf08dab5bbddc2, type: 3}
+  m_Script: {fileID: 11500000, guid: 70ca2cd3fbc380847bf7756c3d82f451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 1
@@ -240,7 +239,7 @@ MonoBehaviour:
   _startingTraits:
   - {fileID: 11400000, guid: aad6862af822986498365c59cf83067a, type: 2}
   _rigidbody: {fileID: 556647876245847021}
-  StartingItemVisualData: {fileID: 11400000, guid: b49ef4cc6249282489bfe3355cf0ffd1, type: 2}
+  _startingItemVisual: {fileID: 0}
   _meshFilter: {fileID: 7098767415453232860}
   _renderer: {fileID: 1648991569419994745}
   _meshCollider: {fileID: -8110830878206171978}
@@ -249,6 +248,9 @@ MonoBehaviour:
   _currentItemVisualState: 0
   _currentItemVisualName: 
   _container: {fileID: 0}
+  _startingClothingVisual: {fileID: 11400000, guid: b49ef4cc6249282489bfe3355cf0ffd1, type: 2}
+  _hidesIdentity: 1
+  _currentClothingVisualName: 
 --- !u!64 &-8110830878206171978
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -263,18 +265,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6500346282090131365, guid: 76ba5420c179bb841858ed042df97ba2, type: 3}
---- !u!114 &5903053600117115308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2667451333340596270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac42f7f6bb00ec44dbe827d0faf7fd62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &622373174144228207
 MonoBehaviour:
   m_ObjectHideFlags: 0

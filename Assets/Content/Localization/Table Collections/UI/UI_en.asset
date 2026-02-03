@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: d2a66e9e1fb4a534da0ec381c31605b4, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 5259485707208753154
   m_TableData:
   - m_Id: 118901084160
     m_Localized: Server Info
@@ -55,7 +56,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 401583121534976
-    m_Localized: <sprite name="embark"> embark
+    m_Localized: embark
     m_Metadata:
       m_Items: []
   - m_Id: 404904863502336
@@ -75,9 +76,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 410727601836032
-    m_Localized: Character name
+    m_Localized: This is {name}
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 5259485707208753154
   - m_Id: 410784623398912
     m_Localized: user interface
     m_Metadata:
@@ -114,6 +116,221 @@ MonoBehaviour:
     m_Localized: Ended
     m_Metadata:
       m_Items: []
+  - m_Id: 165346426571079680
+    m_Localized: Latejoin Role Selection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165347496760328192
+    m_Localized: '{available} available'
+    m_Metadata:
+      m_Items:
+      - rid: 5259485707208753154
+  - m_Id: 165347982762721280
+    m_Localized: '{current} current'
+    m_Metadata:
+      m_Items:
+      - rid: 5259485707208753154
+  - m_Id: 165362009383518208
+    m_Localized: Characters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165368956010774528
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369009249075200
+    m_Localized: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369045013905408
+    m_Localized: Reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369637459345408
+    m_Localized: Clothing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369748432240640
+    m_Localized: Roles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369728815480832
+    m_Localized: Appearance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369715427262464
+    m_Localized: Character
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369666496512000
+    m_Localized: Loadout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369795978870784
+    m_Localized: Identity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369809304174592
+    m_Localized: Records
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369838601388032
+    m_Localized: Styles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369864673181696
+    m_Localized: Body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165369883807596544
+    m_Localized: Colors
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370003714359296
+    m_Localized: '{name}'
+    m_Metadata:
+      m_Items:
+      - rid: 5259485707208753154
+  - m_Id: 165370302604656640
+    m_Localized: Character Setup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371649378893824
+    m_Localized: Spawn as assistant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371608710922240
+    m_Localized: stay in lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371362790490112
+    m_Localized: if job is unavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371348659879936
+    m_Localized: antagonists
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371336085356544
+    m_Localized: jobs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371230875435008
+    m_Localized: Leave blank for random
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371206280036352
+    m_Localized: search...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371127871717376
+    m_Localized: eyebrows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371094640246784
+    m_Localized: facial hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371079175847936
+    m_Localized: eyes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371069453451264
+    m_Localized: hair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371049115271168
+    m_Localized: skintone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371037048258560
+    m_Localized: jaw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371021852295168
+    m_Localized: waist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165371002935984128
+    m_Localized: chest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370973592633344
+    m_Localized: lower body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370953107652608
+    m_Localized: upper body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370940822536192
+    m_Localized: belly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370915459579904
+    m_Localized: height
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370658831089664
+    m_Localized: special names
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165370508343656448
+    m_Localized: flavor text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372197125636096
+    m_Localized: never
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372248711380992
+    m_Localized: low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372250997276672
+    m_Localized: medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372251773222912
+    m_Localized: high
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372252393979904
+    m_Localized: always
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372536511938560
+    m_Localized: close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372776312881152
+    m_Localized: banned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165372815089221632
+    m_Localized: locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165391682603728896
+    m_Localized: name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165392513101086720
+    m_Localized: Description of your characters appearance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165396732117925888
+    m_Localized: color picker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165402355303858176
+    m_Localized: edit character
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5259485707208753154
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0040e618ac6e4b020040e6401d6f4b020090cef88d75010000406609c9704b020040e66724834b02
