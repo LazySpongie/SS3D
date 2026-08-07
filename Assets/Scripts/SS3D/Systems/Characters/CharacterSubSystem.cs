@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SS3D.Core;
 using SS3D.Core.Behaviours;
 using FishNet.Object;
@@ -104,17 +104,11 @@ namespace SS3D.Systems.Characters
             character.Entity = entity;
             
             CharacterIdentity identity = entity.GetComponent<CharacterIdentity>();
-            if (identity != null)
-            {
-                identity.SetName(character.Name);
-                identity.SetFlavorText(profile.FlavorText);
-            }
+            identity?.SetName(character.Name);
+            identity?.SetFlavorText(profile.FlavorText);
 
             CharacterAppearance appearance = entity.GetComponent<CharacterAppearance>();
-            if (appearance != null)
-            {
-                appearance.SetAppearanceFromProfile(profile);
-            }
+            appearance?.SetAppearanceFromProfile(profile);
 
             Log.Information(this, "Added character " + character.Name + " to player " + entity.Ckey);
 

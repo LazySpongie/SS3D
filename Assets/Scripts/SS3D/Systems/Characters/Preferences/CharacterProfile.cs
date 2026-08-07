@@ -36,7 +36,6 @@ namespace SS3D.Systems.Characters.Preferences
                 { StyleType.Hairstyle,     "Bald" },
                 { StyleType.Beardstyle,    "Bald" },
                 { StyleType.Eyebrows,      "Default" },
-
             };
 
         public Dictionary<ColorType, string> Colors = new Dictionary<ColorType, string>
@@ -44,7 +43,6 @@ namespace SS3D.Systems.Characters.Preferences
                 { ColorType.HairColor,     "804831" },
                 { ColorType.EyeColor,      "000000" },
                 { ColorType.SkinColor,     "FFBD99" },
-
             };
 
         public Dictionary<BodyType, string> Body = new Dictionary<BodyType, string>
@@ -80,7 +78,7 @@ namespace SS3D.Systems.Characters.Preferences
         }
 
         /// <summary>
-        /// Copy constructor.
+        /// Copy another character profile.
         /// </summary>
         public CharacterProfile(CharacterProfile character)
         {
